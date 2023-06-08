@@ -1,0 +1,57 @@
+---
+title: "ENSC480"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+library(shiny)
+library(latex2exp)
+library(viridis)
+library(magick)
+library(pdftools)
+library(latex2exp)
+library(plantecophys)
+
+gradethis::gradethis_setup()
+knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.timelimit = 60)
+```
+
+```{r child = 'schedule.Rmd'}
+```
+
+```{r child = 'Ch02.Rmd'}
+```
+
+```{r child = 'Ch03.Rmd'}
+```
+
+```{r child = 'Ch04.Rmd'}
+```
+
+```{r child = 'Ch05.Rmd'}
+```
+
+```{r child = 'Ch06.Rmd'}
+```
+
+```{r child = 'Ch07.Rmd'}
+```
+
+```{r child = 'Ch09.Rmd'}
+```
+
+```{r child = 'Ch10.Rmd'}
+```
+
+```{r child = 'Ch11.Rmd'}
+```
+
+```{r child = 'Ch13.Rmd'}
+```
+
+```{r child = 'Ch16.Rmd'}
+```

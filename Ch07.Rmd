@@ -1,0 +1,243 @@
+##  Boundary layer and stomatal control
+### Leaf bounadry layer
+
+Measuring horizontal wind speeds at two different heights, you find that the wind speed at 2.5 m equals 2.2 m s^-1^ and at 4.5 m equals 3.5 m s^-1^. Calculate the corresponding shear stress in millipascal assuming an air density of 1.29 kg m^-3^.
+
+```{r shearStress01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r shearStress01-solution}
+# inputs
+nu <- 1.4607 * 10^(-5) # kinematic viscosity (m2 s-1)
+rho <- 1.29 # air density (kg m-3)
+h1 <- 2.5 # height 1 (m)
+h2 <- 4.5 # height 1 (m)
+u1 <- 2.2 # horizontal wind speed at height 1 (m s-1)
+u2 <- 3.5 # horizontal wind speed at height 2 (m s-1)
+
+# calculation
+dz <- h2 - h1 # height difference
+dudz <- (u2 - u1) / dz  # shear (s-1)
+mu <- nu * rho # dynamic viscosity (kg m-1 s-1)
+tau <- mu * dudz # shear stress (Pa) 
+print(tau * 10^6)
+```
+
+```{r shearStress01-check}
+grade_result(
+  pass_if(~identical(round(.result), round(12.24797)))
+)
+
+```
+
+
+Repeat the same exercise above for a range of wind speed values at height 2, ranging from 2.2 m to 3.0 m. Plot a line that shows how shear stress responds to increasing shear.
+
+```{r shearStress02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r shearStress02-solution}
+rm(list=ls())
+
+# inputs
+nu <- 1.4607 * 10^(-5) # kinematic viscosity (m2 s-1)
+rho <- 1.29 # air density (kg m-3)
+h1 <- 2.5 # height 1 (m)
+h2 <- 4.5 # height 1 (m)
+u1 <- 2.2 # horizontal wind speed at height 1 (m s-1)
+u2 <- seq(2.2, 3, 0.1) # horizontal wind speed at height 2 (m s-1)
+
+# calculation
+dz <- h2 - h1 # height difference
+dudz <- (u2 - u1) / dz  # shear (s-1)
+mu <- nu * rho # dynamic viscosity (kg m-1 s-1)
+tau <- mu * dudz # shear stress (Pa) 
+
+par(mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Shear (du/dz; s$^{-1}$)")
+my.ylab <- latex2exp::TeX("Shear Stress (\\tau; mPa)")
+
+plot(tau * 10^6, type = "l", xlab = my.xlab, ylab = my.ylab)
+
+```
+
+Plot how the leaf boundary layer thickness varies with increasing windspeed (ranging from 0.01 to 2 m s^-1^) for different distances from the leaf (ranging from 1 to 5 cm).
+
+```{r leafBoundaryLayerThickness, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r leafBoundaryLayerThickness-solution}
+rm(list=ls())
+
+# inputs
+u <- seq(0.01, 2, 0.01) # horizontal wind speed at height 1 (m s-1)
+d <- seq(0.01,0.05, 0.01) # distance from leaf edge (m)
+
+# calculation
+my.fun <- function(u, d){
+  z_bl = 4 * 10^(-3) * (d/u)^0.5
+  return(z_bl)
+}
+
+
+data <- outer(u, d, my.fun)
+
+my.xlab <- "Horizontal wind speed (m s$^{-1}$)"
+my.ylab <- "Leaf boundary layer thickness (mm)"
+my.xlab <- latex2exp::TeX(my.xlab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+par(mar = c(5,5,1,1))
+matplot(x = u , y = data * 10^3, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("d =", d * 10^3, "mm", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+Plot the leaf boundary layer conductance as a function of wind speed (ranging from 0.01 m s^-1^ to 10 m s^-1^) for different temperature values (ranging from -10 to +40^o^C).
+
+```{r boudanryLayerConductance, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r boudanryLayerConductance-solution}
+rm(list=ls())
+# constants
+R <- 8.31 # universal gas constant R (J K-1 mol-1)
+T0 <- 273.15 # Reference temperature (K)
+P0 <- 101325 # Reference pressure (Pa)
+K0 <- 18.9 * 10^(-6) # Thermal diffusivity at standard pressure for 273 K (m2 s-1)
+
+# inputs
+u <- seq(0.01, 10, 0.01) # horizontal wind speed at height 1 (m s-1)
+T <- seq(-10, 40, 10) + T0 # air temperature (K)
+P <- 100000 # pressure (Pa)
+d <- 0.05 # leaf length scale (m)
+
+# calculation
+my.fun <- function(u, T){
+  z_bl = 4 * 10^(-3) * (d/u)^0.5 # leaf boundary layer thickness (m)
+  Kd <- K0 * (P0 / P) * (T / T0)^(1.81)  # thermal diffusivity (m2 s-1)
+  rho_m <- P / (R * T) # molar density (mol m-3) Recall idal gas law: PV = nRT; n/V = P/(RT)
+  gb <- rho_m * Kd / z_bl # boundary layer conductance (mol m-2 s-1)
+  return(gb)
+}
+
+data <- outer(u, T, my.fun)
+
+my.xlab <- "Horizontal wind speed (m s$^{-1}$)"
+my.ylab <- "Boundary layer conductance (mol m$^{-2}$ s$^{-1}$)"
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+par(mar = c(5,5,1,1))
+matplot(x = u , y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("T =", T - T0 , "C", sep = " ")
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+### Stomatal conductance
+
+Using the Leuning form of the Ball-Woodrow-Berry model, plot stomatal conductance as a function of vapor pressure deficit (ranging from 1 to 3.5 kPa) for different values of the net assimilation rate provided below ($A_n$ ranging from 8.1 to 9.5 $\mu$mol m^-2^ s^-1^). Discuss why we cannot use a constant $A_n$ value. 
+
+| Parameter  | Value     | Units              |
+|:-----------|:----------|:-------------------|
+| $g_1$      | 4.4       |(-)                 |
+| $D_0$      | 1.5       |kPa                 |
+| $g_0$      | 0.06      |mol m^-2^ s^-1^     |
+| $c_s$      | 350       |$\mu$mol mol^-1^    |
+| $\Gamma$   | 40        |$\mu$mol mol^-1^    |
+
+```{r stomatalConductance, exercise = TRUE, exercise.eval = FALSE}
+
+# CO2 assimilation rate (micro mol m-2 s-1)
+An <- c(9.450423, 9.361967, 9.278093, 9.198508, 9.122935, 9.051119, 8.982821, 8.917819, 8.855905, 8.796888, 8.740589, 8.686842, 8.635492, 8.586396, 8.539421, 8.494442, 8.451345, 8.410021, 8.370371, 8.332301, 8.295725, 8.260561, 8.226734, 8.194173, 8.162812, 8.132589)
+
+```
+
+```{r stomatalConductance-solution}
+rm(list=ls())
+
+# inputs (Leuning, Figure 8)
+g1 <- 4.4 # empirical coefficient (-) 
+D0 <- 1.5 # empirical coefficient (kPa)
+Ds <- seq(1, 3.5, 0.1) # vapor pressure deficit (kPa) 
+g0 <- 0.06 # empirical coefficient (mol m-2 s-1)
+cs <- 350 # CO2 mole fraction at the external surface of the leaf (micro mol mol-1)
+Gamma <- 40 # CO2 compensation point (micro mol mol-1)
+
+# CO2 assimilation rate (micro mol m-2 s-1)
+An <- c(9.450423, 9.361967, 9.278093, 9.198508, 9.122935, 9.051119, 8.982821, 8.917819, 8.855905, 8.796888, 8.740589, 8.686842, 8.635492, 8.586396, 8.539421, 8.494442, 8.451345, 8.410021, 8.370371, 8.332301, 8.295725, 8.260561, 8.226734, 8.194173, 8.162812, 8.132589)
+
+# calculation
+denominator <- (cs - Gamma) * (1 + Ds / D0)
+gs <- g0 + g1 * An / denominator
+
+my.xlab <- "Vapor Pressure deficit ($D_s$) (kPa)"
+my.ylab <- "Stomatal conductance ($g_{s}$) (mol m$^{-2}$ s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+par(mar = c(5,5,1,1))
+plot(x = Ds , y = gs, type = "l", lty = 1, xlab = my.xlab, ylab = my.ylab)
+
+```
+
+Using the R-package $plantecophys$, make four plots that show how stomatal conductance ($g_s$) and net CO~2~ assimilation ($A_n$) vary with vapor pressure deficit ($D_s$) (rangin from 1 to 3.5 kPa) and leaf temperature ($T$) (ranging from 0 to 50^o^C). The four plots should show (a) $D_s$ vs. $g_s$, (b) $D_s$ vs. $A_n$, (c) $T$ vs. $g_s$, and (d) $D_s$ vs. $A_n$. The code below shows you how to call the function and gives the parameter values of all other variables you need to consider.
+
+```{r photosyn, exercise = TRUE, exercise.eval = FALSE, fig.width = 8, fig.height = 8}
+
+rm(list=ls())
+library(plantecophys)
+result <- Photosyn(VPD=1, Tleaf = 30, g0 = 0.06, g1=4.4, D0 = 1.5, Ca=350, GammaStar = 40, gsmodel = "BBLeuning")
+# The variable result is a data frame
+print(result)
+
+# You can access a column as follows
+print(result$GS)
+
+```
+
+```{r photosyn-solution, fig.width = 8, fig.height = 8}
+rm(list=ls())
+library(plantecophys)
+
+my.VPD <- seq(1, 3.5, 0.1)
+my.Tleaf <- seq(0, 50, 1)
+
+# labels
+lab.Ds <- latex2exp::TeX("Vapor pressure deficit ($D_s$) (kPa)")
+lab.An <- latex2exp::TeX("Net CO$_2$ assimilation rate ($A_{n}$) ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+lab.gs <- latex2exp::TeX("Stomatal conductance ($g_{s}$) (mol m$^{-2}$ s$^{-1}$)")
+lab.T <- latex2exp::TeX("Leaf temperature ($^o$C)")
+
+par(mfrow = c(2,2), mar = c(5,5,1,1))
+
+# (a) x = Ds, y = GS
+result <- Photosyn(VPD=my.VPD, Tleaf = 30, g0 = 0.06, g1=4.4, D0 = 1.5, Ca=350, GammaStar = 40, gsmodel = "BBLeuning")
+plot(x = my.VPD , y = result$GS, type = "l", lty = 1, xlab = lab.Ds, ylab = lab.gs)
+
+# (b) x = Ds, y = An
+plot(x = my.VPD , y = result$ALEAF, type = "l", lty = 1, xlab = lab.Ds, ylab = lab.An)
+
+# (c) x = T, y = GS
+result <- Photosyn(VPD=1, Tleaf = my.Tleaf, g0 = 0.06, g1=4.4, D0 = 1.5, Ca=350, GammaStar = 40, gsmodel = "BBLeuning")
+plot(x = my.Tleaf , y = result$GS, type = "l", lty = 1, xlab = lab.T, ylab = lab.gs)
+
+# (d) x = T, y = An
+plot(x = my.Tleaf , y = result$ALEAF, type = "l", lty = 1, xlab = lab.T, ylab = lab.An)
+
+```
+

@@ -1,0 +1,688 @@
+## Modeling the metabolic CO~2~ flux
+Equations and constants used in some of the exercises below
+
+Table: Table 1
+
+| Definition                            | Equation                                                                  | Units                 |
+|:--------------------------------------|:--------------------------------------------------------------------------|:----------------------|
+| Net CO~2~ assimilation                |$A_n= (1 - \Gamma_*/c_{ic}) \min(v_{c1}, v_{c2}, v_{c3}) - R_d$            |$\mu$mol mol^-1^       |
+| Rubisco-limited carboxylation rate    |$v_{c1}=\frac{V_{cmax}c_{ic}}{c_{ic}+K_c(1+c_{io}/K_o)}$                   |$\mu$mol mol^-1^       |
+| RuBP-limited carboxylation rate       |$v_{c2}=\frac{F_J c_{ic}}{4c_{ic}+8\Gamma_*}$                              |$\mu$mol mol^-1^       |
+| TPU-limited carboxylation rate        |$v_{c3} = 3 \textrm{TPU}$                                                  |$\mu$mol mol^-1^       |
+| Dark respiration                      |$R_d = 0.015 \times V_{cmax}$                                              |$\mu$mol mol^-1^       |
+| $Q_{10}$ function                     |$v=v_{25} \times Q_{10}^{(T-298.15)/10}$                                   |depends on $v$         |
+| High temperature inhibition           |$f_H(T_l) = \frac{1 + \exp\left( \frac{298.15 \Delta S - \Delta H_d}{298.15R} \right)}{1 + \exp \left( \frac{\Delta ST_l-\Delta H_d}{RT_l} \right)}$| dimensionless|
+
+Table: Table 2
+
+| Variable   | Value   |  Q~10~ | Unit                |
+|:-----------|:--------|:-------|:--------------------|
+| V~cmax~    | 50      |2.21    |$\mu$mol m^-2^ s^-1^ |
+| K~c~       | 404.9   |2.93    |$\mu$mol mol^-1^     |
+| K~o~       | 278.4   |1.64    |mmol mol^-1^         |
+| $\Gamma_*$ | 42.75   |1.67    |$\mu$mol mol^-1^     |
+| F~Jmax~    | 100     |1.80    |$\mu$mol m^-2^ s^-1^ |
+| a~L~       | 0.8     | NA     | (-)                 |
+| $\beta$    | 0.5     | NA     | (-)                 |
+| TPU        | 7.4     | NA     |$\mu$mol m^-2^ s^-1^ |
+| c~ic~      | 245     | NA     |$\mu$mol mol^-1^     |
+| c~io~      | 210     | NA     |mmol mol^-1^         |
+| I          | 500     | NA     |$\mu$mol photons m^-2^ s^-1^ |
+
+Table: Table 3
+
+| Parameter  | $\Delta H_d$ (J mol$^{-1}$)| $\Delta S$ (J K$^{-1}$) mol$^{-1}$|
+|:-----------|:---------------------------|:----------------------------------|
+| V~cmax~    | 149,250                    |485                                |
+| J~max~     | 152,040                    |495                                |
+
+### Rubisco-limited state
+
+```{r photosyntheticStates, echo=FALSE}
+question("Which photosynthetic state controls the carboxylation rate when the intercellular CO~2~ concentration is low (e.g. 200 micro mol per mol)? (select all that apply)",
+
+answer("Rubisco-limited state", correct = TRUE),
+answer("RuBP-limited state"),
+answer("TPU-limited state"),
+
+allow_retry = TRUE
+)
+```
+
+
+```{r NADPHconsumption, echo = FALSE}
+
+terms <- c(
+  "PGA production associated with carboxylation",
+  "PGA production associated with oxygenation",
+  "Reassimilation of ammonium")
+rank_terms <- sortable::question_rank(
+  "The total rate of NADPH consumption equals 2 v~c~ + 1.5 v~o~ + 0.5 v~o~. Sort the terms below in the order they appear in the equation.",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+
+```{r phi, echo=FALSE}
+question_radio(
+  "The conversion of G3P to sucrose or starch releases inorganic phosphate that is used for the synthesis of:",
+  answer("ATP", correct = TRUE),
+  answer("NADPH"),
+  answer("Rubisco"),
+  answer("RuBP"),
+  allow_retry = TRUE
+)
+```
+
+Consider the following equation: $v_{c1}=\frac{V_{cmax}c_{ic}}{c_{ic}+K_c(1+c_{io}/K_o)}$
+
+```{r oxygenationTerm, echo=FALSE}
+question_radio(
+  "What is the role of the term $(1+c_{io}/K_o)$ in the equation above?",
+  answer("It increases K~c~ to account for carboxylation"),
+  answer("It increases K~c~ to account for dark respiration"),
+  answer("It increases K~c~ to account for oxygenation", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Make a figure that shows how the Rubisco-limited carboxylation rate varies with inter-cellular CO$_2$ concentration ($c_{ic}$) using the equations and constants provided in Tables 1-3 above. Let $c_{ic}$ range from 0 to 1000 $\mu$mol mol$^{-1}$) and assume a leaf temperature of 25$^{\circ}$C.
+
+```{r vc1, exercise = TRUE, exercise.eval = FALSE}
+
+# Constants
+V_cmax <- ___ # maximum carboxylation rate in mol CO2 m-2 s-1
+Kc <- ___ # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Ko <- ___ # Michaelis-Menten coefficient for O2 for C3 Rubisco (mol mol-1)
+c_io <- ___ # inter-cellular O2 concentration (mol mol-1)
+
+# Independent variables
+c_ic <- ___ # inter-cellular CO2 concentration (mol mol-1)
+
+# Rubisco-limited state
+vc1 <- ___
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$v_{c1}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+
+par(mar = c(5,5,1,1))
+
+plot(x = ___, y = ___, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+```{r vc1-solution}
+rm(list=ls())
+
+# Constants:
+V_cmax <- 50 * 10^-6 # maximum carboxylation rate in mol CO2 m-2 s-1
+Kc <- 404.9 * 10^-6 # # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Ko <- 278.4 * 10^-3 # Michaelis-Menten coefficient for O2 for C3 Rubisco (mol mol-1)
+c_io <- 210 * 10^-3 # inter-cellular O2 concentration (mol mol-1)
+
+# Independent variables:
+c_ic <- seq(0,1000, 10) * 10^-6 # inter-cellular CO2 concentration (mol mol-1)
+
+# Rubisco-limited state
+vc1 <- (V_cmax * c_ic) / (c_ic + Kc * (1 + c_io / Ko))
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$v_{c1}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+
+par(mar = c(5,5,1,1))
+
+plot(x = c_ic * 10^6, y = vc1 * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+### RuBP-limited state
+
+```{r photoCompPoint01, echo=FALSE}
+question_radio(
+  "When does a plant reach its photocompensation point?",
+  answer("Intercellular CO~2~ concentration where $v_c - v_o = 0$", correct = TRUE),
+  answer("Intercellular CO~2~ concentration where $v_c - v_o - R_d = 0$"),
+  answer("Intercellular CO~2~ concentration where $v_c - v_o + R_d = 0$"),
+  allow_retry = TRUE
+)
+```
+
+```{r photoCompPoint02, echo=FALSE}
+question_radio(
+  "What is the net CO~2~ assimilation rate (A~nd~) when a plant reaches its photocompensation point?",
+  answer("A~nd~ < 0", correct = TRUE),
+  answer("A~nd~ = 0"),
+  answer("A~nd~ > 0"),
+  allow_retry = TRUE
+)
+```
+
+```{r photoCompPoint03, echo=FALSE}
+question_radio(
+  "Which of the following equations describe the relation between oxygenation and carboxylation when a plant reaches the photocompensation point in the RuBP-limited state? Recall that photorespiration requires 2 mol of O~2~ to produce 1 mol of CO~2~. ",
+  answer("v~c2~ = 2v~o~"),
+  answer("2v~c2~ = v~o~", correct = TRUE),
+  answer("0.5v~c2~ = v~o~"),
+  allow_retry = TRUE
+)
+```
+
+Make a figure that shows how the RuBP-limited carboxylation rate varies with inter-cellular CO$_2$ concentration ($c_{ic}$) using the equations and constants provided in Tables 1-3 above. Let $c_{ic}$ range from 0 to 1000 $\mu$mol mol$^{-1}$) and assume a leaf temperature of 25$^{\circ}$C.
+
+```{r vc2, exercise = TRUE, exercise.eval = FALSE}
+# Constants:
+Gamma <- ___ # photocompensation point (mol mol-1)
+FJmax <- ___ # maximum possible electron transport rate (mol m-2 s-1)
+aL <- ___ # fractional absortance of the leaf (-)
+beta <- ___ # fraction of absorbed light that reaches PSII (-)
+
+# Independent variables:
+T <- ___ # leaf temperature (C)
+c_ic <- ___ # inter-cellular CO2 concentration (mol mol-1)
+I <- ___ # PPFD (mol photons m-2 leaf area s-1)
+
+# RuBP-limited state
+phi_PSIImax <- ___
+Theta <- ___
+I2 <- ___
+FJ <- ___
+vc2 <- ___
+
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$v_{c2}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+par(mar = c(5,5,1,1))
+plot(x = ___, y = ___, xlab = my.xlab, ylab = my.ylab, type = "l")
+```
+
+```{r vc2-solution}
+rm(list=ls())
+
+# Constants:
+Gamma <- 42.75 * 10^-6 # photocompensation point (mol mol-1)
+FJmax <- 100 * 10^-6 # maximum possible electron transport rate (mol m-2 s-1)
+aL <- 0.8 # fractional absortance of the leaf (-)
+beta <- 0.5 # fraction of absorbed light that reaches PSII (-)
+
+# Independent variables:
+T <- 25 # leaf temperature (C)
+
+c_ic <- seq(0,1000, 10) * 10^-6 # inter-cellular CO2 concentration (mol mol-1)
+# c_io <- 210 * 10^-3 # inter-cellular O2 concentration (mol mol-1)
+I <- 500 * 10^-6 # PPFD (mol photons m-2 leaf area s-1)
+
+# RuBP-limited state
+phi_PSIImax <- 0.352 + 0.022 * T - 3.4 * 10^(-4) * T^2
+Theta <- 0.76 + 0.018 * T - 3.4 * 10^(-4) * T^2
+I2 <- I * aL * phi_PSIImax * beta
+FJ <- (I2 + FJmax - ((I2 + FJmax)^2 - 4 * Theta * I2 * FJmax)^0.5) / (2 * Theta)
+vc2 <- FJ * c_ic / (4 * c_ic + 8 * Gamma)
+
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$v_{c2}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+par(mar = c(5,5,1,1))
+plot(x = c_ic * 10^6, y = vc2 * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+```
+
+### TPU-limited state
+
+Make a figure that shows how the Rubisco, RuBP, and TPU-limited carboxylation rate varies with inter-cellular CO$_2$ concentration ($c_{ic}$) using the equations and constants provided in Tables 1-3 above. Let $c_{ic}$ range from 0 to 1000 $\mu$mol mol$^{-1}$) and assume a leaf temperature of 25$^{\circ}$C.
+
+```{r threeStates, exercise = TRUE, exercise.eval = FALSE}
+# Constants:
+
+# Independent variables:
+
+# Rubisco-limited state
+vc1 <- ___
+
+# RuBP-limited state
+phi_PSIImax <- ___
+Theta <- ___
+I2 <- ___
+FJ <- ___
+vc2 <- ___
+
+# TPU-limited state
+vc3 <- ___
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$v$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+
+par(mar = c(5,5,1,1))
+my.col <- viridis::plasma(n = 3)
+
+plot(x = c_ic * 10^6, y = vc1 * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l", col = my.col[1])
+lines(x = c_ic * 10^6, y = vc2 * 10^6, col = my.col[2])
+abline(h = vc3 * 10^6, col = my.col[3])
+legend("bottomright", c("Rubisco-limited", "RuBP-limited", "TPU-limited"), col = my.col, pch = 16, bty = "n")
+
+```
+
+```{r threeStates-solution}
+rm(list=ls())
+
+# Constants
+V_cmax <- 50 * 10^-6 # maximum carboxylation rate in mol CO2 m-2 s-1
+Kc <- 404.9 * 10^-6 # # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Ko <- 278.4 * 10^-3 # Michaelis-Menten coefficient for O2 for C3 Rubisco (mol mol-1)
+Gamma <- 42.75 * 10^-6 # photocompensation point (mol mol-1)
+FJmax <- 100 * 10^-6 # maximum possible electron transport rate (mol m-2 s-1)
+aL <- 0.8 # fractional absortance of the leaf (-)
+beta <- 0.5 # fraction of absorbed light that reaches PSII (-)
+TPU <- 7.4*10^-6 # Triose-phosphate utilization rate (mol CO2 m-2 s-1)
+
+# Independent variables
+T <- 25
+c_ic <- seq(0,1000, 10) * 10^-6 # inter-cellular CO2 concentration (mol mol-1)
+c_io <- 210 * 10^-3 # inter-cellular O2 concentration (mol mol-1)
+I <- 500 * 10^-6 # PPFD (mol photons m-2 leaf area s-1)
+
+# Rubisco-limited state
+vc1 <- (V_cmax * c_ic) / (c_ic + Kc * (1 + c_io / Ko))
+
+# RuBP-limited state
+phi_PSIImax <- 0.352 + 0.022 * T - 3.4 * 10^(-4) * T^2
+Theta <- 0.76 + 0.018 * T - 3.4 * 10^(-4) * T^2
+I2 <- I * aL * phi_PSIImax * beta
+FJ <- (I2 + FJmax - ((I2 + FJmax)^2 - 4 * Theta * I2 * FJmax)^0.5) / (2 * Theta)
+vc2 <- FJ * c_ic / (4 * c_ic + 8 * Gamma)
+
+# TPU-limited state
+vc3 <- 3 * TPU
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$v$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+
+par(mar = c(5,5,1,1))
+my.col <- viridis::plasma(n = 3)
+
+plot(x = c_ic * 10^6, y = vc1 * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l", col = my.col[1])
+lines(x = c_ic * 10^6, y = vc2 * 10^6, col = my.col[2])
+abline(h = vc3 * 10^6, col = my.col[3])
+legend("bottomright", c("Rubisco-limited", "RuBP-limited", "TPU-limited"), col = my.col, pch = 16, bty = "n")
+```
+
+Make a figure that shows how the net CO$_2$ assimilation rate ($A_n$) varies with inter-cellular CO$_2$ concentration ($c_{ic}$) using the equations and constants provided in Tables 1-3 above. Let $c_{ic}$ range from 0 to 1000 $\mu$mol mol$^{-1}$) and assume a leaf temperature of 25$^{\circ}$C. Use ```pmin(vc1, vc2, vc3)``` to compute the minimum of the three photosynthetic states:
+
+```{r An_cic, exercise = TRUE, exercise.eval = FALSE}
+# Constants
+
+# Independent variables
+
+# Rubisco-limited state
+vc1 <- ___
+
+# RuBP-limited state
+vc2 <-___
+
+# TPU-limited state
+vc3 <- ___
+
+# Rd
+Rd <- ___
+
+# An
+An <- ___
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$A_n$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+
+par(mar = c(5,5,1,1))
+plot(x = c_ic * 10^6, y = An * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+```
+
+```{r An_cic-solution}
+rm(list=ls())
+
+# Constants
+V_cmax <- 50 * 10^-6 # maximum carboxylation rate in mol CO2 m-2 s-1
+Kc <- 404.9 * 10^-6 # # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Ko <- 278.4 * 10^-3 # Michaelis-Menten coefficient for O2 for C3 Rubisco (mol mol-1)
+Gamma <- 42.75 * 10^-6 # photocompensation point (mol mol-1)
+FJmax <- 100 * 10^-6 # maximum possible electron transport rate (mol m-2 s-1)
+aL <- 0.8 # fractional absortance of the leaf (-)
+beta <- 0.5 # fraction of absorbed light that reaches PSII (-)
+TPU <- 7.4*10^-6 # Triose-phosphate utilization rate (mol CO2 m-2 s-1)
+
+# Independent variables
+T <- 25
+c_ic <- seq(0,1000, 10) * 10^-6 # inter-cellular CO2 concentration (mol mol-1)
+c_io <- 210 * 10^-3 # inter-cellular O2 concentration (mol mol-1)
+I <- 500 * 10^-6 # PPFD (mol photons m-2 leaf area s-1)
+
+# Rubisco-limited state
+vc1 <- (V_cmax * c_ic) / (c_ic + Kc * (1 + c_io / Ko))
+
+# RuBP-limited state
+phi_PSIImax <- 0.352 + 0.022 * T - 3.4 * 10^(-4) * T^2
+Theta <- 0.76 + 0.018 * T - 3.4 * 10^(-4) * T^2
+I2 <- I * aL * phi_PSIImax * beta
+FJ <- (I2 + FJmax - ((I2 + FJmax)^2 - 4 * Theta * I2 * FJmax)^0.5) / (2 * Theta)
+vc2 <- FJ * c_ic / (4 * c_ic + 8 * Gamma)
+
+# TPU-limited state
+vc3 <- 3 * TPU
+
+# Rd
+Rd <- 0.015 * V_cmax
+
+# An
+An <- (1 - Gamma / c_ic) * pmin(vc1, vc2, vc3) - Rd
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+my.ylab <- latex2exp::TeX("$A_n$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+
+par(mar = c(5,5,1,1))
+plot(x = c_ic * 10^6, y = An * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+```
+
+### Net CO~2~ assimilation rate and its dependence on temperature
+
+Make a figure that shows how $K_c$ varies with temperature using the equations and constants provided in Tables 1-3 above. Let temperature range from 0 to 50 $^{\circ}$C.
+
+```{r Kc_ci, exercise = TRUE, exercise.eval = FALSE}
+# Function
+
+fun.Q10 <- function(Q10, T){
+  y <- Q10^((T-25)/10)
+  return(y)
+}
+
+Kc <- ___ # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Q10.Kc <- ___
+
+# Independent variable
+T <- seq(0, 50, 1)
+
+# Adjust Kc for temperature
+Kc <- ___ * fun.Q10(Q10.Kc, ___) 
+
+par(mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Leaf temperature ($^{o}$C)")
+my.ylab <- latex2exp::TeX("$K_c$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = Kc * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+```{r Kc_ci-solution}
+rm(list=ls())
+
+# Function
+
+fun.Q10 <- function(Q10, T){
+  y <- Q10^((T-25)/10)
+  return(y)
+}
+
+Kc <- 404.9 * 10^-6 # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Q10.Kc <- 2.93
+
+# Independent variable
+T <- seq(0, 50, 1)
+
+# Adjust Kc for temperature
+Kc <- Kc * fun.Q10(Q10.Kc, T) 
+
+par(mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Leaf temperature ($^{o}$C)")
+my.ylab <- latex2exp::TeX("$K_c$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = Kc * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+Make a figure that shows how $V_{cmax}$ varies with temperature using the equations and constants provided in Tables 1-3 above. Let temperature range from 0 to 50 $^{\circ}$C.
+
+```{r Vcmax, exercise = TRUE, exercise.eval = FALSE}
+
+# Function
+
+fun.Q10 <- function(Q10, T){
+  y <- Q10^((T-25)/10)
+  return(y)
+}
+
+fun.thermalBreakdown <- function(deltaS, deltaHd, T){
+
+R <- 8.31447 # Gas constant (J K-1 mol-1)
+
+TK <- T + 273.15
+
+a <- 298.15 * deltaS - deltaHd
+b <- 298.15 * R
+c <- deltaS * TK - deltaHd
+d <- R * TK
+
+numerator <- 1 + exp(a / b)
+denominator <- 1 + exp(c / d)
+thermalBreakdown <- numerator / denominator
+return(thermalBreakdown)
+}
+
+# Constants:
+deltaS.V_cmax <- ___ # entropy term (J K-1 mol-1)
+deltaHd.V_cmax <- ___ # energy of deactivation (J mol-1) 
+V_cmax <- ___ # maximum carboxylation rate in mol CO2 m-2 s-1
+Q10.V_cmax <- ___ # Q10 for V_cmax
+
+# Independent variable:
+T <- ___
+
+# Adjust Vcmax for temperature
+V_cmax <- ___ * fun.Q10(Q10.V_cmax, ___) * fun.thermalBreakdown(deltaS.V_cmax, deltaHd.V_cmax, ___)
+
+par(mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Leaf temperature ($^{o}$C)")
+my.ylab <- latex2exp::TeX("$V_{cmax}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = V_cmax * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+```{r Vcmax-solution}
+rm(list=ls())
+
+# Functions:
+
+fun.Q10 <- function(Q10, T){
+  y <- Q10^((T-25)/10)
+  return(y)
+}
+
+fun.thermalBreakdown <- function(deltaS, deltaHd, T){
+
+R <- 8.31447 # Gas constant (J K-1 mol-1)
+
+TK <- T + 273.15
+
+a <- 298.15 * deltaS - deltaHd
+b <- 298.15 * R
+c <- deltaS * TK - deltaHd
+d <- R * TK
+
+numerator <- 1 + exp(a / b)
+denominator <- 1 + exp(c / d)
+thermalBreakdown <- numerator / denominator
+return(thermalBreakdown)
+}
+
+# Constants:
+deltaS.V_cmax <- 485 # entropy term (J K-1 mol-1)
+deltaHd.V_cmax <- 149250 # energy of deactivation (J mol-1) 
+V_cmax <- 50 * 10^-6 # maximum carboxylation rate in mol CO2 m-2 s-1
+Q10.V_cmax <- 2.21 # Q10 for V_cmax
+
+# Independent variable:
+T <- seq(0, 50, 1)
+
+# Adjust Vcmax for temperature
+V_cmax <- V_cmax * fun.Q10(Q10.V_cmax, T) * fun.thermalBreakdown(deltaS.V_cmax, deltaHd.V_cmax, T)
+
+par(mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Leaf temperature ($^{o}$C)")
+my.ylab <- latex2exp::TeX("$V_{cmax}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = V_cmax * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+Make a multi-panel figure that shows how $K_c$, $K_o$, $\Gamma_*$, $V_{cmax}$, $F_{Jmax}$, $R_d$, and $A_n$ vary with temperature using the equations and constants provided in Tables 1-3 above. Let temperature range from 0 to 50 $^{\circ}$C and assume an inter-cellular CO$_2$ concentration of 245 $\mu$mol mol$^{-1}$.
+
+```{r An, exercise = TRUE, exercise.eval = FALSE, fig.width = 8, fig.height = 8}
+
+# Add here all snippets from above to compute the following equation
+
+An <- (1 - Gamma / c_ic) * pmin(vc1, vc2, vc3) - Rd
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+
+par(mfrow = c(3,3), mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Leaf temperature ($^{o}$C)")
+
+# Kc
+my.ylab <- latex2exp::TeX("$K_c$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = Kc * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# Ko
+my.ylab <- latex2exp::TeX("$K_o$ (mmol mol$^{-1}$")
+plot(x = T, y = Ko * 10^3, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# Gamma
+my.ylab <- latex2exp::TeX("$\\Gamma_*$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = Gamma * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# V_cmax
+my.ylab <- latex2exp::TeX("$V_{cmax}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = V_cmax * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# FJmax
+my.ylab <- latex2exp::TeX("$F_{Jmax}$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = FJmax * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# Rd
+my.ylab <- latex2exp::TeX("$R_d$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = Rd * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# An
+my.ylab <- latex2exp::TeX("$A_n$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = An * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```
+
+```{r An-solution, fig.width = 8, fig.height = 8}
+rm(list=ls())
+
+# Functions:
+
+fun.Q10 <- function(Q10, T){
+  y <- Q10^((T-25)/10)
+  return(y)
+}
+
+fun.thermalBreakdown <- function(deltaS, deltaHd, T){
+
+R <- 8.31447 # Gas constant (J K-1 mol-1)
+
+TK <- T + 273.15
+
+a <- 298.15 * deltaS - deltaHd
+b <- 298.15 * R
+c <- deltaS * TK - deltaHd
+d <- R * TK
+
+numerator <- 1 + exp(a / b)
+denominator <- 1 + exp(c / d)
+thermalBreakdown <- numerator / denominator
+return(thermalBreakdown)
+}
+
+# Constants:
+deltaS.V_cmax <- 485 # entropy term (J K-1 mol-1)
+deltaHd.V_cmax <- 149250 # energy of deactivation (J mol-1) 
+
+deltaS.FJmax <- 495 # entropy term (J K-1 mol-1)
+deltaHd.FJmax <- 152040 # energy of deactivation (J mol-1) 
+
+V_cmax <- 50 * 10^-6 # maximum carboxylation rate in mol CO2 m-2 s-1
+Q10.V_cmax <- 2.21 # Q10 for V_cmax
+Kc <- 404.9 * 10^-6 # # Michaelis-Menten coefficient for CO2 for C3 Rubisco (mol mol-1)
+Q10.Kc <- 2.93
+Ko <- 278.4 * 10^-3 # Michaelis-Menten coefficient for O2 for C3 Rubisco (mol mol-1)
+Q10.Ko <- 1.64
+Gamma <- 42.75 * 10^-6 # photocompensation point (mol mol-1)
+Q10.Gamma <- 1.67 
+FJmax <- 100 * 10^-6 # maximum possible electron transport rate (mol m-2 s-1)
+Q10.FJmax <- 1.80
+aL <- 0.8 # fractional absortance of the leaf (-)
+beta <- 0.5 # fraction of absorbed light that reaches PSII (-)
+TPU <- 7.4*10^-6 # Triose-phosphate utilization rate (mol CO2 m-2 s-1)
+
+  
+# Independent variables:
+T <- seq(0, 50, 1)
+# c_ic <- seq(0,1000, 10) * 10^-6 # inter-cellular CO2 concentration (mol mol-1)
+c_ic <- 245 * 10^-6 # inter-cellular CO2 concentration (mol mol-1)
+c_io <- 210 * 10^-3 # inter-cellular O2 concentration (mol mol-1)
+I <- 500 * 10^-6 # PPFD (mol photons m-2 leaf area s-1)
+
+# Adjust constants for temperature
+Kc <- Kc * fun.Q10(Q10.Kc, T) 
+Ko <- Ko * fun.Q10(Q10.Ko, T) 
+Gamma <-  Gamma * fun.Q10(Q10.Gamma, T) 
+V_cmax <- V_cmax * fun.Q10(Q10.V_cmax, T) * fun.thermalBreakdown(deltaS.V_cmax, deltaHd.V_cmax, T)
+FJmax <- FJmax * fun.Q10(Q10.FJmax, T) * fun.thermalBreakdown(deltaS.FJmax, deltaHd.FJmax, T)
+
+# Rubisco-limited state
+vc1 <- (V_cmax * c_ic) / (c_ic + Kc * (1 + c_io / Ko))
+
+# RuBP-limited state
+phi_PSIImax <- 0.352 + 0.022 * T - 3.4 * 10^(-4) * T^2
+Theta <- 0.76 + 0.018 * T - 3.4 * 10^(-4) * T^2
+I2 <- I * aL * phi_PSIImax * beta
+FJ <- (I2 + FJmax - ((I2 + FJmax)^2 - 4 * Theta * I2 * FJmax)^0.5) / (2 * Theta)
+vc2 <- FJ * c_ic / (4 * c_ic + 8 * Gamma)
+
+# TPU-limited state
+vc3 <- 3 * TPU
+
+# Rd
+Rd <- 0.015 * V_cmax
+
+An <- (1 - Gamma / c_ic) * pmin(vc1, vc2, vc3) - Rd
+
+my.xlab <- latex2exp::TeX("$c_{ic}$ ($\\mu$mol mol$^{-1}$)")
+
+par(mfrow = c(3,3), mar = c(5,5,1,1))
+my.xlab <- latex2exp::TeX("Leaf temperature ($^{o}$C)")
+
+# Kc
+my.ylab <- latex2exp::TeX("$K_c$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = Kc * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# Ko
+my.ylab <- latex2exp::TeX("$K_o$ (mmol mol$^{-1}$")
+plot(x = T, y = Ko * 10^3, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# Gamma
+my.ylab <- latex2exp::TeX("$\\Gamma_*$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = Gamma * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# V_cmax
+my.ylab <- latex2exp::TeX("$V_{cmax}$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = V_cmax * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# FJmax
+my.ylab <- latex2exp::TeX("$F_{Jmax}$ ($\\mu$mol mol$^{-1}$")
+plot(x = T, y = FJmax * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# Rd
+my.ylab <- latex2exp::TeX("$R_d$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = Rd * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+# An
+my.ylab <- latex2exp::TeX("$A_n$ ($\\mu$mol m$^{-2}$ s$^{-1}$)")
+plot(x = T, y = An * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l")
+
+```

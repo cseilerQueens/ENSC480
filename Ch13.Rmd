@@ -1,0 +1,491 @@
+## Turbulent fluxes
+### Static stability
+
+```{r lapseRate01, echo=FALSE}
+question_radio(
+  "What is the sign of the lapse rate in the troposphere?",
+  answer("positive", correct = TRUE),
+  answer("negative"),
+  allow_retry = TRUE
+)
+```
+
+```{r lapseRate02, echo=FALSE}
+question_radio(
+  "What is the sign of the lapse rate in the stratosphere?",
+  answer("positive"),
+  answer("negative", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r lapseRate03, echo=FALSE}
+question_radio(
+  "Consider an atmosphere where the decrease in air temperature with height exceeds the decrease given by the dry adiabatic lapse rate. What is the static stability of the atmosphere?",
+  answer("The atmosphere is statically stable"),
+  answer("The atmosphere is statically unstable", correct = TRUE),
+  answer("The atmosphere is statically neutral"),
+  allow_retry = TRUE
+)
+```
+
+```{r lapseRate04, echo=FALSE}
+question_radio(
+  "In a statically stable atmosphere, what happens to an air parcel when it is being pushed up?",
+  answer("The parcel rises"),
+  answer("The parcel sinks", correct = TRUE),
+  answer("The parcel remains at its new location"),
+  allow_retry = TRUE
+)
+```
+
+Calculate the potential air temperature of a dry air parcel with a temperature of 290 K located 100 m above the surface.
+
+```{r potentialAirTemp, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r potentialAirTemp-solution}
+# Eq. 12.1, p. 287) 
+
+# inputs
+z <- 100 # height in m
+Ta <- 290
+
+# Stable atmosphere for an unsaturated air parcel:
+DALR <- 9.8 * 10^-3 # dry adiabatic lapse rate K/m
+# Potential temperature
+theta <- Ta + z * abs(DALR) # potential air temperature
+print(theta)
+```
+
+```{r potentialAirTemp-check}
+grade_result(
+  pass_if(~identical(round(.result,1), round(290.98,1)))
+)
+```
+
+```{r shear, echo=FALSE}
+question_radio(
+  "Where do you expect shear to be a more dominant source of turbulence in the Planetary boundary layer?",
+  answer("In the surface layer", correct = TRUE),
+  answer("Above the surface layer"),
+  allow_retry = TRUE
+)
+```
+
+At what height above the surface is the production of turbulence through shear roughly equal to that of buoyancy for the surface measurements provided below? 
+
+* Friction velocity: 0.2 m s^-1^, 
+* Turbulent heat flux: -0.05 K m s^-1^
+* Virtual air temperature: 295 K?
+
+```{r obukhovLength, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r obukhovLength-solution}
+# Eq. 12.11, p. 292) 
+
+# inputs
+uStar <- 0.2 # friction velocity (m s-1)
+theta_vt <- 295 # virtual air temperature (K)
+turbulentHeatFlux <- -0.05 # turbulent heat flux (K m s-1)
+
+# constants
+g <- 9.81 # gravitational acceleration (m s-2)
+k <- 0.4 # van Karman constant (-)
+
+# Calculate Obukhov length (m)
+
+numerator <- uStar^3 * theta_vt
+denominator <- g * k * turbulentHeatFlux
+L <- (-1) * numerator / denominator
+  
+print(L)
+```
+
+```{r obukhovLength-check}
+grade_result(
+  pass_if(~identical(round(.result,1), round(12.02854,1)))
+)
+```
+
+### Gradient-diffusion theory
+
+Consider the following covariances:
+
+* $\overline{w'c'}$
+* $\overline{w'u'}$ and $\overline{w'v'}$
+* $\overline{w'\theta'}$
+
+```{r turbulentFluxes01, echo = FALSE}
+
+terms <- c("Gases", "Momentum", "Heat")
+rank_terms <- sortable::question_rank(
+  "Sort the following terms in the order they appear above",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+Consider the following equations:
+
+* $H_{se} = \rho_m c_p \overline{w'\theta'}$
+* $E = \rho_m \overline{w'c'}$
+* $\tau = -\rho_m \overline{w'u'}$
+
+```{r turbulentFluxes02, echo = FALSE}
+
+terms <- c("Sensible heat flux", "Water vapor flux", "Momentum flux")
+rank_terms <- sortable::question_rank(
+  "Sort the following terms in the order of the equations given above",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+Consider the following units:
+
+* mol m^-1^ s^-2^
+* W m^-2^
+* mol m^-2^ s^-1^
+
+```{r turbulentFluxes03, echo = FALSE}
+
+terms <- c("Momentum flux", "Sensible heat flux", "Water vapor flux")
+rank_terms <- sortable::question_rank(
+  "Sort the following terms in the order of their units given above",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+### The logarithmic wind profile
+
+Consider a canopy with an aerodynamic roughness length of 2 m, a displacement height of 10 m, and a friction velocity of 0.3 m s^-1^. Assuming a logarithmic wind profile, calculate the horizontal wind speed at 40 m above the ground.
+
+```{r logWindProfile, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r logWindProfile-solution}
+# Eq. 13.15, p. 306) 
+
+# inputs
+uStar <- 0.3 # friction velocity in m/s (see Holton, page 268)
+k <- 0.4 # von Karman constant
+z0 <- 2 # aerodynamic roughness length in m
+dH <- 10 # displacement heihgt in m
+z <- 40 # height in m
+
+u <- uStar / k * log((z - dH) / z0)
+print(u)
+```
+
+```{r momentumFlux-check}
+grade_result(
+  pass_if(~identical(round(.result,1), round( 2.031038,1)))
+)
+```
+
+Estimate the corresponding momentum flux expressed in mol m^-1^ s^-2^, assuming a surface pressure of 100 hPa and a mean air temperature of 293 K.
+
+```{r momentumFlux, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r momentumFlux-solution}
+P <- 100000 # atmospheric pressure (Pa)
+T <- 293 # air temperature (K)
+R <- 8.314 # universal gas constant (J K–1 mol–1)
+
+rho_m <- P * 100 / (R * T) # molar density of dry air (mol m^-3)
+
+tau <- uStar^2 * rho_m # (mol m–1 s–2)
+
+print(tau)
+```
+
+```{r logWindProfile-check}
+grade_result(
+  pass_if(~identical(round(.result,1), round(369.4578,1)))
+)
+```
+
+### Monin-Obukhov Similarity Theory (MOST)
+
+The impact of atmospheric static stability on the vertical wind profile can be estimated as:
+
+$$ u(z) = \frac{u_*}{k} \ln \left( \frac{z - d_H}{z_0} - \psi_m(\zeta)\right) $$ 
+
+Make a Figure that shows how windspeed vaies with $\psi_m(\zeta)$ (ranging from -2.0 to 1.0 (-)) for the following conditions:
+
+* Height: 30 m
+* Displacement height: 19 m
+* Roughness length for momentum: 0.6 m
+* Friction velocity: 0.4 m s^-1^
+
+```{r psi, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r psi-solution}
+rm(list=ls())
+
+# constants
+k <- 0.4 # con Karman constant (-)
+
+# inputs
+z <- 30 # height (m)
+dH <- 19 # displacement height (m)
+z_0m <- 0.6 # aerodynamic roughness length
+uStar <- 0.4 # friction velocity (m s-1)
+
+psi_m <- seq(-2, 1, 0.1) # similarity function (-)
+
+u <- uStar / k * (log((z-dH) / z_0m) - psi_m) # wind speed (m s-1)
+
+my.xlab <- "$psi_m$ (-)"
+my.ylab <- "Wind speed (m s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+par(mar = c(5,5,1,1))
+plot(x = psi_m, y = u, type = "l", lty = 1,
+        xlab = my.xlab, ylab = my.ylab, las = 1)
+```
+
+```{r windspeedAndPsi, echo=FALSE}
+question_radio(
+  "Considering the Figure you made above, how does the windspeed respond as the atmosphere becomes increasingly unstable?",
+  answer("Windspeed increases", correct = TRUE),
+  answer("Windspeed decreases"),
+  answer("Windspeed remains unaffected"),
+  allow_retry = TRUE
+)
+```
+
+Make a Figure that shows how the wind profile is affected by atmospheric stability for the following conditions:
+
+* Displacement height: 19 m
+* Roughness length for momentum: 0.6 m
+* Friction velocity: 0.4 m s^-1^
+* Monin-Obukhov length: -1000, -50, and -10m
+
+Again, the impact of atmospheric static stability on the vertical wind profile can be estimated as:
+
+$$ u(z) = \frac{u_*}{k} \ln \left( \frac{z - d_H}{z_0} - \psi_m(\zeta)\right) $$ 
+
+* For unstable conditions ($\zeta < 0$): 
+
+$$\psi_m(\zeta) = 2 \ln \left[ (1+ \chi) /2 \right] + \ln \left[ (1+\chi^2) / 2 \right] - 2 \tan^{-1} \chi + \pi/2$$
+
+* where $\chi = (1-16 \zeta)^{1/4}$
+
+```{r MOST01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r MOST01-solution}
+rm(list=ls())
+
+# constants
+k <- 0.4 # con Karman constant (-)
+
+# inputs
+dH <- 19 # displacement height (m)
+z_0m <- 0.6 # aerodynamic roughness length
+uStar <- 0.4 # friction velocity (m s-1)
+
+
+L <- c(-1000, -50, -10) # Obukhov length (m)
+
+z <- seq(20,50,1)  
+
+my.fun <- function(z, L){
+
+zeta <- (z - dH) / L 
+chi <- (1 - 16 * zeta)^(1/4)
+
+termI <- 2 * log((1 + chi)/2)
+termII <- log((1 + chi^2)/2)
+termIII <- (-2) * atan(chi)
+termIV <- pi / 2
+
+psi_m <- termI + termII + termIII + termIV
+
+u <- uStar / k * (log((z-dH) / z_0m) - psi_m) # wind speed (m s-1)
+
+}
+
+data <- outer(z, L, my.fun)
+
+my.xlab <- "Height (m)"
+my.ylab <- "Wind speed (m s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data),  begin = 0, end = 0.75)
+
+par(mar = c(5,5,1,1))
+matplot(x = z, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab, las = 1)
+
+legend.text <- paste("L = ", L, "m", sep = " ")
+legend("topleft", legend = legend.text, pch = 16, col = my.col, bty = "n")
+```
+
+```{r windspeedProfile, echo=FALSE}
+question_radio(
+  "Considering the Figure you made above, how does the increase of windspeed with height respond as the atmosphere becomes increasingly unstable?",
+  answer("Windspeed increases more strongly", correct = TRUE),
+  answer("Windspeed increases less strongly"),
+  answer("Windspeed remains unaffected"),
+  allow_retry = TRUE
+)
+```
+
+Make a Figure that shows how the potential temperature profile is affected by atmospheric stability for the following conditions:
+
+* Displacement height: 19 m
+* Roughness length for momentum: 0.6 m
+* Roughness length for scalars: 0.135 x roughness length for momentum
+* Potential temperature scale: -0.5 K
+* Monin-Obukhov length: -1000, -50, and -10m
+
+The impact of atmospheric static stability on the vertical wind profile can be estimated as:
+$$ \theta(z)-\theta_s = \frac{\theta_*}{k} \ln \left( \frac{z - d_H}{z_{0h}} - \psi_h(\zeta)\right) $$ 
+
+* For unstable conditions ($\zeta < 0$): 
+
+$$\psi_h(\zeta) = 2 \ln \left[ (1+ \chi^2) /2 \right]$$
+
+* where $\chi = (1-16 \zeta)^{1/4}$
+
+```{r MOST02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r MOST02-solution}
+rm(list=ls())
+
+# constants
+k <- 0.4 # con Karman constant (-)
+
+# inputs
+dH <- 19 # displacement height (m)
+z_0m <- 0.6 # aerodynamic roughness length for momentum
+z_0h <- 0.135 * z_0m # aerodynamic roughness length for potential temperature (m)
+thetaStar <- -0.5 # Potential temperature scale (K)
+
+
+L <- c(-1000, -50, -10) # Obukhov length (m)
+
+z <- seq(20,50,1)  
+
+my.fun <- function(z, L){
+
+zeta <- (z - dH) / L 
+chi <- (1 - 16 * zeta)^(1/4)
+
+psi_h <- 2 * log((1 + chi^2)/2)
+
+dTheta <- thetaStar / k * (log((z-dH) / z_0h) - psi_h) # wind speed (m s-1)
+
+}
+
+data <- outer(z, L, my.fun)
+
+my.xlab <- "Height (m)"
+my.ylab <- "$theta(z) - theta_s$ (K)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data),  begin = 0, end = 0.75)
+
+par(mar = c(5,5,1,1))
+matplot(x = z, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab, las = 1)
+
+legend.text <- paste("L = ", L, "m", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r potTempProfile, echo=FALSE}
+question_radio(
+  "Considering the Figure you made above, how does the decrease of potential temperatrue with height respond as the atmosphere becomes increasingly unstable?",
+  answer("Potential temperature decreases more strongly", correct = TRUE),
+  answer("Potential temperature decreases less strongly"),
+  answer("Potential temperature remains unaffected"),
+  allow_retry = TRUE
+)
+```
+
+Make a figure that shows how the similarity functions $\psi_m(\zeta)$ and $\psi_h(\zeta)$ vary with $\zeta$ ranging from -2 to 1.
+
+```{r aerodynCond, exercise = TRUE, exercise.eval = FALSE}
+
+# You will need to make an if-else statement here, e.g. if zeta < 0, then a, else b:
+zeta <- seq(-2,1,0.5)
+
+a <- 1
+b <- 2
+psi <- ifelse(zeta < 0, a, b)
+print(psi)
+
+```
+
+```{r aerodynCond-solution}
+rm(list=ls())
+
+zeta <- seq(-2,1,0.1)
+
+# psi
+chi <- (1 - 16 * zeta)^(1/4)
+termI <- 2 * log((1 + chi)/2)
+termII <- log((1 + chi^2)/2)
+termIII <- (-2) * atan(chi)
+termIV <- pi / 2
+
+psi_m <- ifelse(zeta < 0, termI + termII + termIII + termIV, (-5) * zeta)
+psi_h <- ifelse(zeta < 0, 2 * log((1 + chi^2)/2), (-5) * zeta)
+
+my.xlab <- "$zeta = z/L$ (-)"
+my.ylab <- "$psi(zeta)$ (-)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = 2,  begin = 0, end = 0.75)
+
+par(mar = c(5,5,1,1))
+plot(zeta, psi_h, xlab = my.xlab, ylab = my.ylab, las = 1, type = "l", col = my.col[1])
+lines(zeta, psi_m, col = my.col[2])
+
+abline(v = 0, h = 0)
+
+legend.text <- latex2exp::TeX(c("$psi_h(z)$", "$psi_m (z)$"))
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r psiVsZeta, echo=FALSE}
+question_radio(
+  "Considering the Figure you made above, how does static stability affect the psi functions and hence wind speed and potential temperature?",
+  answer("Psi increases as atmospheric conditions become increasingly unstable", correct = TRUE),
+  answer("Psi decreases as atmospheric conditions become increasingly unstable"),
+  answer("Psi remains unaffected"),
+  allow_retry = TRUE
+)
+```

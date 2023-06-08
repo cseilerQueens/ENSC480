@@ -1,0 +1,482 @@
+
+## Thermodynamics
+### Entropy
+```{r entropyDef, echo=FALSE}
+question("Which definition of entropy is correct?",
+  answer("Entropy is the total heat content of a system"),
+  answer("Entropy is the maximum amount of energy that is available to do work"),
+  answer("Entropy is a measure for the degree of disorder", correct = TRUE),
+  answer("Entropy is the free energy of each component of the system"),
+  allow_retry = TRUE
+)
+```
+
+```{r entropyChange, echo=FALSE}
+question("Which of the following statements is correct?",
+  answer("The entropy of the universe is constant"),
+  answer("The entropy of the universe decreases over time"),
+  answer("The entropy of the universe increases over time", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+
+```{r mostProbableOutcome, echo=FALSE}
+question_radio(
+  "The most probable outcome is the macroscopic state with the greatest number of corresponding microscopic states",
+  answer("TRUE", correct = TRUE),
+  answer("FALSE"),
+  allow_retry = TRUE
+)
+```
+
+How many possible microstates are there when flipping 10 coins?
+
+```{r microstates, exercise = TRUE}
+
+```
+
+```{r microstates-solution}
+n <- 2 # number of options (heads or tails)
+k <- 10 # number of items (number of coins)
+microstates <- n^k
+```
+
+```{r microstates-check}
+grade_result(
+  pass_if(~identical(.result, 1024))
+)
+```
+
+The number of microstates for a particular macrostate is given as: $\binom{n}{k} = \frac{n!}{x!(n-x)!}$, where $n$ is the number of coins and $x$ is the number of times you receive heads. Assuming you have 20 coins, how many microstates are there for receiving 10 times heads?
+
+```{r numberOfMicrostatesHalf, exercise = TRUE, exercise.eval = FALSE}
+n <- 20
+x <- 10
+factorial(___)
+```
+
+```{r numberOfMicrostatesHalf-solution}
+n <- 20 # number of coins
+x <- 10 # number of heads (or tails)
+factorial(n) / (factorial(x) * factorial(n - x))
+```
+
+```{r numberOfMicrostatesHalf-check}
+grade_result(
+  pass_if(~identical(.result, 184756))
+)
+```
+
+How many microstates are there for receiving 5 times heads when flipping 20 coins?
+
+```{r numberOfMicrostatesQuarter, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r numberOfMicrostatesQuarter-solution}
+n <- 20 # number of coins
+x <- 5 # number of heads (or tails)
+factorial(n) / (factorial(x) * factorial(n - x))
+```
+
+```{r numberOfMicrostatesQuarter-check}
+grade_result(
+  pass_if(~identical(.result, 15504))
+)
+```
+
+How much more likely is it to receive 10 compared to 5 times heads when flipping 20 coins?
+
+```{r probability, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r probability-solution}
+184756/15504
+```
+
+```{r probability-check}
+grade_result(
+  pass_if(~identical(.result, 184756/15504))
+)
+```
+
+Consider a sample of ice with a mass of 3 kg that is melts at a constant temperature of about 273.15K. Calculate the corresponding change in entropy. Assume that the energy required for melting (i.e. the heat of fusion) equals `r 3.34 * 10^5` J/kg.
+
+```{r meltingIce, exercise = TRUE, exercise.eval = FALSE}
+T <- ___ # temperature (K)
+ice.mass <- ___ # ice mass (kg)
+Lf <- ___ # heat of fusion (J/kg)
+
+# Heat added to melt ice
+dQ <- ___
+
+# Change in entropy
+dS <- ___
+return(dS)
+```
+
+```{r meltingIce-solution}
+T <- 273.15 # temperature (K)
+ice.mass <- 3 # ice mass (kg)
+Lf <- 3.34 * 10^5 # heat of fusion (J/kg)
+
+# Heat added to melt ice
+dQ <- Lf * ice.mass # J
+
+# Change in entropy
+dS <- dQ / T # J/K
+return(dS)
+```
+
+```{r meltingIce-check}
+grade_result(
+  pass_if(~identical(round(.result), round(3668.314)))
+)
+```
+
+```{r sortUnits, echo = FALSE}
+
+units <- c("W", "J", "N", "J", "Pa", "J")
+rank_units <- sortable::question_rank(
+  "Sort the units in the order of the following terms: power, energy, force, heat, pressure, work",
+  learnr::answer(units, correct = TRUE),
+  learnr::answer(rev(units), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_units
+```
+
+Consider a sample of water with a volume of 1 cm^3^ that is boiled at constant atmospheric surface pressure of 101300 Pa. The resulting steam occupies a volume of 1500 cm^3^. Calculate the change in internal energy. Assume that the latent heat of vaporization equals 2.256 x 10^6^ J kg^-1^.
+
+```{r boilingWater, exercise = TRUE, exercise.eval = FALSE}
+# Constants
+Lv <- ___ # latent heat of vaporization (J/kg)
+rho <- ___ # water density (kg/m3)
+
+# Inputs
+p <- ___ # pressure (Pa)
+V1 <- ___ # volume (m3)
+V2 <- ___ # volume (m3)
+
+# Work done by the water when it vaporizes (J)
+dW <- ___
+
+# Water mass (kg)
+m <- ___
+
+# Heat added to the water (J)
+dQ <- ___
+
+# Change in internal energy (J)
+dU <- ___
+return(dU)
+```
+
+```{r boilingWater-solution}
+# Constants
+Lv <- 2.256 * 10^6 # latent heat of vaporization (J/kg)
+rho <- 1000 # water density (kg/m3)
+
+# Inputs
+p <- 101300 # pressure (Pa)
+V1 <- 1/1000000 # volume (m3)
+V2 <- 1500/1000000 # volume (m3)
+
+# Work done by the water when it vaporizes (J)
+dW <- p * (V2 - V1)
+
+# Water mass (kg)
+m <- V1 * rho
+
+# Heat added to the water (J)
+dQ <- m * Lv
+
+# Change in internal energy (J)
+dU <- dQ - dW
+return(dU)
+```
+
+```{r boilingWater-check}
+grade_result(
+  pass_if(~identical(round(.result), round(2104.151)))
+)
+```
+
+### Gibbs free energy
+
+```{r entropyVsGibbsQuestions, echo=FALSE}
+question("Which of the following statements on Gibbs free energy and entropy are true? (select all that apply)",
+  answer("Entropy is measured in J/K while Gibbs free energy is measured in J", correct = TRUE),
+  answer("Gibbs free energy and entropy only differ in sign"),
+  answer("The change in Gibbs free energy equals the change in enthalpy minus the change in entropy times temperature", correct = TRUE),
+  answer("The change in Gibbs free energy equals the change in enthalpy plus the change in entropy divided by temperature"),
+  answer("Any process occurs spontaneously if entropy increases"),
+  answer("Any process occurs spontaneously if Gibbs free energy decreases", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Under standard conditions, the oxidation of nitric oxide to nitrogen dioxide (2NO + O$_2$ $\rightarrow$ 2NO$_2$) causes a change in enthalpy by -114100 J and a change in entropy by -146.5 J/K. Calculated the associated change in Gibbs free energy for a temperature of 298.15 K.
+
+```{r nitricOxide, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r nitricOxide-solution}
+dH <- -114100 # change in enthalpy (J)
+dS <- -146.5 # change in entropy (J/K)
+T <- 298.15 # Temperature (K)
+
+dG <- dH - T * dS
+return(dG)
+```
+
+```{r nitricOxide-check}
+grade_result(
+  pass_if(~identical(round(.result), round(-70421.02)))
+)
+```
+
+```{r Gibbs, echo=FALSE}
+question("Check which of the statements below is correct. The oxidation of nitric oxide to nitrogen dioxide as described above occurs spontaneously because:",
+  answer("the change in enthalpy is negative"),
+  answer("the change in entropy is negative"),
+  answer("the change in Gibbs free energy is negative", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r spontaneity, echo=FALSE}
+question_radio(
+  "How does the temperature need to change to make the reaction described above non-spontaneous?",
+  answer("Temperature must increase", correct = TRUE),
+  answer("Temperature must decreae"),
+  allow_retry = TRUE
+)
+```
+
+### Chemical potential
+```{r GibbsAndChemPotQuestions, echo=FALSE}
+question("Which of the following statements on Gibbs free energy and chemical potential is correct? (select all that apply)",
+answer("Chemical potential gives the free energy of each chemical species of the system", correct = TRUE),
+answer("The free energy of each species contributes to the Gibbs free energy of the system", correct = TRUE),
+answer("Gibbs free energy gives the free energy of each chemical species of the system"),
+  allow_retry = TRUE
+)
+```
+
+The chemical potential can be defined as: $$\mu=\mu^{*}+RT \ln{c}+\bar{V}p+zF\phi_{E}+mgh$$
+Create a Figure that shows how term II varies as a function of mole fraction (x-axis) for a range of temperatures (different lines). Allow the mole fraction to range between 0.1 and 1.0 (-) and temperature to range from 280 to 320 K.
+
+```{r activityTerm, exercise = TRUE, exercise.eval = FALSE}
+# constants
+R <- 8.314 # universal gas constant (J K–1 mol–1)
+
+# variables
+c_min <- ___ # concentration of solutes (mol m–3)
+c_max <- ___ # concentration of solutes (mol m–3)
+c <- seq(c_min, c_max, 0.01)
+
+T_min <- ___ # absolute temperature (K) 
+T_max <- ___ # absolute temperature (K) 
+T <- seq(T_min, T_max, 10) # temperature (K)
+
+my.fun <- function(c, T){
+  y <- ___
+  return(y)
+}
+
+data <- outer(c, T, my.fun)
+
+my.xlab <- "Mole fraction (-)"
+my.ylab <- "Chemical Potential (J mol$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = c, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste(T, "T", sep = " ")
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r activityTerm-solution}
+# constants
+R <- 8.314 # universal gas constant (J K–1 mol–1)
+
+# variables
+c_min <- 0.1 # concentration of solutes (mol m–3)
+c_max <- 1 # concentration of solutes (mol m–3)
+c <- seq(c_min, c_max, 0.01)
+
+T_min <- 280 # absolute temperature (K) 
+T_max <- 320 # absolute temperature (K) 
+T <- seq(T_min, T_max, 10) # temperature (K)
+
+my.fun <- function(c, T){
+  y <- R * T * log(c)
+  return(y)
+}
+
+data <- outer(c, T, my.fun)
+
+my.xlab <- "Mole fraction (-)"
+my.ylab <- "Chemical Potential (J mol$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = c, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste(T, "T", sep = " ")
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r activityTermQuestions, echo=FALSE}
+question("Which of the following statements apply to the figure above? (select all that apply)",
+  answer("The larger the mole fraction of the chemical species the larger the chemical potential", correct = TRUE),
+  answer("The higher the temperature the greater the chemical potential"),
+  answer("Adding solutes reduces the mole fraction of our chemical species, which decreases the activity of our species, causing a reduction in chemical potential", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Create a bar plot that compares the chemical potential of water in a root and in a branch of a tree. Show the chemical potential of each term as well as their totals. Assume the following environmental conditions:
+* Absolute temperature: 295 K
+* Water mole fraction: 0.999 (-)
+* Absolute minus atmospheric pressure in root: -0.1 x 10^5^ Pa  
+* Absolute minus atmospheric pressure in stem: -3.0 x 10^5^ Pa
+* Root depth: 0.5 m below ground
+* Branch height: 10 m above ground
+  
+```{r chemPot, exercise = TRUE, exercise.eval = FALSE}
+# constants
+R <- ___ # universal gas constant (J K–1 mol–1)
+g <- ___ # gravitational acceleration (m s-2)
+
+# variables
+T <- ___ # absolute temperature (K)
+c <- ___ # mole fraction (-)
+V <- ___ # partial molal volume (m3 mol-1)
+m <- ___ # molar mass (kg mol-1)
+
+# root
+p <- ___ # absolute minus atmospheric pressure (Pa)
+h <- ___ # height above ground (m)
+
+activity <- ___
+pressure <- ___
+height <- ___
+total <- ___
+chemPot.root <- c(activity, pressure, height, total)
+
+# branch
+p <- ___ # absolute minus atmospheric pressure (Pa)
+h <- ___ # height above ground (m)
+
+activity <- ___
+pressure <- ___
+height <- ___
+total <- ___
+chemPot.branch <- c(activity, pressure, height, total)
+
+data <- cbind(chemPot.root, chemPot.branch)
+
+rownames(data) <- c("activity", "pressure", "height", "total")
+colnames(data) <- c("root","branch")
+
+my.ylab <- "Chemical potential of water (J/mol)"
+
+barplot(data, ylim = c(-8, 5), ylab = my.ylab, beside=TRUE, legend = TRUE, args.legend = c(x="top", horiz = TRUE, bty = 'n'))
+
+```
+
+```{r chemPot-solution}
+# constants
+R <- 8.314 # universal gas constant (J K–1 mol–1)
+g <- 9.82 # gravitational acceleration (m s-2)
+
+# variables
+T <- 295 # absolute temperature (K)
+c <- 0.999 # mole fraction (-)
+V <- 18 * 10^{-6} # partial molal volume (m3 mol-1)
+m <- 10 * 10^{-3} # molar mass (kg mol-1)
+
+# root
+p <- -0.1 * 100000 # absolute minus atmospheric pressure (Pa)
+h <- -0.5 # height above ground (m)
+
+activity <- R * T * log(c)
+pressure <- V * p
+height <- m * g * h
+total <- activity + pressure + height
+chemPot.root <- c(activity, pressure, height, total)
+
+# branch
+p <- -3 * 100000 # absolute minus atmospheric pressure (Pa)
+h <- 10 # height above ground (m)
+
+activity <- R * T * log(c)
+pressure <- V * p
+height <- m * g * h
+total <- activity + pressure + height
+chemPot.branch <- c(activity, pressure, height, total)
+
+data <- cbind(chemPot.root, chemPot.branch)
+
+rownames(data) <- c("activity", "pressure", "height", "total")
+colnames(data) <- c("root","branch")
+
+my.ylab <- "Chemical potential of water (J/mol)"
+
+barplot(data, ylim = c(-8, 5), ylab = my.ylab, beside=TRUE, legend = TRUE, args.legend = c(x="top", horiz = TRUE, bty = 'n'))
+
+```
+
+```{r chemPotQuestions, echo=FALSE}
+question("Which of the following statements apply to the figure above? (select all that apply)",
+  answer("The water flows from the root to the branch because of differences in the pressure term", correct = TRUE),
+  answer("The water cannot flow from the root to the branch because of differences in the gravitational term"),
+  answer("The gravitational term of the water in the root is negative", correct = TRUE),
+  answer("The activity term in roots and branches are equal if the solute concentration is constant", correct = TRUE),
+  allow_retry = TRUE
+)
+``` 
+
+### Water potential
+The water potential can be defined as: $$ \Psi_{w}=\Psi_{\pi}+\Psi_{p}+\Psi_{g}+\Psi_{m}$$
+```{r sortWaterPotentialTerms, echo = FALSE}
+
+terms <- c("Osmotic potential", "Pressure potential", "Gravity potential", "Matric potential")
+rank_terms <- sortable::question_rank(
+  "Sort the terms in the correct order given by the equation above",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r waterPotQuestions, echo=FALSE}
+question("Which of the following statements is correct? (select all that apply)",
+answer("Osmotic potential is less or equal to zero", correct = TRUE),
+answer("Adding solutes reduces the osmotic potential", correct = TRUE),
+answer("Pressure potential is always negative"),
+answer("Tension reduces the pressure potential", correct = TRUE),
+answer("Gravity potential is always positive"),
+answer("Lifting water increases gravity potential", correct = TRUE),
+answer("Matric potential is less or equal to zero", correct = TRUE),
+answer("Soil matrices reduce matric potential", correct = TRUE),
+  allow_retry = TRUE
+)
+```

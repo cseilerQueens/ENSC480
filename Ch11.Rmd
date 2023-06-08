@@ -1,0 +1,187 @@
+## Canopy structure and radiative transfer
+### Radiative transfer
+
+Consider a simple canopy architecture with randomly placed, horizontal, and non-overlapping leaves, a leaf area index of 2 m^2^ m^-2^ and a solar zenith angle equal to zero. What is the probability that a photon reaches the ground surface?
+
+```{r radiativeTransfer01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r radiativeTransfer01-solution}
+L <- 2 # leaf area index (m2 m-2)
+P0 <- exp(-1 * L)
+print(P0)
+```
+
+```{r radiativeTransfer01-check}
+grade_result(
+  pass_if(~identical(round(.result,2), round(0.1353353, 2)))
+)
+```
+
+Make a Figure that shows the photon transmission probability as a function of leaf area index (ranging from 0.1 to 10 m^2^ m^-2^) for different extinction coefficients (ranging from 0.5 to 3 (-)). Assume a solar zenith angle equal to zero degrees.
+
+```{r radiativeTransfer02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r radiativeTransfer02-solution}
+rm(list=ls())
+L <- seq(0.1, 10, 0.1) # leaf area index (m2 m-2)
+KI <- seq(0.5, 3, 0.5 )
+
+my.fun <- function(L, KI){
+  P0 <- exp(-1 * KI * L)
+  return(P0)
+}
+
+data <- outer(L, KI, my.fun)
+
+my.xlab <- "Leaf Area Index (m$^{2}$ m$^{-2}$)"
+my.ylab <- "$P_0$ (-)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = L, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste(KI, "KI (-)", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+Calculate the photon transmission probability for a canopy with a leaf area index of 4 m^2^ m^-2^, randomly oriented leaves, and a solar zenith angle of 20 degrees.
+
+```{r radiativeTransfer03, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r radiativeTransfer03-solution}
+# inputs
+rm(list=ls())
+L <- 4 # L is the leaf area index
+theta.deg <- 20 # theta is the solar zenith angle, here in degrees 
+theta.rad <- theta.deg * 2 * pi/360 # theta is the solar zenith angle, here in radians 
+G <- 0.3 # G is the fraction of total leaf area that is oriented on a plane normal to $I_D$. 
+# For leaves that are oriented perpendicular to the incoming rays, $G=1.0$. 
+# For leaves that are oriented parallel to the incoming rays, $G=0.0$. 
+# For randomly oriented leaves, $G=0.5$.
+
+# Calculate the photon transmission probability P0
+P0 <- exp(-1 * G * L/cos(theta.rad)) # P0 is the probability that a ray passes through N layers
+print(P0)
+```
+
+```{r radiativeTransfer03-check}
+grade_result(
+  pass_if(~identical(round(.result,2), round(0.2788689, 2)))
+)
+```
+
+Make a figure that shows the photon transmission probability as a function of leaf area index for a canopy consisting of erectophile leaves. Allow LAI to vary from 0.1 to 10 m^2^ m^-2^ and the solar zenith angle to vary from 10 to 80 degrees.
+
+```{r radiativeTransfer04, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r radiativeTransfer04-solution}
+rm(list=ls())
+theta.deg <- seq(10, 80, 20) # theta is the solar zenith angle, here in degrees 
+theta.rad <- theta.deg * 2 * pi/360 # theta is the solar zenith angle, here in radians 
+
+L <- seq(0.1, 10, 0.1) # leaf area index (m2 m-2)
+
+my.fun <- function(L, theta.rad){
+  P0 <- exp(-1 * 2 / pi * sin(theta.rad) / cos(theta.rad) * L)
+  return(P0)
+}
+
+data <- outer(L, theta.rad, my.fun)
+
+my.xlab <- "Leaf Area Index (m$^{2}$ m$^{-2}$)"
+my.ylab <- "$P_0$ (-)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = L, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste(theta.deg, "Solar zenith angle", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+Make a figure that shows the photon transmission probability as a function of leaf area index for a canopy consisting of erectophile leaves. Allow LAI to vary from 0.1 to 10 m^2^ m^-2^ and the solar zenith angle to vary from 10 to 80 degrees.
+
+```{r radiativeTransfer05, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r radiativeTransfer05-solution}
+rm(list=ls())
+
+L <- seq(0.1, 10, 0.1) # leaf area index (m2 m-2)
+lambda0 <- seq(0.5, 0.9, 0.1)
+
+my.fun <- function(L, lambda0){
+  theta.deg <- 10 # theta is the solar zenith angle, here in degrees 
+  theta.rad <- theta.deg * 2 * pi/360 # theta is the solar zenith angle, here in radians 
+  P0 <- exp(-1 * lambda0 * 2 / pi * sin(theta.rad) / cos(theta.rad) * L)
+  return(P0)
+}
+
+data <- outer(L, lambda0, my.fun)
+
+my.xlab <- "Leaf Area Index (m$^{2}$ m$^{-2}$)"
+my.ylab <- "$P_0$ (-)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = L, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste(lambda0, "Foliar clumping", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+
+### Remote sensing
+Looking at remote sensing data you observe that the reflectance of solar radiation changes throughout the season. In particular, you observe that the reflected solar radiation in the near infrared spectrum decreases from 50% to 40%, while the reflected solar radiation in the red spectrum increases from 8% to 30%. Calculate the corresponding change in NDVI. Which of the two instances corresponds to greener vegetation?
+
+```{r ndvi, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r ndvi-solution}
+
+NIR <- 0.5 # NIR fraction (-)
+RED <- 0.08 # RED fraction (-)
+  
+ndvi01 <- (NIR - RED) / (RED + NIR)
+
+NIR <- 0.4 # NIR fraction (-)
+RED <- 0.3 # RED fraction (-)
+  
+ndvi02 <- (NIR - RED) / (RED + NIR)
+
+delta <- ndvi02 - ndvi01
+
+print(ndvi02 - ndvi01)
+
+```
+
+```{r ndvi-check}
+grade_result(
+  pass_if(~identical(round(.result,2), round(-0.5812808, 2)))
+)
+```

@@ -1,0 +1,333 @@
+## Energy budgets
+
+### Net radiation
+
+Calculate the net radiation of a leaf given the following inputs:
+
+| Variable      | Value     | Units              |
+|:--------------|:----------|:-------------------|
+| $R_s$         | 161       |W m^-2^             |
+| $R_{Lu}$      | 333       |W m^-2^             |
+| $R_{Ll}$      | 396       |W m^-2^             |
+| $a_{su}$      | 0.8       |(-)                 |
+| $a_{sl}$      | 0.8       |(-)                 |
+| $\alpha_g$    | 0.3       |(-)                 |
+| $\varepsilon$ | 0.9       |(-)                 |
+| $T_s$         | 20        |(^o^C)              |
+
+```{r netRadiation01, exercise = TRUE}
+
+```
+
+```{r netRadiation01-solution}
+# constants:
+epsilon <- 0.9
+sigma <- 5.67 * 10^(-8) # Stefan-Boltzmann constant (W m-2 K-4)
+
+# Variables:
+Rs <- 161 # incoming SW radiation (W m-2)
+R_Lu <- 333 # LW radiation coming from above (W m-2)
+R_Ll <- 396 # LW radiation coming from below (W m-2)
+a_su <- 0.8 # absorptance of SW radiation of upper leaf surface (-)
+a_sl <- 0.8 # absorptance of SW radiation of lower leaf surface (-)
+aL <- epsilon # absorptance of LW radiation
+alpha_g <- 0.3 # albedo of ground surface (-)
+
+Ts <- 20 + 273.15 # leaf surface temperature (K)
+
+Rn <- Rs * a_su + Rs * a_sl * alpha_g + R_Lu * aL + R_Ll * aL - 2 * epsilon * sigma * Ts^4
+
+```
+
+```{r netRadiation01-check}
+grade_result(
+  pass_if(~identical(.result, 69.81112))
+)
+```
+
+Using the same inputs as above, show how the leaf net radiation changes as leaf temperature increases from 10 to 25^o^C. Explain your result.
+
+
+```{r netRadiation02, exercise = TRUE}
+
+```
+
+```{r netRadiation02-solution}
+# constants:
+epsilon <- 0.9
+sigma <- 5.67 * 10^(-8) # Stefan-Boltzmann constant (W m-2 K-4)
+
+# Variables:
+Rs <- 161 # incoming SW radiation (W m-2)
+R_Lu <- 333 # LW radiation coming from above (W m-2)
+R_Ll <- 396 # LW radiation coming from below (W m-2)
+a_su <- 0.8 # absorptance of SW radiation of upper leaf surface (-)
+a_sl <- 0.8 # absorptance of SW radiation of lower leaf surface (-)
+aL <- epsilon # absorptance of LW radiation
+alpha_g <- 0.3 # albedo of ground surface (-)
+
+Ts <- seq(10, 25, 1) + 273.15 # leaf surface temperature (K)
+
+Rn <- Rs * a_su + Rs * a_sl * alpha_g + R_Lu * aL + R_Ll * aL - 2 * epsilon * sigma * Ts^4
+
+my.xlab <- "Leaf surface temperature (K)"
+my.ylab <- "Leaf net radiation $R_n$ (W m$^{-2}$)"
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+par(mar = c(5,5,1,1))
+plot(x = Ts, y = Rn, type = "l", xlab = my.xlab, ylab = my.ylab)
+
+```
+
+### Turbulent heat fluxes
+
+Consider a canopy with a latent heat flux of 50 W m^-2^. What is the corresponding evapotranspiration expressed in mm per day for an air temperature of 23^o^C? 
+
+```{r latentHeatOfVap01, exercise = TRUE}
+
+```
+
+```{r latentHeatOfVap01-solution}
+Ta <- 23
+latentHeat <- 50 # latent heat flux (W m-2)
+
+lambdaW <- 2.502 * 10^6 - (2.308 * 10^3 * Ta)
+
+ET <- latentHeat / lambdaW # evapotranspiration (kg m-2 s-1)
+ET <- ET * 86400 # evapotranspiration (kg m-2 day-1)
+```
+
+```{r latentHeatOfVap01-check}
+grade_result(
+  pass_if(~identical(.result, 1.764046))
+)
+```
+
+Repeat the same exercise as above but allow for temperature to range from 5 to 30^o^C.
+
+```{r latentHeatOfVap02, exercise = TRUE}
+
+```
+
+```{r latentHeatOfVap02-solution}
+Ta <- seq(5, 30, 1)
+latentHeat <- 50 # latent heat flux (W m-2)
+
+lambdaW <- 2.502 * 10^6 - (2.308 * 10^3 * Ta)
+
+ET <- latentHeat / lambdaW # evapotranspiration (kg m-2 s-1)
+ET <- ET * 86400 # evapotranspiration (kg m-2 day-1)
+
+my.xlab <- "Air temperature ($^o$C)"
+my.ylab <- "Evapotranspiration ET (mm day$^{-1}$)"
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+par(mar = c(5,5,1,1))
+plot(x = Ta, y = ET, type = "l", xlab = my.xlab, ylab = my.ylab)
+
+```
+
+Plot the Clausius-Clapeyron relationship for a temperature range of 0 to 45^o^C using Equation 10.8 on p. 230. Discuss with your neighbor the implications of the Clausius-Clapeyron relationship for precipitation in response to global warming.
+
+
+```{r ClausiusClapeyron, exercise = TRUE}
+
+```
+
+```{r ClausiusClapeyron-solution}
+rm(list=ls())
+
+# inputs
+a <- 611 # Pa
+b <- 17.502 # (-)
+c <- 240.97 # C
+P <- 101300 # Pa
+T <- seq(0,45,1) # air temperature in C
+es <- a * exp(b * T / (T + c)) # saturation vapor pressure 
+c_aw.star <- es/P
+
+# plot
+my.ylab <- latex2exp::TeX("c$_{aw}$ (mol mol$^{-1}$)")
+my.xlab <- latex2exp::TeX("Temperature (Celsius)")
+
+par(mar = c(5,5,1,1))
+plot(T, c_aw.star, type = "l", xlab = my.xlab, ylab = my.ylab, las = 0,
+     tcl = 0.3)
+axis(3, labels = FALSE, tcl = 0.3)
+axis(4, labels = FALSE, tcl = 0.3)
+
+```
+
+Consider a sample of air with a temperature of 40^o^C and a water vapor mole fraction of 0.023 mol mol^-1^. Based on the Figure above, by how much does the air need to cool down to reach the corresponding dew point temperature?
+
+```{r dewPointTemperature, echo=FALSE}
+question_radio(
+  "Consider a sample of air with a temperature of 40^o^C and a water vapor mole fraction of 0.023 mol/mol. Based on the Figure above, by how many degrees Celsius does the air need to cool down to reach the corresponding dew point temperature?",
+  answer("10"),
+  answer("20", correct = TRUE),
+  answer("30"),
+  answer("40"),
+  allow_retry = TRUE
+)
+```
+
+```{r relativeHumidity01, echo=FALSE}
+question_numeric("How large does the relative humidity (%) need to be so that the wet bulb temperature equals the air temperature?",
+answer("100", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r saturationDeficit, echo=FALSE}
+question_numeric("What is the saturation vapor deficit expressed in mol/mol if the water vapor mole fraction equals 0.02 and the saturation vapor model fraction equals 0.06 mol/mol?",
+answer("0.04", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r relativeHumidity02, echo=FALSE}
+question_numeric("What is the corresponding relative humidity expressed in percentage?",
+answer("50", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r saturation, echo=FALSE}
+question("How can an air parcel achieve saturation? (Select all that apply)",
+answer("Heating"),
+answer("Cooling", correct = TRUE),
+answer("Adding moisture", correct = TRUE),
+answer("Extracting moisture"),
+answer("Cooling and adding mositure", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r wetBulbTemperature, echo=FALSE}
+question_radio(
+  "What needs to happen so that the air temperature of an air parcel reduces to the wet bulb temperature?",
+answer("Only cooling"),
+answer("Only adding moisture"),
+answer("Cooling and adding mositure", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+
+### Penman-Monteith equation
+
+Calculate the latent heat flux using the Penman-Monteith equation and data provided below. Which term is larger, the diabatic component or the adiabatic component?
+
+$$\lambda_wE = \frac{s }{s + \gamma*}(R_n - H_G) + \frac{\rho_m c_p(c_{aw}^*(T_a) - c_{aw}(T_a))}{(s+ \gamma^*)r_h}$$
+
+* $s$ is the slope of saturation vapor pressure curve at air temperature T (kPa ^o^C^-1^)
+* $T_a$ is the air temperature (^o^C)
+* $c_p$ is the molar specific heat of dry air (J mol$^{-1}$ K$^{-1}$) (29.1 J mol$^{-1}$ K$^{-1}$)
+* $\rho_m$ is the molar density of dry air (mol m$^{-3}$): $\rho_m=P/(RT_a)$
+* $c_{aw}$ is the mole fraction of water vapor in the sample of air (-)
+* $c_{aw}^*$ is the saturated water vapor mole fraction in the same sample of air (-)
+* $\gamma*= \gamma \frac{r_{tw}}{r_h}= 0.93 \gamma$ (K^-1^)
+* $\gamma$ is the psychrometric constant in K$^{-1}$: $\gamma = c_p/\lambda_w$ (K^-1^)
+* $\lambda_w$ is the latent heat of vaporization $\lambda_w$ (MJ kg$^{-1}$): $\lambda_w = 2.502 \times 10^6 - (2.308 \times 10^3 \times T_a)$
+* $r_h$ is the resistance to sensible heat transfer between the air and surface (s m$^{-1}$): $r_h = 1/g_{bh}$
+* $g_{bh}$ is the boundary layer conductance for heat: $g_{bh} = \frac{K_{dh}}{z_{bl}}$ (m s^-1^)
+* $z_{bl}$ is the depth of the boundary layer: $z_{bl} = 4 \times 10^{-3}\sqrt{d/u}$ (m)
+* $K_{dh}$ is the the diffusion coefficient for heat (m$^2$ s$^{-1}$): $K_{dh} = K_0 \frac{P_0}{P} \left(\frac{T}{T_0} \right)^{1.81}$
+* $P_0$ is the standard pressure ($P_0$ = 101325 Pa)
+* $K_0$ is $18.9 \times 10^{-6}$ m$^{2}$ s$^{-1}$ (m^-2^ s^-1^)
+* $d$ is leaf length scale (m)
+
+
+
+| Symbol| Meaning                                                 | Value                   | Units           |
+|:------|:--------------------------------------------------------|:------------------------|:----------------|
+|	R 	  |	 universal gas constant R 	                            |	8.31	                  |	J K^-1^ mol^-1^	|
+|	T~0~  |	 reference temperature 	                                |	273.15	                |	K	              |
+|	P~0~  |	 reference pressure 	                                  |	101325	                |	Pa	            |
+|	K~0~ 	|	 thermal diffusivity at standard pressure for 273 K 	  |	18.9 x 10^-6^ 	        |	m2 s^-1^	      |
+|	T 	  |	 air temperature 	                                      |	273.15 + 14	            |	K	              |
+|	P 	  |	 surface pressure 	                                    |	100000	                |	Pa	            |
+|	u 	  |	 wind speed 	                                          |	1	                      |	m s^-1^	        |
+|	d 	  |	 characteristic leaf dimension 	                        |	0.02	                  |	m	              |
+|	c~p~ 	|	 molar specific heat of dry air 	                      |	1005 x 28.97 x 10^-3^	  |	J mol^-1^ K^-1^	|
+|	c~aw~	|	 water vapor mole fraction 	                            |	0.015	                  |	mol mol^-1^	    |
+|	R~n~ 	|	 net surface radiation                                  |	162	                    |	W m^-2^	        |
+|	H~G~ 	|	 soil heat flux 	                                      |	1	                      |	W m^-2^	        |
+
+```{r PMeq, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r PMeq-solution}
+rm(list=ls())
+
+# constants:
+R <- 8.31 # universal gas constant R (J K-1 mol-1)
+T0 <- 273.15 # Reference temperature (K)
+P0 <- 101325 # Reference pressure (Pa)
+K0 <- 18.9 * 10^(-6) # Thermal diffusivity at standard pressure for 273 K (m2 s-1)
+
+# variables:
+T <- 273.15 + 14 # air temperature (K)
+P <- 100000 # surface pressure (Pa)
+u <- 0.1 # wind speed (m s-1)
+d <- 0.02 # characteristic leaf dimension (m)
+cp <- 1005 * 28.97 * 10^-3 # specific heat of dry air in J K-1 kg-1 times Molar mass in kg mol-1 gives the molar specific heat of dry air (J mol–1 K–1)
+c_aw <- 0.015 # water vapor mole fraction (mol mol-1)
+Rn <- 162 # net surface radiation (W m-2)
+HG <- 1 # soil heat flux (W m-2) 
+
+# leaf boundary layer resistance for heat
+K_dh <- K0 * P0 / P * (T / T0)^1.81 # diffusion coefficient for sensible heat (m2 s–1)
+rho_m <- P / (R * T) # molar density of dry air (mol m^-3)
+z_bl = 4 * 10^(-3) * (d/u)^0.5 # leaf boundary layer height (m) 
+g_bh <- rho_m * K_dh / z_bl # boundary layer conductance for heat diffusion (mol m-2 s-1)
+g_bh <- g_bh / rho_m # divide by molar density to change units from mol m-2 s-1 to m s-1
+rh <- 1/g_bh # boundary layer resistance for heat (s m-1)
+
+# saturation water vapor mole fraction (mol mol-1)
+a <- 611 # Pa
+b <- 17.502 # (-)
+c <- 240.97 # C
+TC <- T - 273.15 # air temperature in C
+es <- a * exp(b * TC / (TC + c)) # saturation vapor pressure 
+c_aw.star <- es/P
+
+# slope of Clausius-Clapeyron equation
+TC <- T - 273.15 - 0.5 # air temperature in C MINUS 0.5
+es <- a * exp(b * TC / (TC + c)) # saturation vapor pressure 
+c_aw.star01 <- es/P
+TC <- T - 273.15 + 0.5 # air temperature in C PLUS 05
+es <- a * exp(b * TC / (TC + c)) # saturation vapor pressure 
+c_aw.star02 <- es/P
+s <- c_aw.star02 - c_aw.star01
+
+# gamma star
+lambda_w <- 2.502 * 10^6 - (2.308 * 10^3 * TC) # latent heat of vaporization in J kg-1 (p. 224)
+lambda_w <- lambda_w / 1000 # in J g-1
+lambda_w <- lambda_w * 18.02 # in J mol-1 (molar mass of water: 18.02 g/mol H2O)
+gamma <- cp / lambda_w 
+gammaStar <- 0.93 * gamma # Montheith and Unsworth (2008), Eq. 13.20, p. 237
+
+# Penman-Monteith equation
+
+termI <- s/(s + gammaStar) * (Rn - HG)
+
+numerator <- rho_m * cp * (c_aw.star - c_aw)
+denominator <- (s + gammaStar) * rh
+
+termII <- numerator / denominator
+
+lambda_wE <- termI + termII
+
+print(lambda_wE)
+
+```
+
+```{r PMeq-check}
+grade_result(
+  pass_if(~identical(round(.result), round(109.8903)))
+)
+```

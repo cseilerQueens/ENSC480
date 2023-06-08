@@ -1,0 +1,177 @@
+## Molecular diffusion
+### Fick's first law of molecular diffusion
+
+Calculate the diffusivity of CO~2~ in mm^2^ s^-1^ in a sample of air with a temperature of 293 K and a pressure of 980 hPa, assuming a reference diffusivity of 16 mm^2^ s^-1^.
+
+```{r diffusivity01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r diffusivity01-solution}
+# Eq. 6.1, p. 115
+# inputs
+T <- 293 # temperature in K
+P <- 980 # pressure in hPa
+# binary diffusivity for constituent i with respect to j in m2 s-1
+Kd0ij <- 16 * 10^-6 # Diffusivity of CO2 in air
+Kdij <- Kd0ij * (T/273)^2 * (1013 / P)
+print(Kdij * 10^6)
+```
+
+```{r diffusivity01-check}
+grade_result(
+  pass_if(~identical(round(.result), round(19.0508)))
+)
+
+```
+
+Make a figure that shows how CO~2~ diffusivity varies with temperature (ranging from 260 to 300 K) for different pressure values (ranging from 980 to 1010 hPa). Interpret your figure on the basis of how temperature and pressure affect free flight velocity and free path.
+
+```{r diffusivity02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r diffusivity02-solution}
+# Eq. 6.1, p. 115
+# inputs
+T <- seq(260, 300, 1) # temperature in K
+P <- seq(980, 1010, 10) # pressure in hPa
+
+my.fun <- function(T, P){
+  Kd0ij <- 16 / 1000000 # Diffusivity of CO2 in air
+  Kdij <- Kd0ij * (T/273)^2 * (1013 / P)
+  return(Kdij * 10^6)
+}
+
+data <- outer(T, P, my.fun)
+
+my.xlab <- "Temperaure (K)"
+my.ylab <- "Diffusivity (mm$^{2}$ s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = T, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste(P, "Pressure (hPa)", sep = " ")
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+Assuming a binary gas mixture, calculate the diffusive flux density in $\mu$mol m^-2^ s^-1^ for a CO~2~ concentration gradient of -0.1 mole fraction per meter, assuming a temperature of 293 K, a pressure of 980 hPa, and a reference diffusivity of 16 mm^2^ s^-1^.
+
+```{r Ficks1stLaw01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r Ficks1stLaw01-solution}
+# Eq. 6.1, p. 115
+# Fick's diffusion law (Eq. 6.4, p. 118)
+
+# inputs:
+T <- 293 # temperature in K
+P <- 980 # pressure in hPa
+dcdx <- -0.1 # concentration gradient in mole fraction per m
+R <- 8.31 # universal gas constant R in J K^-1 mol^-1
+
+# binary diffusivity for constituent i with respect to j in m2 s-1
+Kd0ij <- 16 * 10^-6 # Diffusivity of CO2 in air
+Kdij <- Kd0ij * (T/273)^2 * (1013 / P)
+
+# molar density
+rho_m <- P * 100 / (R * T) # unit: mol m^-3
+
+Fdj <- -Kdij * rho_m * dcdx # mol m^-2 s-1
+
+print(Fdj* 10^6)
+```
+```{r Ficks1stLaw01-check}
+grade_result(
+  pass_if(~identical(round(.result), round(76.67799)))
+)
+
+```
+
+Repeat the exercise above allowing temperature to vary from 270 to 300K and concentration gradients to range from -0.5 to 0 mole fractions per meter. Assume a constant pressure of 980 hPa. Is the CO~2~ diffusive flux density more sensitive to the variation in the concentration gradient or to the variation in temperature in this example?
+
+```{r Ficks1stLaw02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r Ficks1stLaw02-solution}
+# Eq. 6.1, p. 115
+# Fick's diffusion law (Eq. 6.4, p. 118)
+
+# inputs:
+T <- seq(260, 300, 1) # temperature in K
+P <- 980 # pressure in hPa
+dcdx <- seq(-0.5, 0, 0.1) # concentration gradient in mole fraction per m
+R <- 8.31 # universal gas constant R in J K^-1 mol^-1
+
+my.fun <- function(T, dcdx){
+# binary diffusivity for constituent i with respect to j in m2 s-1
+Kd0ij <- 16 * 10^-6 # Diffusivity of CO2 in air
+Kdij <- Kd0ij * (T/273)^2 * (1013 / P)
+
+# molar density
+rho_m <- P * 100 / (R * T) # unit: mol m^-3
+
+Fdj <- -Kdij * rho_m * dcdx # mol m^-2 s-1
+return(Fdj * 10^6)
+}
+
+data <- outer(T, dcdx, my.fun)
+
+my.xlab <- "Temperaure (K)"
+my.ylab <- "Diffusivity (mm$^{2}$ s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+par(mar = c(5,5,1,1))
+matplot(x = T, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("dc/dx = ",dcdx," (m$^{-1}$)", sep = "")
+legend.text <- latex2exp::TeX(legend.text)
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+
+```
+### Diffusion through pores and in multi-constituent gas mixtures
+
+```{r CO2insideAndoutsideLeaf, echo=FALSE}
+question_radio(
+  "How do the CO~2~ concentrations inside and outside of the leaf compare when the leaf reaches the CO~2~ compensation point?",
+  answer("The CO~2~ concentration inside and outside of the leaf are the same"),
+  answer("The CO~2~ concentration is greater inside compared to outside of the leaf"),
+  answer("The CO~2~ concentration is greater outside compared to inside of the leaf", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r KnudsenDiffusion, echo=FALSE}
+question("When does Knudsen diffusion become relevant? (Select all that apply)",
+answer("At night"),
+answer("At noon"),
+answer("During dusk", correct = TRUE),
+answer("During dawn", correct = TRUE),
+answer("When the plant experiences water stress", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Turn to your neighbor and discuss the following questions:
+
+* What are the limitation of Fick's first law of molecular diffusion when applied to the exchange of gases at the leaf-atmosphere interface?
+
+* Why does the pressure gradient at the leaf-atmosphere interface increase with increasing temperature and decreasing pore size?
+
+* Why does water evaporate more efficiently from pores compared to an open water body. Make a drawing to support your argument.
+
+

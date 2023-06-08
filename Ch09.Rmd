@@ -1,0 +1,339 @@
+## Water transport
+### Water transport through soils
+
+```{r matricPotentialSign, echo=FALSE}
+question_radio(
+  "The matric potential of unsaturated soils is:",
+  answer("positive"),
+  answer("negative", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r retention01, echo=FALSE}
+question_radio(
+  "An increase in volumetric soil water content causes matric potential to become",
+  answer("more negative"),
+  answer("less negative", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r retention02, echo=FALSE}
+question_radio(
+  "An increase in grain size causes matric potential to become",
+  answer("more negative"),
+  answer("less negative", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r conductivity01, echo=FALSE}
+question_radio(
+  "An increase in volumetric soil water content causes conductivity to",
+  answer("increase", correct = TRUE),
+  answer("decrease"),
+  allow_retry = TRUE
+)
+```
+
+```{r conductivity02, echo=FALSE}
+question_radio(
+  "An increase in grain size causes conductivity to",
+  answer("increase", correct = TRUE),
+  answer("decrease"),
+  allow_retry = TRUE
+)
+```
+
+```{r retentionAndConductivity, echo=FALSE}
+question_radio(
+  "The retention curve shows the relation between volumetric soil water content and",
+  answer("Matric potential", correct = TRUE),
+  answer("Soil water potential"),
+  answer("Hydraulic conductivity"),
+  allow_retry = TRUE
+)
+```
+
+Consider a soil with a water potential of -0.05 MPa. What is the corresponding water potential expressed in J mol^-1^ assuming a temperature of 25^o^C and an atmospheric pressure of 1000 hPa?
+
+```{r PsiUnitConversion01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r PsiUnitConversion01-solution}
+psi_Pa <- -0.05 * 10^6 # water potential in Pa
+partialMolalVolume <- 18 * 10^(-6) # partial molal volume (m3 mol-1)
+psi_JPerMol <- psi_Pa * partialMolalVolume # water potential in J/mol
+print(psi_JPerMol)
+```
+
+```{r PsiUnitConversion01-check}
+grade_result(
+  pass_if(~identical(round(.result), round(-0.9)))
+)
+
+```
+
+Repeat the same exercise as above but converting the units from J mol^-1^ to m.
+
+```{r PsiUnitConversion02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r PsiUnitConversion02-solution}
+psi_Pa <- -0.05 * 10^6 # water potential in Pa
+rho <- 1000 # water density (kg m-3)
+g <- 9.81 # gravitational acceleration (m s-2)
+
+psi_m <- psi_Pa / (rho * g) # water potential in m
+print(psi_m)
+```
+
+```{r PsiUnitConversion02-check}
+grade_result(
+  pass_if(~identical(round(.result), round(-5.09684)))
+)
+
+```
+
+The retention curve function by van Genuchten (1980) is
+
+$$ \theta = \frac{\theta_{max} - \theta_{min}}{(1 + (a |\psi_m|)^n)^m} + \theta_{min}$$
+$$ m = 1- 1/n $$
+
+Plot a retention curve for a matric potential for sand and loam using the parameters below. Let the matric potential range from -1000 to -1 MPa.
+
+
+| Parameter       | Sand    | Loam    | Units     |
+|:----------------|:--------|:--------|:----------|
+| a               | 0.028   |0.0104   |cm^-1^     |
+| n               | 2.239   |1.3954   |(-)        |
+| $\theta_{min}$  | 0.0286  |0.1060   |m^3^ m^-3^ |
+| $\theta_{max}$  | 0.3658  |0.4686   |m^3^ m^-3^ |
+
+```{r retentionCurve, fig.width = 4, fig.height = 6, exercise = TRUE, exercise.eval = FALSE}
+
+# To use a logarithmic axis use log = "y" in your plotting function, e.g.
+x <- seq(1,100,1)
+y <- x^2
+plot(x, y, log = "y", type = "l")
+
+```
+
+```{r retentionCurve-solution, fig.width = 4, fig.height = 6}
+rm(list=ls())
+
+# variable
+psi_m <- seq(1,1000,1) # positive values
+
+# sand:
+a <- 0.028 # parameter (cm-1)
+n <- 2.239 # parameter (-)
+theta_min <- 0.0286
+theta_max <- 0.3658
+
+m <- 1 - 1/n
+denom <- (1 + (a * abs(psi_m))^n)^m
+theta <- (theta_max - theta_min) * 1/denom + theta_min
+theta.sand <- theta
+
+# loam:
+a <- 0.0104 # parameter (cm-1)
+n <- 1.3954 # parameter (-)
+theta_min <- 0.106
+theta_max <- 0.4686
+
+m <- 1 - 1/n
+denom <- (1 + (a * abs(psi_m))^n)^m
+theta <- (theta_max - theta_min) * 1/denom + theta_min
+theta.loam <- theta
+
+my.xlab <- "Volumetric soil water content $\\theta_s$ (m$^3$ m$^{-3}$)"
+my.ylab <- "Negative Matric potential $\\psi$ (MPa)"
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+plot(x = theta.sand, y = psi_m, xlim = c(0, 0.6), log = "y", type = "l", xlab = my.xlab, ylab = my.ylab)
+lines(x = theta.loam, y = psi_m, lty = 2)
+legend("topright", lty = c(1,2), c("sand", "loam"), bty = 'n')
+
+```
+
+The hydraulic conductivity function by van Genuchten (1980) is
+
+$$ K = K_{sat} \times S_e^{1/2}\left( 1 - \left( 1 - S_e^{1/m} \right)^m \right)^2$$
+
+$$ S_e = \frac{1}{(1 + (a |\psi_m|)^n)^m}$$
+$$ m = 1- 1/n $$
+
+Plot the hydraulic conductivity for sand and loam using the parameters below. Let the matric potential range from -1000 to -1 MPa.
+
+| Parameter       | Sand    | Loam    | Units     |
+|:----------------|:--------|:--------|:----------|
+| a               | 0.028   |0.0104   |cm^-1^     |
+| n               | 2.239   |1.3954   |(-)        |
+| $\theta_{min}$  | 0.0286  |0.1060   |m^3^ m^-3^ |
+| $\theta_{max}$  | 0.3658  |0.4686   |m^3^ m^-3^ |
+| $K_{sat}$       | 29.7    |1.04     |cm h^-1^   |
+
+```{r hydraulicConductivity, fig.width = 4, fig.height = 6, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r hydraulicConductivity-solution, fig.width = 4, fig.height = 6}
+rm(list=ls())
+
+# variable
+psi_m <- seq(1,1000,1) # positive values
+
+# sand:
+a <- 0.028 # parameter (cm-1)
+n <- 2.239 # parameter (-)
+theta_min <- 0.0286
+theta_max <- 0.3658
+K_sat <- 29.7 # parameter (cm h-1)
+
+m <- 1 - 1/n
+denom <- (1 + (a * abs(psi_m))^n)^m
+theta <- (theta_max - theta_min) * 1/denom + theta_min
+theta.sand <- theta
+
+Se <- 1 / denom
+K <- K_sat * Se^(0.5) * (1 - (1 - Se^(1/m))^m)^2
+K.sand <- K
+
+# loam:
+a <- 0.0104 # parameter (cm-1)
+n <- 1.3954 # parameter (-)
+theta_min <- 0.106
+theta_max <- 0.4686
+K_sat <- 1.04 # parameter (cm h-1)
+
+m <- 1 - 1/n
+denom <- (1 + (a * abs(psi_m))^n)^m
+theta <- (theta_max - theta_min) * 1/denom + theta_min
+theta.loam <- theta
+Se <- 1 / denom
+K <- K_sat * Se^(0.5) * (1 - (1 - Se^(1/m))^m)^2
+K.loam <- K
+
+my.xlab <- "Volumetric soil water content $\\theta_s$ (m$^3$ m$^{-3}$)"
+my.ylab <- "Hydraulic conductivity K (cm h$^{-1}$)"
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+plot(x = theta.sand, y = K.sand, xlim = c(0, 0.6), log = "y", type = "l", xlab = my.xlab, ylab = my.ylab)
+lines(x = theta.loam, y = K.loam, lty = 2)
+legend("bottomright", lty = c(1,2), c("sand", "loam"), bty = 'n')
+
+```
+
+### Water transport through roots
+
+```{r sortAnatomicalStructureOfRoots, echo = FALSE}
+
+units <- c("epidermis", "cortex", "endodermis", "vascular tissue")
+rank_units <- sortable::question_rank(
+  "Sort the parts of the roots as they appear going from the outside towards the center of the root",
+  learnr::answer(units, correct = TRUE),
+  learnr::answer(rev(units), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_units
+```
+
+```{r rootsStorage, echo=FALSE}
+question_radio(
+  "Which part of the root stores organic polymers that can be used for future growth?",
+  answer("epidermis"),
+  answer("endodermis"),
+  answer("vascular tissue"),
+  answer("cortex", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r stele, echo=FALSE}
+question("Which parts are encolsed by the stele? (select all that apply)",
+
+answer("epidermis"),
+answer("endodermis", correct = TRUE),
+answer("cortex"),
+answer("phloem", correct = TRUE),
+answer("xylem", correct = TRUE),
+
+allow_retry = TRUE
+)
+```
+
+```{r flowDirection, echo=FALSE}
+question_radio(
+  "In which part of the root does the waer follow a radial path?",
+  answer("xylem"),
+  answer("phloem"),
+  answer("cortex", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r apoplasticSymplastic, echo=FALSE}
+question_radio(
+  "Which of the two types of water flow through roots is driven by a gradient is osmotic potential?",
+  answer("apoplastic flow"),
+  answer("symplastic flow", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r casparianStrip, echo=FALSE}
+question_radio(
+  "Which of the two types of water flow through roots is blocked by the Casparian strip?",
+  answer("apoplastic flow", correct = TRUE),
+  answer("symplastic flow"),
+  allow_retry = TRUE
+)
+```
+
+### Water transport through stems
+
+The decline of hydraulic conductance in relation to water potential for stems can be modeled based on a two-parameter Weibull function:
+
+$$ K = K_{max} \exp \left( - \left( \frac{\psi}{d} \right)^c \right)$$
+
+Where $K_{max}$ is the maximum hydraulic conductivity and $c$ and $d$ are empirical parameters. For plant (1) the parameter values are $c$ = 3.43 (-) and $d$ = -2.15 MPa. For plant (2) the parameter values are $c$ = 2.64 (-) and $d$ = -3.54 MPa. Make a figure that shows how the ratio ratio $K/K_{max}$ varies for both plants with xylem water potential ranging from -6 to 0 MPa. Discuss with your neighbor which of the two plants you suspect to the a conifer, and which to be a deciduous tree. 
+
+```{r stemConductivity, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r stemConductivity-solution}
+rm(list=ls())
+
+# variable
+psi <- seq(-6, 0, 0.1 ) # xylem water potential 
+
+# plant (1)
+c <- 3.43 # empirical parameter (-)
+d <- -2.15 # empirical parameter (MPa)
+ratio <- exp(- (psi/d)^c) # K/K_max
+plant01 <- ratio
+
+c <- 2.64 # empirical parameter (-)
+d <- -3.54 # empirical parameter (MPa)
+ratio <- exp(- (psi/d)^c) # K/K_max
+plant02 <- ratio
+
+my.xlab <- "Stem water potential $\\psi$ (MPa)"
+my.ylab <- "$K/K_{max}$ (-)"
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+plot(x = psi, y = plant01, type = "l", xlab = my.xlab, ylab = my.ylab)
+lines(x = psi, y = plant02, lty = 2)
+legend("topleft", c("Deciduous", "Conifer"), lty = c(1, 2), bty = "n")
+
+```
+
+Discuss with your neighbor why and in what circumstances Darcy's law may overestimate the stem water flow observed in plants.

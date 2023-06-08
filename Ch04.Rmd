@@ -1,0 +1,265 @@
+
+## Control over metabolic fluxes
+### Photon-assimilation reaction
+
+```{r crossSectionLeaf, echo = FALSE}
+
+terms <- c("Epidermis", "Mesophyll cells", "Stoma", "Chloroplast", "Stroma", "Granum", "Thylakoids")
+rank_terms <- sortable::question_rank(
+  "Sort the terms in the correct order for the following list:
+  
+* Cells that form the upper and lower bound of a leaf
+* Photosynthetic cells that contain chloroplasts
+* A pore in the leaf and stem epidermis that is used for gaseous exchange
+* Organelles where photosynthesis takes place
+* Liquid that contains green disk-like membranes called thylakoids
+* Stack of thylakoids
+* Organelle that contains chlorophyll molecules
+  
+  ",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r zScheme, echo = FALSE}
+
+terms <- c("Reduction potential", "Positive reduction Potential", "Negative reduction potential", "Photosystem II", "Electron transport chain that drives proton transfer across membrane", "Photosystem I", "Electron transport chain that drives synthesis of NADPH")
+rank_terms <- sortable::question_rank(
+  "Sort the terms of the Z-scheme shown below from (A) to (G)",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+```{tikz, zSchemeTikz, fig.ext = 'png', cache=TRUE}
+\usetikzlibrary{arrows}
+\begin{tikzpicture}[node distance=1.0cm, scale = 1.0]
+\draw [<->] (0,0)--(0,6) node[anchor = south, rotate = 90] at (0,3) {(A)};
+\draw [dashed](0,3)--(6,3) node[anchor=north west, rotate = 90] at (0,3) {\small (C)};
+\draw [dashed](0,3)--(6,3) node[anchor=north east, rotate = 90] at (0,3) {\small (B)};
+\draw [->] (1,1)--(1,5) node[anchor = north] at (1,1) {(D)}; 
+\draw [->] (1.1,5)--(2.9,1.5); 
+\draw [->] (3,1.5)--(3,6) node[anchor = north] at (3,1.5) {(F)}; 
+\draw [->] (3.1,6)--(4,4);
+\draw node[anchor=south west, rotate = -63] at (1.2,5) {\small (E)};
+\draw node[anchor=south west, rotate = -63] at (3.1, 6) {\small (G)};
+\end{tikzpicture}
+```
+
+Consider the following redox pairs:
+
+* oxidant + $ne^- \rightarrow$ reductant ; standard reduction potential $E^{\circ}$ (V)
+* $NADP^+ + H^+ + 2e^- \rightarrow NADPH$ ; $E^{\circ} = -0.32V$
+* $O_2 + 4H^+ + 4e^- \rightarrow 2 H_2O$ ; $E^{\circ} = 0.82$
+
+```{r NADPHoxidation, echo=FALSE}
+question_radio(
+  "In what direction would the electrons flow if the redox reaction above occurs spontaenously?",
+  answer("From NADP+ (oxidant) to H2O (reductant)"),
+  answer("From H2O (reductant) to NADP+ (oxidant)"),
+  answer("From NADPH (reductant) to O2 (oxidant)", correct = TRUE),
+  answer("From O2 (oxidant) to NADPH (reductant)"),
+  allow_retry = TRUE
+)
+```
+
+```{r NADPreduction, echo=FALSE}
+question_radio(
+  "In what direction would the electrons flow in the light reaction?",
+  answer("From NADP+ (oxidant) to H2O (reductant)"),
+  answer("From H2O (reductant) to NADP+ (oxidant)", correct = TRUE),
+  answer("From NADPH (reductant) to O2 (oxidant)"),
+  answer("From O2 (oxidant) to NADPH (reductant)"),
+  allow_retry = TRUE
+)
+```
+
+How much energy does the light reaction need to produce for the transport of 2 moles of electrons from H2O to NADP+? Recall that the Faraday constant equals 96,494 C J^-1^
+
+```{r gibbsNADPH, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r gibbsNADPH-solution}
+# standard reduction potentials in Volts:
+E_acceptor <- -0.32
+E_donor <- 0.82
+
+dE <- E_acceptor - E_donor
+
+n <- 2 # number of electrons (mol)
+F <- 96494 # Faraday's constant (C/mol)
+
+dG = -n * F * dE # change in Gibbs free energy (J)
+print(dG)
+```
+```{r gibbsNADPH-check}
+grade_result(
+  pass_if(~identical(round(.result), round(220006.3)))
+)
+```
+
+### Reductive pentose phosphate (RPP) pathway
+Sort the terms below in the order they appear in the text. For instance, the first term that should be moved to the top of the list is the word that corresponds to the first placeholder in the text.
+
+```{r RubiscoAndRuBP, echo = FALSE}
+
+terms <- c(
+  "enzyme", 
+  "substrate", 
+  "Rubisco", 
+  "CO2", 
+  "CO2-assimilation",
+  "Rubisco", 
+  "O2",
+  "photorespiration")
+rank_terms <- sortable::question_rank(
+  "Rubisco is an (1), while RuBP is a (2). The carboxylation of RuBP is the process where (3) adds (4) to RuBP. This process is also referred to as  (5). The Oxygenation of RuBP is the process where (6) adds (7) to RuBP. This process is also referred to as (8).",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r RPP, echo = FALSE}
+
+terms <- c(
+  "Assimilation of CO2 through the carboxylation of RuBP catalyzed by Rubisco leading to the formation of 3-phosphoglyceric acid (PGA)", 
+  "Reduction of PGA to 1,3-diphosphoglyceric acid (DGPA) using ATP from the photon assimilation reaction", 
+  "Conversion of DGPA to triose-phosphate sugar glyceraldehyde 3-phosphate (G3P) using NADPH from the photon assimilation reaction",
+  "G3P molecules are either exported, or converted to starch, or used to regenerate RuBP"
+  )
+rank_terms <- sortable::question_rank(
+  "Consider a CO~2~ molecule entering a chloroplast. Sort the processes described below in their chronological sequence.",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+Calculate the relative specificity of Rubisco activity for CO~2~ vs O~2~. Use the data given in the Table below (Jordan, D.B. and Ogren, W.L., 1984. The CO~2~/O~2~ specificity of ribulose 1,5-bisphosphate carboxylase/oxygenase: dependence on ribulosebisphosphate concentration, pH and temperature. Planta, 161, pp.308-313.)
+
+| T (C) | Vc  ($\mu$mol mg^-1^ min^-1^) | Kc ($\mu$M)| Ko ($\mu$M) | Vo ($\mu$mol mg^-1^ min^-1^)  |
+|:----|:------|:----|:-----|:------|
+| 7  | 0.13 | 2  | 550 | 0.24 |
+| 12 | 0.36 | 3  | 510 | 0.48 |
+| 15 | 0.63 | 4  | 510 | 0.69 |
+| 25 | 1.5  | 11 | 500 | 0.77 |
+| 30 | 1.9  | 14 | 600 | 1.1  |
+| 35 | 2.9  | 19 | 540 | 1.3  |
+
+```{r relativeSpecificity, exercise = TRUE, exercise.eval = FALSE}
+
+T <- c(7, 12, 15, 25, 30, 35)
+Vc <- c(0.13, 0.36, 0.63, 1.5, 1.9, 2.9)
+Kc <- c(2, 3, 4, 11, 14, 19)
+Ko <- c(550, 510, 510, 500, 600, 540)
+Vo <- c(0.24, 0.48, 0.69, 0.77, 1.1, 1.3)
+
+# relative specificity of Rubisco activity for CO2 vs O2: 
+Srel <- ___
+
+plot(x = ___, y = ___, xlab = "Temperature (Celsius)", ylab =  "Relative Specificity (-)", type = "l")
+```
+
+```{r relativeSpecificity-solution}
+# inputs:
+T <- c(7, 12, 15, 25, 30, 35)
+Vc <- c(0.13, 0.36, 0.63, 1.5, 1.9, 2.9)
+Kc <- c(2, 3, 4, 11, 14, 19)
+Ko <- c(550, 510, 510, 500, 600, 540)
+Vo <- c(0.24, 0.48, 0.69, 0.77, 1.1, 1.3)
+
+# relative specificity of Rubisco activity for CO2 vs O2: 
+Srel <- (Vc * Ko) / (Vo * Kc)
+
+plot(x = T, y = Srel, xlab = "Temperature (Celsius)", ylab =  "Relative Specificity (-)", type = "l")
+
+```
+
+```{r relativeSpecificityQuestion, echo=FALSE}
+question("Why does the relative specificity of Rubisco activity for CO2 vs O2 decrease with increasing temperature? (select all that apply)",
+answer("The figure above suggests that an increase in temperature favors carboxylation"),
+answer("The figure above suggests that an increase in temperature favors oxygenation", correct = TRUE),
+answer("The relative sepcificity decreases with temperature because the Michaelis-Menten coefficient for carboxylation increases more strongly compared to the Michaelis-Menten coefficient for oxygenation", correct = TRUE),
+answer("The relative sepcificity decreases with temperature because the Michaelis-Menten coefficient for carboxylation increases less strongly compared to the Michaelis-Menten coefficient for oxygenation"),
+  allow_retry = TRUE
+)
+```
+
+Sort the terms below in the order they appear in the text. For instance, the first term that should be moved to the top of the list is the word that corresponds to the first placeholder in the text.
+
+```{r oxygenation, echo = FALSE}
+
+terms <- c(
+  "RuBP",
+  "CO2",
+  "O2",
+  "carboxylation",
+  "Rubisco activase")
+rank_terms <- sortable::question_rank(
+  "Oxygenation is an unintended consequence of creating a reactive form of (1). However, the catalytic affinity for (2) exceeds that for (3). The maximum rate of oxygenation is about 25 the maximum rate of (4). The conversion from the inactive to the active state is regulated by the enzyme (5).",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+### Respiration, C~4~ photosynthesis
+
+```{r respirationBasics, echo=FALSE}
+question_radio(
+  "What is the difference between photorespiration and dark respiration?",
+  answer("Photorespiration is respiration during daylight, while dark respiration is respiration during the night."),
+  answer("Photorespiration recovers carbon that would otherwise be lost in the process of oxygenation. Dark respiration, on the other hand, is plant respiration not related to photorespiration", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Take pen and paper and make a drawing of how the individual carbon atoms convert from RuBP to PGA, PGL, and CO2 during photorespiration. Once you are done, explain your drawing to your neighbor. Use your drawing to find the answer to the question below. 
+
+```{r PGA01, echo=FALSE}
+question_numeric("How many PGA molecules are produced during the assimilation of 2 O2 molecules?",
+answer("3", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Sort the terms below in the order they appear in the text. For instance, the first term that should be moved to the top of the list is the word that corresponds to the first placeholder in the text.
+
+```{r PEP, echo = FALSE}
+
+terms <- c(
+  "PEP carboxylase",
+  "mesophyll",
+  "bundle-sheath",
+  "decarboxylated",
+  "CO2",
+  "RPP pathway")
+rank_terms <- sortable::question_rank(
+  "Phosphoenolpyruvate (PEP) is carboxylated by (1) in (2) cells to produce four-carbon organic acids. These organic acids are transported to (3) cells where they are (4). The released (5) then enters the (6) to produce sugars.",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+    allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r C4plants, echo=FALSE}
+question_radio(
+  "What is the advantage of using PEP carboxylase rather than Rubisco?",
+  answer("PEP carboxylase has a higher tendency for binding O2, which avoids photorespiration in C4 plants"),
+  answer("PEP carboxylase has no tendency to bind O2, which avoids photorespiration in C3 plants"),
+  answer("PEP carboxylase has no tendency to bind O2, which avoids photorespiration in C4 plants", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+

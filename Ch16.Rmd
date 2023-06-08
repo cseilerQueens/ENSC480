@@ -1,0 +1,242 @@
+## Soil fluxes
+
+### Decomposition of soil organic matter
+
+```{r carbonPoolSizes, echo = FALSE}
+
+terms <- c(
+  "Dissolved inorganic carbon in the ocean", 
+  "Soils", 
+  "Permafrost",
+  "Fossil fuel reserves",
+  "Atmosphere", 
+  "Organic carbon in the ocean",
+  "Vegetation")
+
+rank_terms <- sortable::question_rank(
+  "Sort the following carbon pools with respect to their size in decreasing order",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r carbonFluxSizes, echo = FALSE}
+
+terms <- c(
+  "Fossil fuel emissions", 
+  "Land uptake", 
+  "Ocean uptake",
+  "Land use change",
+  "Volcanic emissions")
+
+rank_terms <- sortable::question_rank(
+  "Sort the following carbon fluxes with respect to their size in decreasing order",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r mineralization, echo=FALSE}
+question_radio(
+  "The conversion of inorganic nutrients to organic compounds is called:",
+  answer("Mineralization"),
+  answer("Immobilization", correct = TRUE)
+)
+```
+
+```{r respiration, echo=FALSE}
+question("Which of the following sources of CO2 fluxes contribute to rhizospheric respiration? (Select all that apply)",
+answer("Root respiration", correct = TRUE),
+answer("Microbial rhizosphere respiration", correct = TRUE),
+answer("Microbial SOM substrate respiration"),
+  allow_retry = TRUE
+)
+```
+
+```{r residenceTime, echo=FALSE}
+question_radio(
+  "Which of the two processes below do you expect to have a longer residence time?",
+  answer("Rhizospheric respiration"),
+  answer("Decomposition respiration", correct = TRUE)
+)
+```
+
+```{r soilPools, echo = FALSE}
+
+terms <- c(
+  "disaccharides, simple sugars, amino acids, and short peptides", 
+  "cellulose and hemicellulose", 
+  "lignin and lignocelluloses")
+
+rank_terms <- sortable::question_rank(
+  "Sort the compounds listed below in the order of their corresponding pools: active pool, slow pool, passive pool",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+Consider a sample of litter that consists of proteins, cellulose/hemicellulose, and lignin, with turnover coefficients of $k_1 = 0.1$, $k_2 = 0.05$, and $k_3 = 0.025$ day^-1^, respectively. Make a figure that shows how the remaining litter fractions change within one year time.
+
+```{r decay01, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r, decay01-solution}
+
+# inputs
+
+k <- c(0.1, 0.05, 0.025) # turnover coefficients
+t <- seq(0, 365, 1) # time in days
+
+# Equation Eq. 16.9, p.392
+my.fun <- function(t, k){
+
+  frac <- exp(-k * t) 
+
+}
+
+data <- outer(t, k, my.fun)
+
+my.xlab <- "Time (days)"
+my.ylab <- "Remaining fraction (-)"
+
+my.col <- viridis::plasma(n = ncol(data),  begin = 0, end = 0.75)
+
+par(mar = c(5,5,1,1))
+matplot(x = t, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab, las = 1)
+
+legend.text <- paste("k = ", k, "(-)", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+Consider a sample of litter that consists of cellulose with turnover coefficients of $k = 0.02$. The decomposition of the cellulose can be estimated using a $Q_{10}$ function:
+
+$$ \frac{dc}{dt} = -k \times f_{15}(Q_{10}) \times c$$
+$$f_{15}(Q_{10}) = Q_{10}^{(0.1(Tc-15))}$$
+
+Make a figure that shows how the remaining cellulose fraction changes within one year time for different annual mean temperatures (ranging from 0 to 30 degrees C) and a $Q_{10}$ value of 2.
+
+```{r decay02, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+
+
+```{r, decay02-solution}
+
+# inputs
+k <- 0.02 # turnover coefficient (-)
+Q_10 <- 2 # Q10 value (-)
+Tc <- seq(0, 30, 5) # temperature (C)
+t <- seq(0, 365, 1) # time in days
+
+# Equation Eq. 16.9, p.392
+my.fun <- function(t, Tc){
+
+  f_15 <- Q_10^(0.1 * (Tc - 15))
+  frac <- exp(-k * f_15 * t) 
+
+}
+
+data <- outer(t, Tc, my.fun)
+
+my.xlab <- "Time (days)"
+my.ylab <- "Remaining fraction (-)"
+
+my.col <- viridis::plasma(n = ncol(data),  begin = 0, end = 0.75)
+
+par(mar = c(5,5,1,1))
+matplot(x = t, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab, las = 1)
+
+legend.text <- paste("T = ", Tc, "(C)", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+Turn to your neighbor and discuss the implications of your Figure above for climate change.
+
+### Methane and Nitrogen oxides emissions from soils
+
+Turn to your neighbor and discuss why methanogenesis would not prevail under aerobic conditions.
+
+
+```{tikz, Ncycle, fig.ext = 'png', cache=TRUE}
+\usetikzlibrary{arrows}
+\begin{tikzpicture}[node distance=1.0cm, scale = 1.0]
+\node (12) at (2, 2) {N$_2$ (or N$_2$O)};
+\node (3) at (4, 0) {NO$_2^-$/NO$_3^{-}$};
+\node (6) at (2, -2) {\color{white}, Organic N};
+\node (9) at (0, 0) {\color{white}, NH$_3$/NH$_4^+$};
+\node (6b) at (1.8, -2) {Organic N};
+\node (9b) at (-0.2, 0) {NH$_3$/NH$_4^+$};
+% arrows
+\draw [->] (12) -- (9) node[midway, anchor=south]{1};
+\draw [->] (9) -- (6) node[midway, anchor=south]{2};
+\draw [->] (9) -- (3) node[midway, anchor=south]{3};
+\draw [->] (3) -- (6) node[midway, anchor=south]{4};
+\draw [->] (6b) -- (9b) node[midway, anchor=north]{5};
+\draw [->] (3) -- (12) node[midway, anchor=south]{6};
+\end{tikzpicture}
+```
+
+```{r NcycleSort, echo = FALSE}
+
+terms <- c(
+"Nitrogen fixation",
+"Ammonia assimilation",
+"Nitrification",
+"Assimilatory nitrate reduction",
+"Ammonification",
+"Denitrification")
+
+rank_terms <- sortable::question_rank(
+  "Sort the following terms in the order of arrows depicted in the Figure above",
+  learnr::answer(terms, correct = TRUE),
+  learnr::answer(rev(terms), correct = FALSE, "Other direction!"),
+  allow_retry = TRUE
+)
+rank_terms
+```
+
+```{r NcycleEnergy, echo=FALSE}
+question("Which of the following processes represent a source of energy? (Select all that apply)",
+answer("Nitrogen fixation"),
+answer("Ammonia assimilation"),
+answer("Nitrification", correct = TRUE),
+answer("Assimilatory nitrate reduction"),
+answer("Ammonification", correct = TRUE),
+answer("Denitrification", correct = TRUE),
+  allow_retry = TRUE
+)
+
+```{r NcycleAerobic, echo=FALSE}
+question("Which of the following processes require aerobic conditions? (Select all that apply)",
+answer("Nitrogen fixation"),
+answer("Ammonia assimilation"),
+answer("Nitrification", correct = TRUE),
+answer("Assimilatory nitrate reduction"),
+answer("Ammonification", correct = TRUE),
+answer("Denitrification"),
+  allow_retry = TRUE
+)
+
+```{r NcycleAnaerobic, echo=FALSE}
+question("Which of the following processes require anaerobic conditions? (Select all that apply)",
+answer("Nitrogen fixation", correct = TRUE),
+answer("Ammonia assimilation"),
+answer("Nitrification"),
+answer("Assimilatory nitrate reduction"),
+answer("Ammonification"),
+answer("Denitrification", correct = TRUE),
+  allow_retry = TRUE
+)
+

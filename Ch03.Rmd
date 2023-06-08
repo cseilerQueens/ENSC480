@@ -1,0 +1,476 @@
+
+## Chemical Reactions
+### Reaction kinetics
+Consider the following reaction: $$v=k[A][B][C]^2$$
+```{r reactionOrder, echo=FALSE}
+question_numeric("What is the corresponding reaction order?",
+answer("4", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r reactionRate, echo=FALSE}
+question_text("Which variable represents the reaction rate?",
+answer("v", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r reactionConstantUnit, echo=FALSE}
+question_radio("What is the unit of the reaction rate constant?",
+answer("mol^3^ l^-3^ s^-1^"),
+answer("mol^3^ l^-3^ s^1^"),
+answer("mol^-3^ l^3^ s^-1^", correct = TRUE),
+answer("mol^-4^ l^-4^ s^-1^"),
+  allow_retry = TRUE
+)
+```
+
+```{r ChemicalEquilibrium, echo=FALSE}
+question("Which of the following statements on chemical equilibrium are true? (select all that apply)",
+
+answer("The concentrations of reactants and products are equal"),
+
+answer("The concentrations of reactants and products are constant because forward and backward reactions stop"),
+
+answer("The concentrations of reactants and products are constant because forward and backward reaction rates are equal", correct = TRUE),
+
+answer("Reversible reactions continue until all reactants convert to products"),
+
+answer("Reversible reactions always tend to come to equilibrium", correct = TRUE),
+
+answer("When the system is at equilibrium, the amount of products and the reactants have not to be necessarily equal", correct = TRUE),
+
+answer("The reaction rate konstants of the forward and backward reactions are equal"),
+
+answer("The reaction rates of the forward and backward reactions are equal", correct = TRUE),
+
+allow_retry = TRUE
+)
+```
+
+```{r equilibriumConstant, echo=FALSE}
+question("What are the implications if the equilibrium constant is greater than one? (select all that apply)",
+
+answer("The products are in greater concentration than the reactants at equilibrium and the reaction tends to go to completion", correct = TRUE),
+
+answer("The reactants are in greater concentration than the products at equilibrium and the reaction tends to go to completion"),
+
+answer("The equilibrium constant never exceeds a value of one"),
+
+allow_retry = TRUE
+)
+```
+
+Consider the reaction: $$ CO_2+H_2\underset{\text{k$_2$}}{\overset{\text{k$_1$}}{\rightleftarrows}}CO+H_2O $$
+Calculate the value of the equilibrium constant for the system shown for 0.0954 moles/l of CO$_2$, 0.0454 moles/l of H$_2$, 0.0046 moles/l of CO, and 0.0046 moles/l of H$_2$O.
+
+```{r equilibriumConstantExample, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r equilibriumConstantExample-solution}
+CO2 <- 0.0954
+H2 <- 0.0454
+CO <- 0.0046
+H2O <- 0.0046
+Ke <- CO2 * H2 / (CO / H2)
+print(Ke)
+
+```
+
+```{r equilibriumConstantExample-check}
+grade_result(
+  pass_if(~identical(round(.result, 4), 0.0427))
+)
+```
+
+### The energetics of chemical reactions
+
+Show how the fraction of nitrogen gas molecules of a given speed changes when the temperature increases from 300 to 500 K. Recall that the Maxwell-Boltzmann energy distribution is given as:
+
+$$ F_c(c) = 4 \pi c^2 \left( \frac{m}{2 \pi k_B T} \right)^{\frac{3}{2}} \exp{\frac{-m c^2}{2 k_B T}} $$ Where $c$ is the speed of a molecule (m s$^{-1}$), $m$ is the mass of a single molecule (kg) and $k_B$ is the Boltzmann constant ($k_B = 1.38 \times 10^{-23}$ J K$^{-1}$)
+
+```{r MaxwellBoltzmann, exercise = TRUE, exercise.eval = FALSE}
+# constants
+Avogadro <- 6.02 * 10^(23) # particles per mol 
+kB <- 1.38 * 10^(-23) # Boltzmann constant (J/K)
+
+# inputs
+molarMass <- ___ # molar mass of N2 in g/mol
+T <- ___ # temperature in K
+c <- ___ # speed in m/s
+m <- ___ # mass of a N2 molecule in kg
+
+my.fun <- function(c, T){
+
+# Fraction of molecules with a given speed  
+y <- ___
+  return(y)
+}
+
+data <- outer(c, T, my.fun)
+
+my.xlab <- "Molecular speed $c$ in m s$^{-1}$"
+my.ylab <- "Fraction of molecules (-)"
+my.xlab <- latex2exp::TeX(my.xlab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = ___, y = ___, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("T =", T, "K", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+```
+
+```{r MaxwellBoltzmann-solution}
+# constants
+Avogadro <- 6.02 * 10^(23) # particles per mol 
+kB <- 1.38 * 10^(-23) # Boltzmann constant (J/K)
+
+# inputs
+molarMass <- 28.014 # molar mass of N2 in g/mol
+T <- seq(300, 500, 100) # temperature in K
+c <- seq(1, 1501, 10) # speed in m/s
+m <- molarMass / Avogadro / 1000 # mass of a N2 molecule in kg
+
+my.fun <- function(c, T){
+# Fraction of molecules with a given speed  
+y <- 4 * pi * c^2 * (m / (2 * pi * kB * T))^(3/2) * exp( -1 * m * c^2 / (2 * kB * T))
+  return(y)
+}
+
+data <- outer(c, T, my.fun)
+
+my.xlab <- "Molecular speed $c$ in m s$^{-1}$"
+my.ylab <- "Fraction of molecules (-)"
+my.xlab <- latex2exp::TeX(my.xlab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = c, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("T =", T, "K", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+
+Make a similar Figure as the one above, except that you express the fraction of molecules at a given speed as a function of their kinetic energy.
+```{r kineticEnergy, exercise = TRUE, exercise.eval = FALSE}
+
+```
+
+```{r kineticEnergy-solution}
+# constants
+Avogadro <- 6.02 * 10^(23) # particles per mol 
+kB <- 1.38 * 10^(-23) # Boltzmann constant (J/K)
+
+# inputs
+molarMass <- 28.014 # molar mass of N2 in g/mol
+T <- seq(300, 500, 100) # temperature in K
+c <- seq(1, 1501, 10) # speed in m/s
+m <- molarMass / Avogadro / 1000 # mass of a N2 molecule in kg
+kineticEnergy <- 0.5 * m * c^2 # kinetic energy
+
+my.fun <- function(c, T){
+
+# Fraction of molecules with a given speed  
+y <- 4 * pi * c^2 * (m / (2 * pi * kB * T))^(3/2) * exp( -1 * m * c^2 / (2 * kB * T))
+  return(y)
+}
+
+data <- outer(c, T, my.fun)
+
+my.xlab <- "Kinetic Energy $E$ (J)"
+my.ylab <- "Fraction of molecules (-)"
+my.xlab <- latex2exp::TeX(my.xlab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = kineticEnergy, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("T =", T, "K", sep = " ")
+legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+For the figure above, will the majority of nitrogen gas molecules exceed an activation energy of $3 \times 10^{-20}$?
+
+```{r activationEnergy, echo=FALSE}
+question_radio(
+  "According to the figure above, will the majority of nitrogen gas molecules exceed an activation energy of 3 x 10^(-20) J?",
+  answer("Yes"),
+  answer("No", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+Make a Figure that shows how the rate constant $k$ varies with temperature for different values of activation energy. Allow temperatures to vary between 270K and 320K and activation energy to range from 50 to 55 kJ mol^-1^. Assume a frequency factor of $C = 10^{10}$ mol$^{-1}$ l s$^{-1}$.
+
+```{r Arrhenius, exercise = TRUE, exercise.eval = FALSE}
+# constants
+R <- 8.314 # universal gas constant in J mol-1 K-1 
+
+# variables
+Ea <- ___ # activation energy in kJ/mol
+T <- ___ # temperature in K
+C <- ___ # frequency factor
+
+my.fun <- function(T, Ea){
+y <- ___ # Arrhenius equation
+return(y)
+}
+
+data <- outer(___)
+
+my.xlab <- "Temperature (K)"
+my.ylab <- "Reaction rate constant k (mol$^{-1}$ l s$^{-1}$)"
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = T, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("Ea =", Ea, "kJ/mol", sep = " ")
+legend("topleft", legend = legend.text, pch = 16, col = my.col, bty = "n")
+```
+
+```{r Arrhenius-solution}
+# constants
+R <- 8.314 # universal gas constant in J mol-1 K-1 
+
+# variables
+Ea <- seq(50, 55, 1) # activation energy in kJ/mol
+T <- seq(270, 320, 1) # temperature in K
+C <- 10^10 # frequency factor
+
+my.fun <- function(T, Ea){
+y <- C * exp(-1 * Ea * 1000 / (R * T)) # Arrhenius equation
+return(y)
+}
+
+data <- outer(T, Ea, my.fun)
+
+my.xlab <- "Temperature (K)"
+my.ylab <- "Reaction rate constant k (mol$^{-1}$ l s$^{-1}$)"
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = T, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("Ea =", Ea, "kJ/mol", sep = " ")
+legend("topleft", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r ArrheniusQuestion, echo=FALSE}
+question_radio("How does the reaction rate constant change with temperature and activation energy?",
+answer("The reaction rate constant increases with increasing temperature and increasing activation energy"),
+answer("The reaction rate constant increases with increasing temperature and decreasing activation energy", correct = TRUE),
+answer("The reaction rate constant is constant and does therefore not depend on temperature or activation energy"),
+  allow_retry = TRUE
+)
+```
+
+The $Q_{10}$ model is defined as: $$Q_{10}=\left(\frac{k_{T2}}{k_{T1}}\right)^{\frac{10}{T_2-T_1}}$$
+Make a Figure that shows how the ratio of $k_{T2}$ and $k_{T1}$ changes with temperatures ranging from 270K to 320K. At what temperature does the ratio equal 2?
+```{r Q10model, exercise = TRUE, exercise.eval = FALSE}
+# constants 
+R <- 8.314 # universal gas constant in J mol-1 K-1 
+
+# variables
+Ea <- ___ # activation energy in kJ/mol
+T1 <- ___ # temperature in K
+T2 <- ___ # temperature in K
+C <- ___
+
+k1 <- ___
+k2 <-___
+
+my.xlab <-  latex2exp::TeX("Temperature T$_1$ (K)")
+my.ylab <- latex2exp::TeX("$k_2 / k_1$")
+
+plot(___, ___, type = "l", xlab = my.xlab, ylab = my.ylab,
+     tcl = 0.3)
+
+abline(h = 2, lty = 3)
+abline(v = 290, lty = 3)
+
+```
+
+```{r Q10model-solution}
+# constants 
+R <- 8.314 # universal gas constant in J mol-1 K-1 
+
+# variables
+Ea <- 50 # activation energy in kJ/mol
+T1 <- seq(270, 320, 1) # temperature in K
+T2 <- T1 + 10
+
+C <- 1
+
+k1 <- C * exp(-1 * Ea * 1000 / (R * T1))
+k2 <- C * exp(-1 * Ea * 1000 / (R * T2))
+
+my.xlab <-  latex2exp::TeX("Temperature T$_1$ (K)")
+my.ylab <- latex2exp::TeX("$k_2 / k_1$")
+
+plot(T1, k2/k1, type = "l", xlab = my.xlab, ylab = my.ylab,
+     tcl = 0.3)
+
+abline(h = 2, lty = 3)
+abline(v = 290, lty = 3)
+
+```
+
+### Redox reaction
+
+Consider the following redox reaction: $$ SO_3^{2-} + MnO_4^- \rightarrow SO_4^{2-}+Mn^{2+}$$
+
+```{r redoxReaction_Mn, echo=FALSE}
+question_numeric("By how much does the oxidation number of Manganese change?",
+answer("-5", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r redoxReaction_S, echo=FALSE}
+question_numeric("By how much does the oxidation number of Sulfure change?",
+answer("2", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+```{r redoxReaction, echo=FALSE}
+question("Which of the following statements apply to the figure above? (select all that apply)",
+  answer("Manganese is being reduced", correct = TRUE),
+  answer("Manganese is being oxidized"),
+  
+  answer("Sulfure is being reduced"),
+  answer("Sulfure is being oxidizd", correct = TRUE),
+  
+  answer("Manganese accepts electrons", correct = TRUE),
+  answer("Manganese donates electrons"),
+  
+  answer("Sulfure donates electrons", correct = TRUE),
+  answer("Sulfure accepts electrons"),
+
+  allow_retry = TRUE
+)
+``` 
+
+Consider the following redox couples and their corresponding standard reduction potentials ($E^o$):
+$$Cu^{2+} + 2e^- \rightarrow Cu; E^o = +0.340V$$
+$$Zn^{2+} + 2e^- \rightarrow Zn; E^o = -0.763V$$
+```{r redoxPotentials, echo=FALSE}
+question_radio("Which of these two redox couples is a better electron donor?",
+answer("Cu2+"),
+answer("Zn2+", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+### Enzyme catalysis
+
+Create a Figure that shows how the reaction rate varies with substrate concetration (ranging from 0 to 5000 $\mu$mol/l) for various Michaelis constants (ranging from 500 to 1000). Assume a maximum reaction rate of 50 x 10$^{-6}$ mol l$^{-1}$ s$^{-1}$. 
+
+```{r MichaelisMenten, exercise = TRUE, exercise.eval = FALSE}
+
+# inputs
+Vmax <- ___ # maximum reaction rate (x 10^-6 mol l-1 s-1)
+Km <- ___ # equillibrium constant
+S <- ___ # substrate in micro mol/l
+
+my.fun <- function(S, Km){
+  y <- ___ # reaction rate
+  return(y)
+}
+
+  myColName <- paste("K_m = ",Km," (10$^{-6}$ mol l$^{-1}$)", sep = "")
+  
+data <- outer(S, Km, my.fun)
+
+my.xlab <- "Substrate concentration S (10$^{-6}$ mol l$^{-1}$)"
+my.ylab <- "Reaction rate v (10$^{-6}$ mol l$^{-1}$ s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = S, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("K$_m$ = ",Km," (10$^{-6}$ mol l$^{-1}$)", sep = "")
+legend.text <- latex2exp::TeX(legend.text)
+
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r MichaelisMenten-solution}
+
+# inputs
+Vmax <- 50 # maximum reaction rate (x 10^-6 mol l-1 s-1)
+Km <- seq(500, 1000, 250)
+S <- seq(0, 5000, 10) # substrate in micro mol/l
+
+my.fun <- function(S, Km){
+  y <- Vmax * S / (Km + S) # reaction rate
+  return(y)
+}
+
+  myColName <- paste("K_m = ",Km," (10$^{-6}$ mol l$^{-1}$)", sep = "")
+  
+data <- outer(S, Km, my.fun)
+
+my.xlab <- "Substrate concentration S (10$^{-6}$ mol l$^{-1}$)"
+my.ylab <- "Reaction rate v (10$^{-6}$ mol l$^{-1}$ s$^{-1}$)"
+
+my.xlab <- latex2exp::TeX(my.xlab)
+my.ylab <- latex2exp::TeX(my.ylab)
+
+my.col <- viridis::plasma(n = ncol(data))
+
+matplot(x = S, y = data, type = "l", lty = 1, col = my.col,
+        xlab = my.xlab, ylab = my.ylab)
+
+legend.text <- paste("K$_m$ = ",Km," (10$^{-6}$ mol l$^{-1}$)", sep = "")
+legend.text <- latex2exp::TeX(legend.text)
+
+legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
+
+```
+
+```{r MichaelisMenten_firstOrderKinetics, echo=FALSE}
+question_radio("When is the reaction rate approximately first-order kintics?",
+answer("When [S] >> Km"),
+answer("When [S] << Km", correct = TRUE),
+answer("When [S] = Km"),
+  allow_retry = TRUE
+)
+```
+
+```{r MichaelisMenten_zeroOrderKinetics, echo=FALSE}
+question_radio("When is the reaction rate approximately zero-order kintics?",
+answer("When [S] >> Km", correct = TRUE),
+answer("When [S] << Km"),
+answer("When [S] = Km"),
+  allow_retry = TRUE
+)
+```
+
+```{r MichaelisMenten_Km, echo=FALSE}
+question("Which of the following statements are correct? (select all that apply)",
+  answer("The lesser the value of Km, the tighter the association between enzyme and substrate", correct = TRUE),
+  answer("The larger the value of Km, the tighter the association between enzyme and substrate"),
+  answer("Km is the substrate concentration that yields half Vmax", correct = TRUE),
+  allow_retry = TRUE
+)
+``` 
