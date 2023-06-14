@@ -1,0 +1,112 @@
+## Land-Atmosphere Interactions
+
+Welcome to Land-Atmosphere Interactions - ENSC 480. In the last two decades, about one-third of all anthropogenic CO$_2$ emissions have been absorbed by the terrestrial biosphere. Understanding the processes that control this carbon uptake is key for projecting how the atmospheric CO$_2$ concentration will evolve. The goal of this course is to foster an interdisciplinary understanding of land-atmosphere interactions while acquiring the necessary technical skills for conducting terrestrial carbon cycle research. For more information, please download the [syllabus](https://drive.google.com/file/d/1fjG57OMyd6dRqzmcTs0SW_H9_DuiOdeA/view?usp=sharing), explore the [tutorials](https://seiler-queensu.shinyapps.io/tutorial-ENSC480/), and have a look at the slides that can be downloaded from the links in the table below.
+
+### Schedule and slides
+
+|Week | Date | Topic | Read | Key concepts | 
+|:----|:-----|:------|:-----|:-------------|
+|1 | Tue, Sep 5 | [Introduction](https://drive.google.com/file/d/16nVrFcM3GKT59az0qmhhcDt0NLoBBt06/view?usp=sharing) | Ch. 1 | CO$_2$ fertilization effect|
+|2 | Tue, Sep 12 | [Thermodynamics](https://drive.google.com/file/d/1IazgectFdIEjo9DK4Y6WzzajENIkCOHY/view?usp=drive_link) | Ch. 2 | Entropy, Gibbs free energy, water potential|
+|3 | Tue, Sep 19 | [Chemical reactions](https://drive.google.com/file/d/1AReRryZzr1Y-XKd5qWmrxeA1ZWedqEDE/view?usp=drive_link) | Ch. 3  | Michaelis-Menten model of enzyme kinetics |
+|4 | Tue, Sep 26 | [Control over metabolic fluxes](https://drive.google.com/file/d/16vJCJ9DyItyqPdpn8YCPuHGgeVGN7Icm/view?usp=drive_link) | Ch. 4  | Photosynthesis and respiration |
+|5 | Tue, Oct 3 | [Modeling the metabolic CO$_2$ flux](https://drive.google.com/file/d/1to-gE2_Vis-NmW8kEd4mRopRg4MU4G2r/view?usp=drive_link) | Ch. 5  | The Farquhar photosynthesis scheme |
+|6 | Tue, Oct 10 | Reading week  |  - | - |
+|7 | Tue, Oct 17 | Mid-term exam | - |  - |
+|8 | Tue, Oct 24 | [Molecular diffusion](https://drive.google.com/file/d/1SA2_cV3DQUcz95U-Z9DaEwNq9Td1207u/view?usp=drive_link) | Ch. 6  | Fick's first law |
+|9 | Tue, Oct 31 | [Boundary layer and stomatal control](https://drive.google.com/file/d/14dT97jGSXacuVUpW5kjt7RQS9krP_wl8/view?usp=drive_link) | Ch. 7  | Modeling stomatal conductance |
+|10 | Tue, Nov 7|  [Water transport](https://drive.google.com/file/d/1Ae4fNXvGd5BPnO_5f19iYuHikjFM2bak/view?usp=drive_link) | Ch. 9  | Richard's equation, hydraulic conductivity |
+|11 | Tue, Nov 14 | [Energy budgets](https://drive.google.com/file/d/1tB0IhhynTBAVbCaD4s15lAql56Vsbpl5/view?usp=drive_link) | Ch. 10  | Penman-Monteith equation |
+|12 | Tue, Nov 21 | [Canopy structure and radiative transfer](https://drive.google.com/file/d/1o0O3fXw8P3kUClwS-keuj2GottST11xr/view?usp=drive_link) | Ch. 11  | Beer's law |
+|13 | Tue, Nov 28 | [Turbulent fluxes](https://drive.google.com/file/d/1NG5BS0wSD6rShNjNXk8N_CBWUTHod7Jq/view?usp=drive_link) | Ch. 12-14  | Aerodynamic conductance |
+|14 | Tue, Dec 5 | [Soil fluxes of carbon and nitrogen](https://drive.google.com/file/d/1Sjghg9tcvYSLHraPDN8eZanvNBryOe2b/view?usp=drive_link) | Ch. 16  | Litter decomposition kinetics |
+
+### Instructions
+
+Please bring your laptop to class in order to work on the tutorials. To set up your computer, please follow the steps below.
+
+#### Tutorials
+
+You can explore an on-line version of the tutorials [here](https://seiler-queensu.shinyapps.io/tutorial-ENSC480/). This on-line version is for demonstration purposes only. To access the tutorials in class, please follow the steps below.
+
+* Install R from [here](https://posit.co/download/rstudio-desktop/)
+* Install RStudio from [here](https://posit.co/download/rstudio-desktop/)
+* Start RStudio and install the following packages by typing the lines below into the RStudio console:
+
+```{r, echo = TRUE, eval=FALSE}
+install.packages("learnr")
+install.packages("gradethis")
+install.packages("shiny")
+install.packages("latex2exp")
+install.packages("viridis")
+install.packages("magick")
+install.packages("pdftools")
+install.packages("latex2exp")
+install.packages("plantecophys")
+```
+
+* Go to the [ENSC 480 tutorial repository](https://github.com/cseilerQueens/ENSC480)
+* Click on the green "code" button and then hit the "Download ZIP" button. This will download the tutorial into your download folder
+* Go to your download folder and move the downloaded zip file to your folder of choice
+* Unzip the file and open "tutorial.Rmd" file in RStudio
+* Hit the "Run Document" button
+* If all went well, a new window opens with your tutorial
+
+#### Accessing a Digital Research Alliance high performance computer
+
+You will run numerical experiments using the Canadian Land Surface Scheme Including Biogeochemical Cycles ([CLASSIC](https://cccma.gitlab.io/classic_pages/)). The model is compiled on the Centre for Advanced Computing - Queen's University cluster. To access the cluster, follow the instructions below: 
+
+* Generate a [public/private rsa key pair](https://docs.alliancecan.ca/wiki/SSH_Keys). To do this, open a terminal (Power shell in windows), type "ssh-keygen" and follow the prompts, e.g.
+
+```{r, echo = TRUE, eval=FALSE}
+PS C:\Users\seile> ssh-keygen
+Enter file in which to save the key (C:\Users\seile/.ssh/id_rsa):
+Created directory 'C:\\Users\\seile/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in C:\Users\seile/.ssh/id_rsa
+Your public key has been saved in C:\Users\seile/.ssh/id_rsa.pub
+```
+
+* Go into your .ssh folder and get the public key from your local machine
+
+```{r, echo = TRUE, eval=FALSE}
+PS C:\Users\seile\> cd .ssh
+PS C:\Users\seile\.ssh> ls
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        2023-03-22   8:29 PM           2610 id_rsa
+-a----        2023-03-22   8:29 PM            576 id_rsa.pub
+
+PS C:\Users\seile\.ssh> cat .\id_rsa.pub
+ssh-rsa AAAAB3Nza (...)
+```
+
+* Go to [Digital Research Alliance of Canada log in site](https://code.visualstudio.com/download)
+* Log in
+* Copy-paste the content of your SSH public key from local machine to CCDB
+* You should now be able to access different HPCs. To test this, type: 
+
+```{r, echo = TRUE, eval=FALSE}
+ssh -Y yourUserName@beluga.computecanada.ca
+```
+
+* Install Visual Studio Code from [here](https://code.visualstudio.com/download)
+* In VS code, install the extensions Remote-SSH and Remote-Explorer
+* Add the SSH targets to your remote explorer
+
+```{r, echo = TRUE, eval=FALSE}
+C:\Users\cseil\.ssh config
+
+Host beluga
+    HostName beluga.computecanada.ca
+    User cseiler
+    IdentityFile ~/.ssh/id_rsa
+```
+
+* Install [File Zilla](https://filezilla-project.org/) 
+* Host: sftp://beluga.computecanada.ca 
+* Username: yourUserName 
+* Password: yourPasswors 
+* Port: 22
