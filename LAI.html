@@ -362,9 +362,9 @@ this course is to foster an interdisciplinary understanding of
 land-atmosphere interactions while acquiring the necessary technical
 skills for conducting terrestrial carbon cycle research. For more
 information, please download the <a href="https://drive.google.com/file/d/1fjG57OMyd6dRqzmcTs0SW_H9_DuiOdeA/view?usp=sharing">syllabus</a>,
-explore the <a href="https://seiler-queensu.shinyapps.io/tutorial-ENSC480/">tutorials</a>,
-and have a look at the slides that can be downloaded from the links in
-the table below.</p>
+explore the <a href="https://seiler-queensu.shinyapps.io/ENSC480/">tutorials</a>, and
+have a look at the slides that can be downloaded from the links in the
+table below.</p>
 <div id="schedule-and-slides" class="section level3">
 <h3>Schedule and slides</h3>
 <table>
@@ -503,8 +503,8 @@ fluxes of carbon and nitrogen</a></td>
 To set up your computer, please follow the steps below.</p>
 <div id="tutorials" class="section level4">
 <h4>Tutorials</h4>
-<p>You can explore an on-line version of the tutorials <a href="https://seiler-queensu.shinyapps.io/tutorial-ENSC480/">here</a>.
-This on-line version is for demonstration purposes only. To access the
+<p>You can explore an on-line version of the tutorials <a href="https://seiler-queensu.shinyapps.io/ENSC480/">here</a>. This
+on-line version is for demonstration purposes only. To access the
 tutorials in class, please follow the steps below.</p>
 <ul>
 <li>Install R from <a href="https://posit.co/download/rstudio-desktop/">here</a></li>
@@ -538,62 +538,7 @@ folder of choice</li>
 <p>You will run numerical experiments using the Canadian Land Surface
 Scheme Including Biogeochemical Cycles (<a href="https://cccma.gitlab.io/classic_pages/">CLASSIC</a>). The model is
 compiled on the Centre for Advanced Computing - Queen’s University
-cluster. To access the cluster, follow the instructions below:</p>
-<ul>
-<li>Generate a <a href="https://docs.alliancecan.ca/wiki/SSH_Keys">public/private rsa key
-pair</a>. To do this, open a terminal (Power shell in windows), type
-“ssh-keygen” and follow the prompts, e.g.</li>
-</ul>
-<pre class="r"><code>PS C:\Users\seile&gt; ssh-keygen
-Enter file in which to save the key (C:\Users\seile/.ssh/id_rsa):
-Created directory &#39;C:\\Users\\seile/.ssh&#39;.
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in C:\Users\seile/.ssh/id_rsa
-Your public key has been saved in C:\Users\seile/.ssh/id_rsa.pub</code></pre>
-<ul>
-<li>Go into your .ssh folder and get the public key from your local
-machine</li>
-</ul>
-<pre class="r"><code>PS C:\Users\seile\&gt; cd .ssh
-PS C:\Users\seile\.ssh&gt; ls
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        2023-03-22   8:29 PM           2610 id_rsa
--a----        2023-03-22   8:29 PM            576 id_rsa.pub
-
-PS C:\Users\seile\.ssh&gt; cat .\id_rsa.pub
-ssh-rsa AAAAB3Nza (...)</code></pre>
-<ul>
-<li>Go to <a href="https://code.visualstudio.com/download">Digital
-Research Alliance of Canada log in site</a></li>
-<li>Log in</li>
-<li>Copy-paste the content of your SSH public key from local machine to
-CCDB</li>
-<li>You should now be able to access different HPCs. To test this,
-type:</li>
-</ul>
-<pre class="r"><code>ssh -Y yourUserName@beluga.computecanada.ca</code></pre>
-<ul>
-<li>Install Visual Studio Code from <a href="https://code.visualstudio.com/download">here</a></li>
-<li>In VS code, install the extensions Remote-SSH and
-Remote-Explorer</li>
-<li>Add the SSH targets to your remote explorer</li>
-</ul>
-<pre class="r"><code>C:\Users\cseil\.ssh config
-
-Host beluga
-    HostName beluga.computecanada.ca
-    User cseiler
-    IdentityFile ~/.ssh/id_rsa</code></pre>
-<ul>
-<li>Install <a href="https://filezilla-project.org/">File Zilla</a></li>
-<li>Host: <a href="sftp://beluga.computecanada.ca" class="uri">sftp://beluga.computecanada.ca</a></li>
-<li>Username: yourUserName</li>
-<li>Password: yourPasswors</li>
-<li>Port: 22</li>
-</ul>
+cluster. Instructions for accessing the cluster will be posted soon.</p>
 </div>
 </div>
 </div>

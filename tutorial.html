@@ -111,7 +111,7 @@ if (window.hljs) {
 
 <div id="section-land-atmosphere-interactions" class="section level2">
 <h2>Land-Atmosphere Interactions</h2>
-<p>Welcome to Land-Atmosphere Interactions ENSC 480. In the last two
+<p>Welcome to Land-Atmosphere Interactions - ENSC 480. In the last two
 decades, about one-third of all anthropogenic CO<span
 class="math inline">\(_2\)</span> emissions have been absorbed by the
 terrestrial biosphere. Understanding the processes that control this
@@ -149,7 +149,8 @@ the table below.</p>
 <tr class="odd">
 <td align="left">1</td>
 <td align="left">Tue, Sep 5</td>
-<td align="left">Introduction</td>
+<td align="left"><a
+href="https://drive.google.com/file/d/16nVrFcM3GKT59az0qmhhcDt0NLoBBt06/view?usp=sharing">Introduction</a></td>
 <td align="left">Ch. 1</td>
 <td align="left">CO<span class="math inline">\(_2\)</span> fertilization
 effect</td>
@@ -316,65 +317,7 @@ class="section level4">
 Scheme Including Biogeochemical Cycles (<a
 href="https://cccma.gitlab.io/classic_pages/">CLASSIC</a>). The model is
 compiled on the Centre for Advanced Computing - Queen’s University
-cluster. To access the cluster, follow the instructions below:</p>
-<ul>
-<li>Generate a <a
-href="https://docs.alliancecan.ca/wiki/SSH_Keys">public/private rsa key
-pair</a>. To do this, open a terminal (Power shell in windows), type
-“ssh-keygen” and follow the prompts, e.g.</li>
-</ul>
-<pre class="r"><code>PS C:\Users\seile&gt; ssh-keygen
-Enter file in which to save the key (C:\Users\seile/.ssh/id_rsa):
-Created directory &#39;C:\\Users\\seile/.ssh&#39;.
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in C:\Users\seile/.ssh/id_rsa
-Your public key has been saved in C:\Users\seile/.ssh/id_rsa.pub</code></pre>
-<ul>
-<li>Go into your .ssh folder and get the public key from your local
-machine</li>
-</ul>
-<pre class="r"><code>PS C:\Users\seile\&gt; cd .ssh
-PS C:\Users\seile\.ssh&gt; ls
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        2023-03-22   8:29 PM           2610 id_rsa
--a----        2023-03-22   8:29 PM            576 id_rsa.pub
-
-PS C:\Users\seile\.ssh&gt; cat .\id_rsa.pub
-ssh-rsa AAAAB3Nza (...)</code></pre>
-<ul>
-<li>Go to <a href="https://code.visualstudio.com/download">Digital
-Research Alliance of Canada log in site</a></li>
-<li>Log in</li>
-<li>Copy-paste the content of your SSH public key from local machine to
-CCDB</li>
-<li>You should now be able to access different HPCs. To test this,
-type:</li>
-</ul>
-<pre class="r"><code>ssh -Y yourUserName@beluga.computecanada.ca</code></pre>
-<ul>
-<li>Install Visual Studio Code from <a
-href="https://code.visualstudio.com/download">here</a></li>
-<li>In VS code, install the extensions Remote-SSH and
-Remote-Explorer</li>
-<li>Add the SSH targets to your remote explorer</li>
-</ul>
-<pre class="r"><code>C:\Users\cseil\.ssh config
-
-Host beluga
-    HostName beluga.computecanada.ca
-    User cseiler
-    IdentityFile ~/.ssh/id_rsa</code></pre>
-<ul>
-<li>Install <a href="https://filezilla-project.org/">File Zilla</a></li>
-<li>Host: <a href="sftp://beluga.computecanada.ca"
-class="uri">sftp://beluga.computecanada.ca</a></li>
-<li>Username: yourUserName</li>
-<li>Password: yourPasswors</li>
-<li>Port: 22</li>
-</ul>
+cluster. Instructions for accessing the cluster will be posted soon.</p>
 </div>
 </div>
 </div>
@@ -4691,22 +4634,22 @@ session$onSessionEnded(function() {
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "entropyDef", question = structure("Which definition of entropy is correct?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_c4ee449", 
+"character")), answers = list(structure(list(id = "lnr_ans_8b045a6", 
     option = "Entropy is the total heat content of a system", 
     value = "Entropy is the total heat content of a system", 
     label = structure("Entropy is the total heat content of a system", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_20e97af", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a6e3505", 
     option = "Entropy is the maximum amount of energy that is available to do work", 
     value = "Entropy is the maximum amount of energy that is available to do work", 
     label = structure("Entropy is the maximum amount of energy that is available to do work", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_331effd", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_2f76f03", 
     option = "Entropy is a measure for the degree of disorder", 
     value = "Entropy is a measure for the degree of disorder", 
     label = structure("Entropy is a measure for the degree of disorder", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_1ce96aa", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_70d846f", 
     option = "Entropy is the free energy of each component of the system", 
     value = "Entropy is the free energy of each component of the system", 
     label = structure("Entropy is the free energy of each component of the system", html = TRUE, class = c("html", 
@@ -4718,7 +4661,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "entropyDef-answer", question = "entropyDef"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 434013795.797897, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 827096259.114853, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -4727,16 +4670,16 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "entropyChange", 
     question = structure("Which of the following statements is correct?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_812d068", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d764b20", 
         option = "The entropy of the universe is constant", value = "The entropy of the universe is constant", 
         label = structure("The entropy of the universe is constant", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f7d9961", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3811f62", 
         option = "The entropy of the universe decreases over time", 
         value = "The entropy of the universe decreases over time", 
         label = structure("The entropy of the universe decreases over time", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_264e128", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_735ce83", 
         option = "The entropy of the universe increases over time", 
         value = "The entropy of the universe increases over time", 
         label = structure("The entropy of the universe increases over time", html = TRUE, class = c("html", 
@@ -4749,17 +4692,17 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "entropyChange-answer", question = "entropyChange"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1918874165.60645, options = list()), class = c("learnr_radio", 
+    seed = 1987506295.5745, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "mostProbableOutcome", 
     question = structure("The most probable outcome is the macroscopic state with the greatest number of corresponding microscopic states", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_bc3322e", 
+    "character")), answers = list(structure(list(id = "lnr_ans_cfb52b5", 
         option = "TRUE", value = "TRUE", label = structure("TRUE", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3791d46", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8fb756c", 
         option = "FALSE", value = "FALSE", label = structure("FALSE", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -4770,7 +4713,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "mostProbableOutcome-answer", question = "mostProbableOutcome"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 845940929.106078, options = list()), class = c("learnr_radio", 
+    seed = 1294997838.89697, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5016,11 +4959,11 @@ learnr:::store_exercise_cache(structure(list(label = "meltingIce", global_setup 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label = "sortUnits", question = structure("Sort the units in the order of the following terms: power, energy, force, heat, pressure, work", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_ab0db7", 
+"character")), answers = list(structure(list(id = "lnr_ans_93fc2b7", 
     option = c("W", "J", "N", "J", "Pa", "J"), value = c("W", 
     "J", "N", "J", "Pa", "J"), label = structure("W\nJ\nN\nJ\nPa\nJ", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d4744", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d4c7518", 
     option = c("J", "Pa", "J", "N", "J", "W"), value = c("J", 
     "Pa", "J", "N", "J", "W"), label = structure("J\nPa\nJ\nN\nJ\nW", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = structure("Other direction!", html = TRUE, class = c("html", 
@@ -5033,7 +4976,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "sortUnits-answer", question = "sortUnits"), loading = structure("<strong>Loading:<\u002fstrong>\nSort the units in the order of the following terms: power, energy, force, heat, pressure, work\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 179432967.916445, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
+    seed = 219481157.397796, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
 "tutorial_question")), session = session)
 </script>
  
@@ -5099,32 +5042,32 @@ learnr:::store_exercise_cache(structure(list(label = "boilingWater", global_setu
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "entropyVsGibbsQuestions", 
     question = structure("Which of the following statements on Gibbs free energy and entropy are true? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_9539a89", 
+    "character")), answers = list(structure(list(id = "lnr_ans_3c35985", 
         option = "Entropy is measured in J/K while Gibbs free energy is measured in J", 
         value = "Entropy is measured in J/K while Gibbs free energy is measured in J", 
         label = structure("Entropy is measured in J/K while Gibbs free energy is measured in J", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_58385e8", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d9932a7", 
         option = "Gibbs free energy and entropy only differ in sign", 
         value = "Gibbs free energy and entropy only differ in sign", 
         label = structure("Gibbs free energy and entropy only differ in sign", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cafa1b2", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4186d54", 
         option = "The change in Gibbs free energy equals the change in enthalpy minus the change in entropy times temperature", 
         value = "The change in Gibbs free energy equals the change in enthalpy minus the change in entropy times temperature", 
         label = structure("The change in Gibbs free energy equals the change in enthalpy minus the change in entropy times temperature", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_fba1833", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_38f67a5", 
         option = "The change in Gibbs free energy equals the change in enthalpy plus the change in entropy divided by temperature", 
         value = "The change in Gibbs free energy equals the change in enthalpy plus the change in entropy divided by temperature", 
         label = structure("The change in Gibbs free energy equals the change in enthalpy plus the change in entropy divided by temperature", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ad323d4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_943d0e", 
         option = "Any process occurs spontaneously if entropy increases", 
         value = "Any process occurs spontaneously if entropy increases", 
         label = structure("Any process occurs spontaneously if entropy increases", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dd6bb95", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_765289f", 
         option = "Any process occurs spontaneously if Gibbs free energy decreases", 
         value = "Any process occurs spontaneously if Gibbs free energy decreases", 
         label = structure("Any process occurs spontaneously if Gibbs free energy decreases", html = TRUE, class = c("html", 
@@ -5137,7 +5080,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "entropyVsGibbsQuestions-answer", question = "entropyVsGibbsQuestions"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1795814006.66376, options = list()), class = c("learnr_checkbox", 
+    seed = 931209154.066372, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5190,15 +5133,15 @@ learnr:::store_exercise_cache(structure(list(label = "nitricOxide", global_setup
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "Gibbs", question = structure("Check which of the statements below is correct. The oxidation of nitric oxide to nitrogen dioxide as described above occurs spontaneously because:", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_7e95520", 
+"character")), answers = list(structure(list(id = "lnr_ans_cdf55d7", 
     option = "the change in enthalpy is negative", value = "the change in enthalpy is negative", 
     label = structure("the change in enthalpy is negative", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_d51624d", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a8b97af", 
     option = "the change in entropy is negative", value = "the change in entropy is negative", 
     label = structure("the change in entropy is negative", html = TRUE, class = c("html", 
     "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee7802a", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_a893a2e", 
     option = "the change in Gibbs free energy is negative", value = "the change in Gibbs free energy is negative", 
     label = structure("the change in Gibbs free energy is negative", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -5209,7 +5152,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "Gibbs-answer", question = "Gibbs"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1652952033.73028, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 2020429106.05916, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -5217,11 +5160,11 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "spontaneity", 
     question = structure("How does the temperature need to change to make the reaction described above non-spontaneous?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_840b434", 
+    "character")), answers = list(structure(list(id = "lnr_ans_8b4a4eb", 
         option = "Temperature must increase", value = "Temperature must increase", 
         label = structure("Temperature must increase", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b101774", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3c38d78", 
         option = "Temperature must decreae", value = "Temperature must decreae", 
         label = structure("Temperature must decreae", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -5233,7 +5176,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "spontaneity-answer", question = "spontaneity"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 284617501.867465, options = list()), class = c("learnr_radio", 
+    seed = 1336043373.37786, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5241,17 +5184,17 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "GibbsAndChemPotQuestions", 
     question = structure("Which of the following statements on Gibbs free energy and chemical potential is correct? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_37a67eb", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e122120", 
         option = "Chemical potential gives the free energy of each chemical species of the system", 
         value = "Chemical potential gives the free energy of each chemical species of the system", 
         label = structure("Chemical potential gives the free energy of each chemical species of the system", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3fc7cf1", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_86f9f41", 
         option = "The free energy of each species contributes to the Gibbs free energy of the system", 
         value = "The free energy of each species contributes to the Gibbs free energy of the system", 
         label = structure("The free energy of each species contributes to the Gibbs free energy of the system", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_aad9ae0", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_56adef", 
         option = "Gibbs free energy gives the free energy of each chemical species of the system", 
         value = "Gibbs free energy gives the free energy of each chemical species of the system", 
         label = structure("Gibbs free energy gives the free energy of each chemical species of the system", html = TRUE, class = c("html", 
@@ -5264,7 +5207,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "GibbsAndChemPotQuestions-answer", question = "GibbsAndChemPotQuestions"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 705068419.171677, options = list()), class = c("learnr_checkbox", 
+    seed = 432135042.298771, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -5339,17 +5282,17 @@ learnr:::store_exercise_cache(structure(list(label = "activityTerm", global_setu
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "activityTermQuestions", 
     question = structure("Which of the following statements apply to the figure above? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_b70901f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_652a1c5", 
         option = "The larger the mole fraction of the chemical species the larger the chemical potential", 
         value = "The larger the mole fraction of the chemical species the larger the chemical potential", 
         label = structure("The larger the mole fraction of the chemical species the larger the chemical potential", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_542b79b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c232676", 
         option = "The higher the temperature the greater the chemical potential", 
         value = "The higher the temperature the greater the chemical potential", 
         label = structure("The higher the temperature the greater the chemical potential", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4cab301", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5553b98", 
         option = "Adding solutes reduces the mole fraction of our chemical species, which decreases the activity of our species, causing a reduction in chemical potential", 
         value = "Adding solutes reduces the mole fraction of our chemical species, which decreases the activity of our species, causing a reduction in chemical potential", 
         label = structure("Adding solutes reduces the mole fraction of our chemical species, which decreases the activity of our species, causing a reduction in chemical potential", html = TRUE, class = c("html", 
@@ -5362,7 +5305,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "activityTermQuestions-answer", question = "activityTermQuestions"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 466325496.78285, options = list()), class = c("learnr_checkbox", 
+    seed = 1229548021.92745, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5443,22 +5386,22 @@ learnr:::store_exercise_cache(structure(list(label = "chemPot", global_setup = s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "chemPotQuestions", 
     question = structure("Which of the following statements apply to the figure above? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e70886d", 
+    "character")), answers = list(structure(list(id = "lnr_ans_a2ecb74", 
         option = "The water flows from the root to the branch because of differences in the pressure term", 
         value = "The water flows from the root to the branch because of differences in the pressure term", 
         label = structure("The water flows from the root to the branch because of differences in the pressure term", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4188859", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a3e7f", 
         option = "The water cannot flow from the root to the branch because of differences in the gravitational term", 
         value = "The water cannot flow from the root to the branch because of differences in the gravitational term", 
         label = structure("The water cannot flow from the root to the branch because of differences in the gravitational term", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_30c5c1c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7fa9409", 
         option = "The gravitational term of the water in the root is negative", 
         value = "The gravitational term of the water in the root is negative", 
         label = structure("The gravitational term of the water in the root is negative", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9331ce1", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f81a9dc", 
         option = "The activity term in roots and branches are equal if the solute concentration is constant", 
         value = "The activity term in roots and branches are equal if the solute concentration is constant", 
         label = structure("The activity term in roots and branches are equal if the solute concentration is constant", html = TRUE, class = c("html", 
@@ -5471,20 +5414,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "chemPotQuestions-answer", question = "chemPotQuestions"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1762656331.6792, options = list()), class = c("learnr_checkbox", 
+    seed = 1218217217.43272, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label = "sortWaterPotentialTerms", 
     question = structure("Sort the terms in the correct order given by the equation above", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7e8b8bb", 
+    "character")), answers = list(structure(list(id = "lnr_ans_4e7f8bc", 
         option = c("Osmotic potential", "Pressure potential", 
         "Gravity potential", "Matric potential"), value = c("Osmotic potential", 
         "Pressure potential", "Gravity potential", "Matric potential"
         ), label = structure("Osmotic potential\nPressure potential\nGravity potential\nMatric potential", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_77db4c7", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1a4953f", 
         option = c("Matric potential", "Gravity potential", "Pressure potential", 
         "Osmotic potential"), value = c("Matric potential", "Gravity potential", 
         "Pressure potential", "Osmotic potential"), label = structure("Matric potential\nGravity potential\nPressure potential\nOsmotic potential", html = TRUE, class = c("html", 
@@ -5499,7 +5442,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
         answer = "sortWaterPotentialTerms-answer", question = "sortWaterPotentialTerms"), 
     loading = structure("<strong>Loading:<\u002fstrong>\nSort the terms in the correct order given by the equation above\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1302907702.89329, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
+    seed = 728736622.160656, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5507,39 +5450,39 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "waterPotQuestions", 
     question = structure("Which of the following statements is correct? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_9423a38", 
+    "character")), answers = list(structure(list(id = "lnr_ans_bfdbc8e", 
         option = "Osmotic potential is less or equal to zero", 
         value = "Osmotic potential is less or equal to zero", 
         label = structure("Osmotic potential is less or equal to zero", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_fe2ecf", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2c1d439", 
         option = "Adding solutes reduces the osmotic potential", 
         value = "Adding solutes reduces the osmotic potential", 
         label = structure("Adding solutes reduces the osmotic potential", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_688e971", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a798822", 
         option = "Pressure potential is always negative", value = "Pressure potential is always negative", 
         label = structure("Pressure potential is always negative", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4f9c62a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_45f10be", 
         option = "Tension reduces the pressure potential", value = "Tension reduces the pressure potential", 
         label = structure("Tension reduces the pressure potential", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_230c4f6", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a5625f0", 
         option = "Gravity potential is always positive", value = "Gravity potential is always positive", 
         label = structure("Gravity potential is always positive", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_382d427", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_af3d965", 
         option = "Lifting water increases gravity potential", 
         value = "Lifting water increases gravity potential", 
         label = structure("Lifting water increases gravity potential", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8b230a3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1e702f8", 
         option = "Matric potential is less or equal to zero", 
         value = "Matric potential is less or equal to zero", 
         label = structure("Matric potential is less or equal to zero", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dcc7901", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_31692f", 
         option = "Soil matrices reduce matric potential", value = "Soil matrices reduce matric potential", 
         label = structure("Soil matrices reduce matric potential", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -5551,14 +5494,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "waterPotQuestions-answer", question = "waterPotQuestions"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1389255283.35308, options = list()), class = c("learnr_checkbox", 
+    seed = 2057223198.04203, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", label = "reactionOrder", 
     question = structure("What is the corresponding reaction order?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4b7748f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_ecf54a7", 
         option = "4", value = "4", label = structure("4", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5569,7 +5512,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "reactionOrder-answer", question = "reactionOrder"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1864893136.63159, options = list(min = NA, max = NA, 
+    seed = 286722894.866484, options = list(min = NA, max = NA, 
         step = NA, tolerance = 1.5e-08)), class = c("learnr_numeric", 
 "tutorial_question")), session = session)
 </script>
@@ -5578,7 +5521,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "reactionRate", 
     question = structure("Which variable represents the reaction rate?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_658b8bb", 
+    "character")), answers = list(structure(list(id = "lnr_ans_c18b67", 
         option = "v", value = "v", label = structure("v", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5589,7 +5532,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "reactionRate-answer", question = "reactionRate"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1873233898.12771, options = list(placeholder = "Enter answer here...", 
+    seed = 2023212242.55787, options = list(placeholder = "Enter answer here...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )), session = session)
 </script>
@@ -5597,19 +5540,19 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "reactionConstantUnit", 
     question = structure("What is the unit of the reaction rate constant?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2987b77", 
+    "character")), answers = list(structure(list(id = "lnr_ans_61d01ca", 
         option = "mol^3^ l^-3^ s^-1^", value = "mol^3^ l^-3^ s^-1^", 
         label = structure("mol<sup>3<\u002fsup> l^-3^ s^-1^", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_604955a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d09744e", 
         option = "mol^3^ l^-3^ s^1^", value = "mol^3^ l^-3^ s^1^", 
         label = structure("mol<sup>3<\u002fsup> l^-3^ s<sup>1<\u002fsup>", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_82045c4", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a9ebaf1", 
         option = "mol^-3^ l^3^ s^-1^", value = "mol^-3^ l^3^ s^-1^", 
         label = structure("mol^-3^ l<sup>3<\u002fsup> s^-1^", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee16460", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6f32960", 
         option = "mol^-4^ l^-4^ s^-1^", value = "mol^-4^ l^-4^ s^-1^", 
         label = structure("mol^-4^ l^-4^ s^-1^", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -5621,7 +5564,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "reactionConstantUnit-answer", question = "reactionConstantUnit"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1893710226.61817, options = list()), class = c("learnr_radio", 
+    seed = 526653614.254758, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5629,42 +5572,42 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "ChemicalEquilibrium", 
     question = structure("Which of the following statements on chemical equilibrium are true? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_37bf8f3", 
+    "character")), answers = list(structure(list(id = "lnr_ans_955158a", 
         option = "The concentrations of reactants and products are equal", 
         value = "The concentrations of reactants and products are equal", 
         label = structure("The concentrations of reactants and products are equal", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ecf1870", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_aa21ccf", 
         option = "The concentrations of reactants and products are constant because forward and backward reactions stop", 
         value = "The concentrations of reactants and products are constant because forward and backward reactions stop", 
         label = structure("The concentrations of reactants and products are constant because forward and backward reactions stop", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e0cace", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ba9dca", 
         option = "The concentrations of reactants and products are constant because forward and backward reaction rates are equal", 
         value = "The concentrations of reactants and products are constant because forward and backward reaction rates are equal", 
         label = structure("The concentrations of reactants and products are constant because forward and backward reaction rates are equal", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_117e897", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_533cd81", 
         option = "Reversible reactions continue until all reactants convert to products", 
         value = "Reversible reactions continue until all reactants convert to products", 
         label = structure("Reversible reactions continue until all reactants convert to products", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a6c0d62", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b1c1884", 
         option = "Reversible reactions always tend to come to equilibrium", 
         value = "Reversible reactions always tend to come to equilibrium", 
         label = structure("Reversible reactions always tend to come to equilibrium", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a16c331", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_da77cf3", 
         option = "When the system is at equilibrium, the amount of products and the reactants have not to be necessarily equal", 
         value = "When the system is at equilibrium, the amount of products and the reactants have not to be necessarily equal", 
         label = structure("When the system is at equilibrium, the amount of products and the reactants have not to be necessarily equal", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b0e3d30", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3b94903", 
         option = "The reaction rate konstants of the forward and backward reactions are equal", 
         value = "The reaction rate konstants of the forward and backward reactions are equal", 
         label = structure("The reaction rate konstants of the forward and backward reactions are equal", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f3d53e7", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ffb6ee", 
         option = "The reaction rates of the forward and backward reactions are equal", 
         value = "The reaction rates of the forward and backward reactions are equal", 
         label = structure("The reaction rates of the forward and backward reactions are equal", html = TRUE, class = c("html", 
@@ -5677,24 +5620,24 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "ChemicalEquilibrium-answer", question = "ChemicalEquilibrium"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1405980682.84529, options = list()), class = c("learnr_checkbox", 
+    seed = 763348409.144538, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "equilibriumConstant", 
     question = structure("What are the implications if the equilibrium constant is greater than one? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_d2cc03c", 
+    "character")), answers = list(structure(list(id = "lnr_ans_f125707", 
         option = "The products are in greater concentration than the reactants at equilibrium and the reaction tends to go to completion", 
         value = "The products are in greater concentration than the reactants at equilibrium and the reaction tends to go to completion", 
         label = structure("The products are in greater concentration than the reactants at equilibrium and the reaction tends to go to completion", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e619260", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9b77f15", 
         option = "The reactants are in greater concentration than the products at equilibrium and the reaction tends to go to completion", 
         value = "The reactants are in greater concentration than the products at equilibrium and the reaction tends to go to completion", 
         label = structure("The reactants are in greater concentration than the products at equilibrium and the reaction tends to go to completion", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a88f5de", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_99f0a86", 
         option = "The equilibrium constant never exceeds a value of one", 
         value = "The equilibrium constant never exceeds a value of one", 
         label = structure("The equilibrium constant never exceeds a value of one", html = TRUE, class = c("html", 
@@ -5707,7 +5650,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "equilibriumConstant-answer", question = "equilibriumConstant"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1919208562.6063, options = list()), class = c("learnr_radio", 
+    seed = 455737115.287781, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -5887,10 +5830,10 @@ learnr:::store_exercise_cache(structure(list(label = "kineticEnergy", global_set
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "activationEnergy", 
     question = structure("According to the figure above, will the majority of nitrogen gas molecules exceed an activation energy of 3 x 10^(-20) J?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_dfd8b6c", 
+    "character")), answers = list(structure(list(id = "lnr_ans_f6e418f", 
         option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_98c0d55", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d86eaf6", 
         option = "No", value = "No", label = structure("No", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -5901,7 +5844,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "activationEnergy-answer", question = "activationEnergy"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 2068252668.03689, options = list()), class = c("learnr_radio", 
+    seed = 1892019190.11896, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -5972,17 +5915,17 @@ learnr:::store_exercise_cache(structure(list(label = "Arrhenius", global_setup =
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "ArrheniusQuestion", 
     question = structure("How does the reaction rate constant change with temperature and activation energy?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e5f4f06", 
+    "character")), answers = list(structure(list(id = "lnr_ans_f90b09e", 
         option = "The reaction rate constant increases with increasing temperature and increasing activation energy", 
         value = "The reaction rate constant increases with increasing temperature and increasing activation energy", 
         label = structure("The reaction rate constant increases with increasing temperature and increasing activation energy", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_46f7f6c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4bd329a", 
         option = "The reaction rate constant increases with increasing temperature and decreasing activation energy", 
         value = "The reaction rate constant increases with increasing temperature and decreasing activation energy", 
         label = structure("The reaction rate constant increases with increasing temperature and decreasing activation energy", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_65e13ca", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b3a3b49", 
         option = "The reaction rate constant is constant and does therefore not depend on temperature or activation energy", 
         value = "The reaction rate constant is constant and does therefore not depend on temperature or activation energy", 
         label = structure("The reaction rate constant is constant and does therefore not depend on temperature or activation energy", html = TRUE, class = c("html", 
@@ -5995,7 +5938,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "ArrheniusQuestion-answer", question = "ArrheniusQuestion"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1079832744.99716, options = list()), class = c("learnr_radio", 
+    seed = 1109717832.48325, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -6060,7 +6003,7 @@ learnr:::store_exercise_cache(structure(list(label = "Q10model", global_setup = 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", label = "redoxReaction_Mn", 
     question = structure("By how much does the oxidation number of Manganese change?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_64b70be", 
+    "character")), answers = list(structure(list(id = "lnr_ans_f5c0810", 
         option = "-5", value = "-5", label = structure("-5", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6071,7 +6014,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "redoxReaction_Mn-answer", question = "redoxReaction_Mn"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1100050231.48775, options = list(min = NA, max = NA, 
+    seed = 170918971.42041, options = list(min = NA, max = NA, 
         step = NA, tolerance = 1.5e-08)), class = c("learnr_numeric", 
 "tutorial_question")), session = session)
 </script>
@@ -6079,7 +6022,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", label = "redoxReaction_S", 
     question = structure("By how much does the oxidation number of Sulfure change?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_3be4ee", 
+    "character")), answers = list(structure(list(id = "lnr_ans_5cacbd2", 
         option = "2", value = "2", label = structure("2", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6090,7 +6033,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "redoxReaction_S-answer", question = "redoxReaction_S"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 930162745.566859, options = list(min = NA, max = NA, 
+    seed = 973969261.04646, options = list(min = NA, max = NA, 
         step = NA, tolerance = 1.5e-08)), class = c("learnr_numeric", 
 "tutorial_question")), session = session)
 </script>
@@ -6099,35 +6042,35 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_numeric", labe
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "redoxReaction", 
     question = structure("Which of the following statements apply to the figure above? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_302b68c", 
+    "character")), answers = list(structure(list(id = "lnr_ans_c34529a", 
         option = "Manganese is being reduced", value = "Manganese is being reduced", 
         label = structure("Manganese is being reduced", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_11a9a07", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_aa3da4a", 
         option = "Manganese is being oxidized", value = "Manganese is being oxidized", 
         label = structure("Manganese is being oxidized", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f7669c8", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ba74de", 
         option = "Sulfure is being reduced", value = "Sulfure is being reduced", 
         label = structure("Sulfure is being reduced", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f620dd9", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_577cb1d", 
         option = "Sulfure is being oxidizd", value = "Sulfure is being oxidizd", 
         label = structure("Sulfure is being oxidizd", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d1a91f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7dd0311", 
         option = "Manganese accepts electrons", value = "Manganese accepts electrons", 
         label = structure("Manganese accepts electrons", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d4113af", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f0e4d9", 
         option = "Manganese donates electrons", value = "Manganese donates electrons", 
         label = structure("Manganese donates electrons", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2002472", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d19c42a", 
         option = "Sulfure donates electrons", value = "Sulfure donates electrons", 
         label = structure("Sulfure donates electrons", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e2185b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2c04cf9", 
         option = "Sulfure accepts electrons", value = "Sulfure accepts electrons", 
         label = structure("Sulfure accepts electrons", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
@@ -6139,17 +6082,17 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "redoxReaction-answer", question = "redoxReaction"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1642918408.73496, options = list()), class = c("learnr_checkbox", 
+    seed = 1572030524.76797, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "redoxPotentials", 
     question = structure("Which of these two redox couples is a better electron donor?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4d59f9c", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d1922de", 
         option = "Cu2+", value = "Cu2+", label = structure("Cu2+", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e8eb469", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_59e7968", 
         option = "Zn2+", value = "Zn2+", label = structure("Zn2+", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6160,7 +6103,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "redoxPotentials-answer", question = "redoxPotentials"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 661934018.191763, options = list()), class = c("learnr_radio", 
+    seed = 730976179.659613, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
 
@@ -6233,15 +6176,15 @@ learnr:::store_exercise_cache(structure(list(label = "MichaelisMenten", global_s
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "MichaelisMenten_firstOrderKinetics", 
     question = structure("When is the reaction rate approximately first-order kintics?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_2536faf", 
+    "character")), answers = list(structure(list(id = "lnr_ans_e1e2cb7", 
         option = "When [S] >> Km", value = "When [S] >> Km", 
         label = structure("When [S] &gt;&gt; Km", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_729f523", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cee3e82", 
         option = "When [S] << Km", value = "When [S] << Km", 
         label = structure("When [S] &lt;&lt; Km", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_46b04a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_945ef7e", 
         option = "When [S] = Km", value = "When [S] = Km", label = structure("When [S] = Km", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6252,7 +6195,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "MichaelisMenten_firstOrderKinetics-answer", 
         question = "MichaelisMenten_firstOrderKinetics"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 678229258.184175, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1280326810.9038, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -6260,15 +6203,15 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "MichaelisMenten_zeroOrderKinetics", 
     question = structure("When is the reaction rate approximately zero-order kintics?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7d0284", 
+    "character")), answers = list(structure(list(id = "lnr_ans_f8be1d6", 
         option = "When [S] >> Km", value = "When [S] >> Km", 
         label = structure("When [S] &gt;&gt; Km", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_99191e0", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8342019", 
         option = "When [S] << Km", value = "When [S] << Km", 
         label = structure("When [S] &lt;&lt; Km", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a7610e3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d69efcf", 
         option = "When [S] = Km", value = "When [S] = Km", label = structure("When [S] = Km", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -6279,7 +6222,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "MichaelisMenten_zeroOrderKinetics-answer", 
         question = "MichaelisMenten_zeroOrderKinetics"), loading = NULL, 
-    random_answer_order = FALSE, allow_retry = TRUE, seed = 1252652974.91669, 
+    random_answer_order = FALSE, allow_retry = TRUE, seed = 1281389894.90331, 
     options = list()), class = c("learnr_radio", "tutorial_question"
 )), session = session)
 </script>
@@ -6288,17 +6231,17 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "MichaelisMenten_Km", 
     question = structure("Which of the following statements are correct? (select all that apply)", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_afa9484", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9ce04aa", 
         option = "The lesser the value of Km, the tighter the association between enzyme and substrate", 
         value = "The lesser the value of Km, the tighter the association between enzyme and substrate", 
         label = structure("The lesser the value of Km, the tighter the association between enzyme and substrate", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e56a550", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7ff9ee", 
         option = "The larger the value of Km, the tighter the association between enzyme and substrate", 
         value = "The larger the value of Km, the tighter the association between enzyme and substrate", 
         label = structure("The larger the value of Km, the tighter the association between enzyme and substrate", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3339a43", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e7eacc5", 
         option = "Km is the substrate concentration that yields half Vmax", 
         value = "Km is the substrate concentration that yields half Vmax", 
         label = structure("Km is the substrate concentration that yields half Vmax", html = TRUE, class = c("html", 
@@ -6311,20 +6254,20 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "MichaelisMenten_Km-answer", question = "MichaelisMenten_Km"), 
     loading = NULL, random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1229226192.9276, options = list()), class = c("learnr_checkbox", 
+    seed = 699630182.674209, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label = "crossSectionLeaf", 
     question = structure("Sort the terms in the correct order for the following list:<\u002fp>\n<ul>\n<li>Cells that form the upper and lower bound of a leaf<\u002fli>\n<li>Photosynthetic cells that contain chloroplasts<\u002fli>\n<li>A pore in the leaf and stem epidermis that is used for gaseous exchange<\u002fli>\n<li>Organelles where photosynthesis takes place<\u002fli>\n<li>Liquid that contains green disk-like membranes called thylakoids<\u002fli>\n<li>Stack of thylakoids<\u002fli>\n<li>Organelle that contains chlorophyll molecules<\u002fli>\n<\u002ful>\n", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_4edb682", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9a72a0d", 
         option = c("Epidermis", "Mesophyll cells", "Stoma", "Chloroplast", 
         "Stroma", "Granum", "Thylakoids"), value = c("Epidermis", 
         "Mesophyll cells", "Stoma", "Chloroplast", "Stroma", 
         "Granum", "Thylakoids"), label = structure("Epidermis\nMesophyll cells\nStoma\nChloroplast\nStroma\nGranum\nThylakoids", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_54c9c6b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e05e45f", 
         option = c("Thylakoids", "Granum", "Stroma", "Chloroplast", 
         "Stoma", "Mesophyll cells", "Epidermis"), value = c("Thylakoids", 
         "Granum", "Stroma", "Chloroplast", "Stoma", "Mesophyll cells", 
@@ -6340,14 +6283,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
         answer = "crossSectionLeaf-answer", question = "crossSectionLeaf"), 
     loading = structure("<p><strong>Loading:<\u002fstrong>\nSort the terms in the correct order for the following list:<\u002fp>\n<ul>\n<li>Cells that form the upper and lower bound of a leaf<\u002fli>\n<li>Photosynthetic cells that contain chloroplasts<\u002fli>\n<li>A pore in the leaf and stem epidermis that is used for gaseous exchange<\u002fli>\n<li>Organelles where photosynthesis takes place<\u002fli>\n<li>Liquid that contains green disk-like membranes called thylakoids<\u002fli>\n<li>Stack of thylakoids<\u002fli>\n<li>Organelle that contains chlorophyll molecules<\u002fli>\n<\u002ful>\n<p><br/><br/><br/><\u002fp>\n", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1167774897.95621, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
+    seed = 187632617.912627, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
 "tutorial_question")), session = session)
 </script>
 
 
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label = "zScheme", question = structure("Sort the terms of the Z-scheme shown below from (A) to (G)", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_89f91bc", 
+"character")), answers = list(structure(list(id = "lnr_ans_7294b98", 
     option = c("Reduction potential", "Positive reduction Potential", 
     "Negative reduction potential", "Photosystem II", "Electron transport chain that drives proton transfer across membrane", 
     "Photosystem I", "Electron transport chain that drives synthesis of NADPH"
@@ -6356,7 +6299,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
     "Photosystem I", "Electron transport chain that drives synthesis of NADPH"
     ), label = structure("Reduction potential\nPositive reduction Potential\nNegative reduction potential\nPhotosystem II\nElectron transport chain that drives proton transfer across membrane\nPhotosystem I\nElectron transport chain that drives synthesis of NADPH", html = TRUE, class = c("html", 
     "character")), correct = TRUE, message = NULL, type = "literal"), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_9883bd1", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_6d28231", 
     option = c("Electron transport chain that drives synthesis of NADPH", 
     "Photosystem I", "Electron transport chain that drives proton transfer across membrane", 
     "Photosystem II", "Negative reduction potential", "Positive reduction Potential", 
@@ -6374,7 +6317,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "sortable_rank", label
 "character")), message = NULL, post_message = NULL), ids = list(
     answer = "zScheme-answer", question = "zScheme"), loading = structure("<strong>Loading:<\u002fstrong>\nSort the terms of the Z-scheme shown below from (A) to (G)\n<br/><br/><br/>", html = TRUE, class = c("html", 
 "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 492681208.770577, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
+    seed = 1080815154.49671, options = structure(list(), class = "sortable_options")), class = c("sortable_rank", 
 "tutorial_question")), session = session)
 </script>
  

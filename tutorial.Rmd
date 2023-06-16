@@ -1,5 +1,5 @@
 ---
-title: "ENSC 480"
+title: "Land-Atmosphere Interactions"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
@@ -18,9 +18,6 @@ library(plantecophys)
 gradethis::gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.timelimit = 60)
-```
-
-```{r child = 'LAI.Rmd'}
 ```
 
 ```{r child = 'Ch02.Rmd'}
