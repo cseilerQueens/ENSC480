@@ -96,7 +96,7 @@ n <- 2 # number of electrons (mol)
 F <- 96494 # Faraday's constant (C/mol)
 
 dG = -n * F * dE # change in Gibbs free energy (J)
-print(dG)
+return(dG)
 ```
 ```{r gibbsNADPH-check}
 grade_result(
@@ -227,7 +227,7 @@ question_radio(
 Take pen and paper and make a drawing of how the individual carbon atoms convert from RuBP to PGA, PGL, and CO2 during photorespiration. Once you are done, explain your drawing to your neighbor. Use your drawing to find the answer to the question below. 
 
 ```{r PGA01, echo=FALSE}
-question_numeric("How many PGA molecules are produced during the assimilation of 2 O2 molecules?",
+question_numeric("How many PGA molecules are produced during the assimilation of two O<sub>2</sub> molecules?",
 answer("3", correct = TRUE),
   allow_retry = TRUE
 )

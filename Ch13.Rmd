@@ -189,9 +189,9 @@ u <- uStar / k * log((z - dH) / z0)
 print(u)
 ```
 
-```{r momentumFlux-check}
+```{r logWindProfile-check}
 grade_result(
-  pass_if(~identical(round(.result,1), round( 2.031038,1)))
+  pass_if(~identical(round(.result,1), round(2.031038,1)))
 )
 ```
 
@@ -205,6 +205,7 @@ Estimate the corresponding momentum flux expressed in mol m^-1^ s^-2^, assuming 
 P <- 100000 # atmospheric pressure (Pa)
 T <- 293 # air temperature (K)
 R <- 8.314 # universal gas constant (J K–1 mol–1)
+uStar <- 0.3 # friction velocity in m/s (see Holton, page 268)
 
 rho_m <- P * 100 / (R * T) # molar density of dry air (mol m^-3)
 
@@ -213,7 +214,7 @@ tau <- uStar^2 * rho_m # (mol m–1 s–2)
 print(tau)
 ```
 
-```{r logWindProfile-check}
+```{r momentumFlux-check}
 grade_result(
   pass_if(~identical(round(.result,1), round(369.4578,1)))
 )

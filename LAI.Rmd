@@ -1,6 +1,6 @@
 ## Land-Atmosphere Interactions
 
-Welcome to Land-Atmosphere Interactions - ENSC 480. In the last two decades, about one-third of all anthropogenic CO$_2$ emissions have been absorbed by the terrestrial biosphere. Understanding the processes that control this carbon uptake is key for projecting how the atmospheric CO$_2$ concentration will evolve. The goal of this course is to foster an interdisciplinary understanding of land-atmosphere interactions while acquiring the necessary technical skills for conducting terrestrial carbon cycle research. For more information, please download the [syllabus](https://drive.google.com/file/d/1fjG57OMyd6dRqzmcTs0SW_H9_DuiOdeA/view?usp=sharing), explore the [tutorials](https://seiler-queensu.shinyapps.io/tutorial-ENSC480/), and have a look at the slides that can be downloaded from the links in the table below.
+Welcome to Land-Atmosphere Interactions - ENSC 480. In the last two decades, about one-third of all anthropogenic CO$_2$ emissions have been absorbed by the terrestrial biosphere. Understanding the processes that control this carbon uptake is key for projecting how the atmospheric CO$_2$ concentration will evolve. The goal of this course is to foster an interdisciplinary understanding of land-atmosphere interactions while acquiring the necessary technical skills for conducting terrestrial carbon cycle research. For more information, please download the [syllabus](https://drive.google.com/file/d/1fjG57OMyd6dRqzmcTs0SW_H9_DuiOdeA/view?usp=sharing), explore the [tutorials](https://seiler-queensu.shinyapps.io/ENSC480/), and have a look at the slides that can be downloaded from the links in the table below.
 
 ### Schedule and slides
 
@@ -21,13 +21,13 @@ Welcome to Land-Atmosphere Interactions - ENSC 480. In the last two decades, abo
 |13 | Tue, Nov 28 | [Turbulent fluxes](https://drive.google.com/file/d/1NG5BS0wSD6rShNjNXk8N_CBWUTHod7Jq/view?usp=drive_link) | Ch. 12-14  | Aerodynamic conductance |
 |14 | Tue, Dec 5 | [Soil fluxes of carbon and nitrogen](https://drive.google.com/file/d/1Sjghg9tcvYSLHraPDN8eZanvNBryOe2b/view?usp=drive_link) | Ch. 16  | Litter decomposition kinetics |
 
-### Instructions
+### Instructions for setting up your laptop
 
 Please bring your laptop to class in order to work on the tutorials. To set up your computer, please follow the steps below.
 
-#### Tutorials
+#### (a) Tutorials
 
-You can explore an on-line version of the tutorials [here](https://seiler-queensu.shinyapps.io/tutorial-ENSC480/). This on-line version is for demonstration purposes only. To access the tutorials in class, please follow the steps below.
+You can explore an on-line version of the tutorials [here](https://seiler-queensu.shinyapps.io/ENSC480/). This on-line version is for demonstration purposes only. To access the tutorials in class, please follow the steps below.
 
 * Install R from [here](https://posit.co/download/rstudio-desktop/)
 * Install RStudio from [here](https://posit.co/download/rstudio-desktop/)
@@ -52,6 +52,193 @@ install.packages("plantecophys")
 * Hit the "Run Document" button
 * If all went well, a new window opens with your tutorial
 
-#### Accessing a Digital Research Alliance high performance computer
+#### (b) Accessing a Digital Research Alliance (DRA) High Performance Computer (HPC)
 
-You will run numerical experiments using the Canadian Land Surface Scheme Including Biogeochemical Cycles ([CLASSIC](https://cccma.gitlab.io/classic_pages/)). The model is compiled on the Centre for Advanced Computing - Queen's University cluster. Instructions for accessing the cluster will be posted soon. 
+* You will run numerical experiments using the Canadian Land Surface Scheme Including Biogeochemical Cycles ([CLASSIC](https://cccma.gitlab.io/classic_pages/)). The model is compiled on the Centre for Advanced Computing - Queen's University cluster. To access the cluster, generate a public/private rsa key pair as explained below.
+* Open a terminal (e.g. power shell) and type ssh-keygen:
+
+```{r, engine = 'bash', eval = FALSE}
+PS C:\Users\seile> ssh-keygen
+Enter file in which to save the key (C:\Users\seile/.ssh/id_rsa):
+Created directory 'C:\\Users\\seile/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in C:\Users\seile/.ssh/id_rsa
+Your public key has been saved in C:\Users\seile/.ssh/id_rsa.pub
+```
+ 
+* For more information on SSH keys: https://docs.alliancecan.ca/wiki/SSH_Keys
+* Log into you DRA account: https://ccdb.alliancecan.ca
+* Copy the text of the public key:
+
+```{r, engine = 'bash', eval = FALSE}
+PS C:\Users\cseil> cat .ssh/id_rsa.pub
+```
+
+* Paste the content of your SSH public key from local machine to CCDB
+* You should now be able to access different HPCs from the terminal:
+
+```{r, engine = 'bash', eval = FALSE}
+ ssh -X yourUserName@login.cac.queensu.ca
+```
+
+* Next, install Visual Studio Code on your laptop from [here](https://code.visualstudio.com)
+* In VS Code, install the extensions [Remote-SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh), [Remote-Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer), [R](https://marketplace.visualstudio.com/items?itemName=REditorSupport.r), and 
+[HTML Preview](https://marketplace.visualstudio.com/items?itemName=george-alisson.html-preview-vscode). 
+* More information on extensions can be found [here](https://code.visualstudio.com/docs/editor/extension-marketplace).
+* Next, create an empty file called config in your .ssh folder:
+
+```{r, engine = 'bash', eval = FALSE}
+C:\Users\cseil\.ssh config
+```
+
+* Paste the following content into the config file:
+
+```{r, engine = 'bash', eval = FALSE}
+Host CAC-ENSC480
+    HostName login.cac.queensu.ca
+    User yourUserName
+    IdentityFile ~/.ssh/id_rsa
+```
+
+* Note, if you create an empty text file in windows it will have the extension txt. If your file has the txt extension, rename it using the command line:
+
+```{r, engine = 'bash', eval = FALSE}
+mv config.txt config
+```
+
+* If all went well, you can now access the HPC using VS Code. Congratulations!
+
+### Run CLASSIC on the Frontenac HPC
+
+* We have a shared folder that stores files that you will need:
+
+```{r, engine = 'bash', eval = FALSE}
+/global/project/ENSC480_Shared/CourseFiles
+```
+
+* Copy the template folder to your home director. In the terminal, type:
+```{r, engine = 'bash', eval = FALSE}
+cd
+cp -r /global/project/ENSC480_Shared/CourseFiles/template .
+```
+
+* Open the classic_submit_gridCell.sh file in your home directory
+* Replace sa119014 with your user name and christian.seiler@queensu.ca with your email address
+
+```{r, engine = 'bash', eval = FALSE}
+#!/bin/sh
+
+#SBATCH --res=teaching
+#SBATCH --account=teaching
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --exclusive
+#SBATCH --mem=10G
+#SBATCH --time=00:30:00
+#SBATCH --job-name=template
+#SBATCH --output=/global/home/sa119014/classic.out
+#SBATCH --error=errors_CLASSIC
+#SBATCH --mail-user=christian.seiler@queensu.ca
+#SBATCH --mail-type=BEGIN
+#SBATCH --mail-type=END
+
+/global/project/ENSC480_Shared/CourseFiles/classic/classic_code/CLASSIC/bin/CLASSIC_parallel_intel /global/home/sa119014/template/job_options.txt 120/65
+```
+
+* Open job_options.txt and replace sa119014 with your user name
+* Run the model by submitting a job:
+
+```{r, engine = 'bash', eval = FALSE}
+cd template
+sbatch classic_submit_gridCell.sh
+```
+
+* You can check the status of your run using the command sq
+
+```{r, engine = 'bash', eval = FALSE}
+[sa119014@caclogin04 template]$ sq
+JOBID          PARTITION  NAME            USER     ST TIME       CPUS MIN_MEMORY NODELIST(REASON)
+6261239        standard   template        sa119014 R  5:05       24   10G        cac074
+```
+
+* You will receive an email once the job starts and once it ends
+* Once the job ends and everything is OK, copy the folder using a different folder name, e.g. from template to baseline
+
+```{r, engine = 'bash', eval = FALSE}
+cp -r template baseline
+```
+
+### Create your computational environment
+
+* Create your computational environment by loading modules. To do this, open a terminal and type:
+
+```{r, engine = 'bash', eval = FALSE}
+module --force purge
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3
+module load netcdf-fortran-mpi
+module load r/4.0.2
+```
+
+* Note that you need to do this every time you start a new session
+* Check whether the netcdf library is properly installed:
+```{r, engine = 'bash', eval = FALSE}
+which nc-config
+```
+
+* Start R by typing the letter "R" in the terminal
+* Install three R packages given below. Note that you need to do this only once. Choose "Yes" when asked whether to install those libraries locally. 
+
+```{r, eval = FALSE}
+install.packages("latex2exp", repos="https://cloud.r-project.org/")
+install.packages("ncdf4", repos="https://cloud.r-project.org/")
+install.packages("rmarkdown", repos="https://cloud.r-project.org/")
+```
+
+* Your packages should be installed here:
+
+```{r, engine = 'bash', eval = FALSE}
+ls R/x86_64-pc-linux-gnu-library/4.0
+```
+
+### Visualize model results
+
+* Copy the plotting script to your home director. In the terminal, type:
+```{r, engine = 'bash', eval = FALSE}
+cd
+cp /global/project/ENSC480_Shared/CourseFiles/classic_submit_gridCell.sh .
+```
+
+* Edit the script by changing your user name and the directory that points to the oputput files:
+
+```{r, eval = FALSE}
+# Change this to your user name
+yourUserName <- "sa119014"
+
+# This line gives the directory where your model output files are stored
+dataDir <- file.path(wd, "baseline/outputFiles")
+```
+
+* Knit and render the file
+```{r, eval = FALSE}
+rmarkdown::render("plotSingleGridCell.Rmd")
+```
+
+* This will produce a HTML file.
+* Open the file and press the "Open preview to the side" button in the upper-right corner of your window. You can now see your model output, where each variable is plotted as a time series.
+
+### Transfer data from the HPC to your laptop
+
+* Use secure copy (scp) to download files from the HPC to your laptop:
+
+```{r, engine = 'bash', eval = FALSE}
+scp -r SOURCE TARGET 
+```
+
+* To do this, open a terminal on your laptop and type:
+
+```{r, engine = 'bash', eval = FALSE}
+scp -r yourUserName@login.cac.queensu.ca:/global/home/yourUserName/myFile.sh . 
+```
+
+* This will copy the file myFile.sh from the HPC to the directory in which you currently reside.

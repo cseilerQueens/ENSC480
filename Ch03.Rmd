@@ -18,10 +18,10 @@ answer("v", correct = TRUE),
 
 ```{r reactionConstantUnit, echo=FALSE}
 question_radio("What is the unit of the reaction rate constant?",
-answer("mol^3^ l^-3^ s^-1^"),
-answer("mol^3^ l^-3^ s^1^"),
-answer("mol^-3^ l^3^ s^-1^", correct = TRUE),
-answer("mol^-4^ l^-4^ s^-1^"),
+answer("mol<sup>3</sup> l<sup>-3</sup> s<sup>-1</sup>"),
+answer("mol<sup>3</sup> l<sup>-3</sup> s<sup>1</sup>"),
+answer("mol<sup>-3</sup> l<sup>3</sup> s<sup>-1</sup>", correct = TRUE),
+answer("mol<sup>-4</sup> l<sup>-4</sup> s<sup>-1</sup>"),
   allow_retry = TRUE
 )
 ```

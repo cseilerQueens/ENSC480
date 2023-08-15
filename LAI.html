@@ -497,12 +497,12 @@ fluxes of carbon and nitrogen</a></td>
 </tbody>
 </table>
 </div>
-<div id="instructions" class="section level3">
-<h3>Instructions</h3>
+<div id="instructions-for-setting-up-your-laptop" class="section level3">
+<h3>Instructions for setting up your laptop</h3>
 <p>Please bring your laptop to class in order to work on the tutorials.
 To set up your computer, please follow the steps below.</p>
-<div id="tutorials" class="section level4">
-<h4>Tutorials</h4>
+<div id="a-tutorials" class="section level4">
+<h4>(a) Tutorials</h4>
 <p>You can explore an on-line version of the tutorials <a href="https://seiler-queensu.shinyapps.io/ENSC480/">here</a>. This
 on-line version is for demonstration purposes only. To access the
 tutorials in class, please follow the steps below.</p>
@@ -533,13 +533,193 @@ folder of choice</li>
 <li>If all went well, a new window opens with your tutorial</li>
 </ul>
 </div>
-<div id="accessing-a-digital-research-alliance-high-performance-computer" class="section level4">
-<h4>Accessing a Digital Research Alliance high performance computer</h4>
-<p>You will run numerical experiments using the Canadian Land Surface
+<div id="b-accessing-a-digital-research-alliance-dra-high-performance-computer-hpc" class="section level4">
+<h4>(b) Accessing a Digital Research Alliance (DRA) High Performance
+Computer (HPC)</h4>
+<ul>
+<li>You will run numerical experiments using the Canadian Land Surface
 Scheme Including Biogeochemical Cycles (<a href="https://cccma.gitlab.io/classic_pages/">CLASSIC</a>). The model is
 compiled on the Centre for Advanced Computing - Queen’s University
-cluster. Instructions for accessing the cluster will be posted soon.</p>
+cluster. To access the cluster, generate a public/private rsa key pair
+as explained below.</li>
+<li>Open a terminal (e.g. power shell) and type ssh-keygen:</li>
+</ul>
+<pre class="bash"><code>PS C:\Users\seile&gt; ssh-keygen
+Enter file in which to save the key (C:\Users\seile/.ssh/id_rsa):
+Created directory &#39;C:\\Users\\seile/.ssh&#39;.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in C:\Users\seile/.ssh/id_rsa
+Your public key has been saved in C:\Users\seile/.ssh/id_rsa.pub</code></pre>
+<ul>
+<li>For more information on SSH keys: <a href="https://docs.alliancecan.ca/wiki/SSH_Keys" class="uri">https://docs.alliancecan.ca/wiki/SSH_Keys</a></li>
+<li>Log into you DRA account: <a href="https://ccdb.alliancecan.ca" class="uri">https://ccdb.alliancecan.ca</a></li>
+<li>Copy the text of the public key:</li>
+</ul>
+<pre class="bash"><code>PS C:\Users\cseil&gt; cat .ssh/id_rsa.pub</code></pre>
+<ul>
+<li>Paste the content of your SSH public key from local machine to
+CCDB</li>
+<li>You should now be able to access different HPCs from the
+terminal:</li>
+</ul>
+<pre class="bash"><code> ssh -X yourUserName@login.cac.queensu.ca</code></pre>
+<ul>
+<li>Next, install Visual Studio Code on your laptop from <a href="https://code.visualstudio.com">here</a></li>
+<li>In VS Code, install the extensions <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh">Remote-SSH</a>,
+<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer">Remote-Explorer</a>,
+<a href="https://marketplace.visualstudio.com/items?itemName=REditorSupport.r">R</a>,
+and <a href="https://marketplace.visualstudio.com/items?itemName=george-alisson.html-preview-vscode">HTML
+Preview</a>.</li>
+<li>More information on extensions can be found <a href="https://code.visualstudio.com/docs/editor/extension-marketplace">here</a>.</li>
+<li>Next, create an empty file called config in your .ssh folder:</li>
+</ul>
+<pre class="bash"><code>C:\Users\cseil\.ssh config</code></pre>
+<ul>
+<li>Paste the following content into the config file:</li>
+</ul>
+<pre class="bash"><code>Host CAC-ENSC480
+    HostName login.cac.queensu.ca
+    User yourUserName
+    IdentityFile ~/.ssh/id_rsa</code></pre>
+<ul>
+<li>Note, if you create an empty text file in windows it will have the
+extension txt. If your file has the txt extension, rename it using the
+command line:</li>
+</ul>
+<pre class="bash"><code>mv config.txt config</code></pre>
+<ul>
+<li>If all went well, you can now access the HPC using VS Code.
+Congratulations!</li>
+</ul>
 </div>
+</div>
+<div id="run-classic-on-the-frontenac-hpc" class="section level3">
+<h3>Run CLASSIC on the Frontenac HPC</h3>
+<ul>
+<li>We have a shared folder that stores files that you will need:</li>
+</ul>
+<pre class="bash"><code>/global/project/ENSC480_Shared/CourseFiles</code></pre>
+<ul>
+<li>Copy the template folder to your home director. In the terminal,
+type:</li>
+</ul>
+<pre class="bash"><code>cd
+cp -r /global/project/ENSC480_Shared/CourseFiles/template .</code></pre>
+<ul>
+<li>Open the classic_submit_gridCell.sh file in your home directory</li>
+<li>Replace sa119014 with your user name and <a href="mailto:christian.seiler@queensu.ca" class="email">christian.seiler@queensu.ca</a> with your email
+address</li>
+</ul>
+<pre class="bash"><code>#!/bin/sh
+
+#SBATCH --res=teaching
+#SBATCH --account=teaching
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --exclusive
+#SBATCH --mem=10G
+#SBATCH --time=00:30:00
+#SBATCH --job-name=template
+#SBATCH --output=/global/home/sa119014/classic.out
+#SBATCH --error=errors_CLASSIC
+#SBATCH --mail-user=christian.seiler@queensu.ca
+#SBATCH --mail-type=BEGIN
+#SBATCH --mail-type=END
+
+/global/project/ENSC480_Shared/CourseFiles/classic/classic_code/CLASSIC/bin/CLASSIC_parallel_intel /global/home/sa119014/template/job_options.txt 120/65</code></pre>
+<ul>
+<li>Open job_options.txt and replace sa119014 with your user name</li>
+<li>Run the model by submitting a job:</li>
+</ul>
+<pre class="bash"><code>cd template
+sbatch classic_submit_gridCell.sh</code></pre>
+<ul>
+<li>You can check the status of your run using the command sq</li>
+</ul>
+<pre class="bash"><code>[sa119014@caclogin04 template]$ sq
+JOBID          PARTITION  NAME            USER     ST TIME       CPUS MIN_MEMORY NODELIST(REASON)
+6261239        standard   template        sa119014 R  5:05       24   10G        cac074</code></pre>
+<ul>
+<li>You will receive an email once the job starts and once it ends</li>
+<li>Once the job ends and everything is OK, copy the folder using a
+different folder name, e.g. from template to baseline</li>
+</ul>
+<pre class="bash"><code>cp -r template baseline</code></pre>
+</div>
+<div id="create-your-computational-environment" class="section level3">
+<h3>Create your computational environment</h3>
+<ul>
+<li>Create your computational environment by loading modules. To do
+this, open a terminal and type:</li>
+</ul>
+<pre class="bash"><code>module --force purge
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3
+module load netcdf-fortran-mpi
+module load r/4.0.2</code></pre>
+<ul>
+<li>Note that you need to do this every time you start a new
+session</li>
+<li>Check whether the netcdf library is properly installed:</li>
+</ul>
+<pre class="bash"><code>which nc-config</code></pre>
+<ul>
+<li>Start R by typing the letter “R” in the terminal</li>
+<li>Install three R packages given below. Note that you need to do this
+only once. Choose “Yes” when asked whether to install those libraries
+locally.</li>
+</ul>
+<pre class="r"><code>install.packages(&quot;latex2exp&quot;, repos=&quot;https://cloud.r-project.org/&quot;)
+install.packages(&quot;ncdf4&quot;, repos=&quot;https://cloud.r-project.org/&quot;)
+install.packages(&quot;rmarkdown&quot;, repos=&quot;https://cloud.r-project.org/&quot;)</code></pre>
+<ul>
+<li>Your packages should be installed here:</li>
+</ul>
+<pre class="bash"><code>ls R/x86_64-pc-linux-gnu-library/4.0</code></pre>
+</div>
+<div id="visualize-model-results" class="section level3">
+<h3>Visualize model results</h3>
+<ul>
+<li>Copy the plotting script to your home director. In the terminal,
+type:</li>
+</ul>
+<pre class="bash"><code>cd
+cp /global/project/ENSC480_Shared/CourseFiles/classic_submit_gridCell.sh .</code></pre>
+<ul>
+<li>Edit the script by changing your user name and the directory that
+points to the oputput files:</li>
+</ul>
+<pre class="r"><code># Change this to your user name
+yourUserName &lt;- &quot;sa119014&quot;
+
+# This line gives the directory where your model output files are stored
+dataDir &lt;- file.path(wd, &quot;baseline/outputFiles&quot;)</code></pre>
+<ul>
+<li>Knit and render the file</li>
+</ul>
+<pre class="r"><code>rmarkdown::render(&quot;plotSingleGridCell.Rmd&quot;)</code></pre>
+<ul>
+<li>This will produce a HTML file.</li>
+<li>Open the file and press the “Open preview to the side” button in the
+upper-right corner of your window. You can now see your model output,
+where each variable is plotted as a time series.</li>
+</ul>
+</div>
+<div id="transfer-data-from-the-hpc-to-your-laptop" class="section level3">
+<h3>Transfer data from the HPC to your laptop</h3>
+<ul>
+<li>Use secure copy (scp) to download files from the HPC to your
+laptop:</li>
+</ul>
+<pre class="bash"><code>scp -r SOURCE TARGET </code></pre>
+<ul>
+<li>To do this, open a terminal on your laptop and type:</li>
+</ul>
+<pre class="bash"><code>scp -r yourUserName@login.cac.queensu.ca:/global/home/yourUserName/myFile.sh . </code></pre>
+<ul>
+<li>This will copy the file myFile.sh from the HPC to the directory in
+which you currently reside.</li>
+</ul>
 </div>
 </div>
 

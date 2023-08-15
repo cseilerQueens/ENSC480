@@ -40,6 +40,7 @@ How many possible microstates are there when flipping 10 coins?
 n <- 2 # number of options (heads or tails)
 k <- 10 # number of items (number of coins)
 microstates <- n^k
+print(microstates)
 ```
 
 ```{r microstates-check}
@@ -59,7 +60,8 @@ factorial(___)
 ```{r numberOfMicrostatesHalf-solution}
 n <- 20 # number of coins
 x <- 10 # number of heads (or tails)
-factorial(n) / (factorial(x) * factorial(n - x))
+answer <- factorial(n) / (factorial(x) * factorial(n - x))
+print(answer)
 ```
 
 ```{r numberOfMicrostatesHalf-check}
@@ -77,7 +79,8 @@ How many microstates are there for receiving 5 times heads when flipping 20 coin
 ```{r numberOfMicrostatesQuarter-solution}
 n <- 20 # number of coins
 x <- 5 # number of heads (or tails)
-factorial(n) / (factorial(x) * factorial(n - x))
+answer <- factorial(n) / (factorial(x) * factorial(n - x))
+print(answer)
 ```
 
 ```{r numberOfMicrostatesQuarter-check}
@@ -93,7 +96,8 @@ How much more likely is it to receive 10 compared to 5 times heads when flipping
 ```
 
 ```{r probability-solution}
-184756/15504
+answer <- 184756/15504
+print(answer)
 ```
 
 ```{r probability-check}
@@ -114,7 +118,7 @@ dQ <- ___
 
 # Change in entropy
 dS <- ___
-return(dS)
+print(dS)
 ```
 
 ```{r meltingIce-solution}
@@ -127,7 +131,7 @@ dQ <- Lf * ice.mass # J
 
 # Change in entropy
 dS <- dQ / T # J/K
-return(dS)
+print(dS)
 ```
 
 ```{r meltingIce-check}
@@ -171,7 +175,7 @@ dQ <- ___
 
 # Change in internal energy (J)
 dU <- ___
-return(dU)
+print(dU)
 ```
 
 ```{r boilingWater-solution}
@@ -195,7 +199,7 @@ dQ <- m * Lv
 
 # Change in internal energy (J)
 dU <- dQ - dW
-return(dU)
+print(dU)
 ```
 
 ```{r boilingWater-check}
@@ -230,7 +234,7 @@ dS <- -146.5 # change in entropy (J/K)
 T <- 298.15 # Temperature (K)
 
 dG <- dH - T * dS
-return(dG)
+print(dG)
 ```
 
 ```{r nitricOxide-check}
@@ -285,7 +289,7 @@ T <- seq(T_min, T_max, 10) # temperature (K)
 
 my.fun <- function(c, T){
   y <- ___
-  return(y)
+  print(y)
 }
 
 data <- outer(c, T, my.fun)
@@ -321,7 +325,7 @@ T <- seq(T_min, T_max, 10) # temperature (K)
 
 my.fun <- function(c, T){
   y <- R * T * log(c)
-  return(y)
+  print(y)
 }
 
 data <- outer(c, T, my.fun)
