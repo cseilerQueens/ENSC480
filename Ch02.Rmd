@@ -49,7 +49,7 @@ grade_result(
 )
 ```
 
-The number of microstates for a particular macrostate is given as: $\binom{n}{k} = \frac{n!}{x!(n-x)!}$, where $n$ is the number of coins and $x$ is the number of times you receive heads. Assuming you have 20 coins, how many microstates are there for receiving 10 times heads?
+The number of microstates for a particular macrostate is given as: $\binom{n}{x} = \frac{n!}{x!(n-x)!}$, where $n$ is the number of coins and $x$ is the number of times you receive heads. The term $\binom{n}{x}$ is read "$n$ choose $x$". Assuming you have 20 coins, how many microstates are there for receiving 10 times heads?
 
 ```{r numberOfMicrostatesHalf, exercise = TRUE, exercise.eval = FALSE}
 n <- 20
@@ -106,7 +106,7 @@ grade_result(
 )
 ```
 
-Consider a sample of ice with a mass of 3 kg that is melts at a constant temperature of about 273.15K. Calculate the corresponding change in entropy. Assume that the energy required for melting (i.e. the heat of fusion) equals `r 3.34 * 10^5` J/kg.
+Consider a sample of ice with a mass of 3 kg that melts at a constant temperature of about 273.15K. Calculate the corresponding change in entropy. Assume that the energy required for melting (i.e. the heat of fusion) equals 3.34 x 10^5^ J/kg.
 
 ```{r meltingIce, exercise = TRUE, exercise.eval = FALSE}
 T <- ___ # temperature (K)
@@ -356,6 +356,7 @@ question("Which of the following statements apply to the figure above? (select a
 ```
 
 Create a bar plot that compares the chemical potential of water in a root and in a branch of a tree. Show the chemical potential of each term as well as their totals. Assume the following environmental conditions:
+
 * Absolute temperature: 295 K
 * Water mole fraction: 0.999 (-)
 * Absolute minus atmospheric pressure in root: -0.1 x 10^5^ Pa  
