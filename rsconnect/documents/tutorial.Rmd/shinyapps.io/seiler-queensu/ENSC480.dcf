@@ -5,10 +5,10 @@ account: seiler-queensu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9309877
-bundleId: 7694743
+bundleId: 7698802
 url: https://seiler-queensu.shinyapps.io/ENSC480/
-when: 1694972650.89398
-lastSyncTime: 1694972650.894
+when: 1695053114.09955
+lastSyncTime: 1695053114.09956
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .Rbuildignore|.RData|DESCRIPTION|LAI.html|LICENSE|NAMESPACE|README.md|tutorial.html|tutorial_files/figure-html/Ncycle-1.pdf|tutorial_files/figure-html/zSchemeTikz-1.pdf

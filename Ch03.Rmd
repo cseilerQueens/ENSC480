@@ -63,7 +63,7 @@ allow_retry = TRUE
 ```
 
 Consider the reaction: $$ CO_2+H_2\underset{\text{k$_2$}}{\overset{\text{k$_1$}}{\rightleftarrows}}CO+H_2O $$
-Calculate the value of the equilibrium constant for the system shown for 0.0954 moles/l of CO$_2$, 0.0454 moles/l of H$_2$, 0.0046 moles/l of CO, and 0.0046 moles/l of H$_2$O.
+The reaction is in equilibrium and the concentrations of the reactants and products are 0.0954 moles/l of CO$_2$, 0.0454 moles/l of H$_2$, 0.0046 moles/l of CO, and 0.0046 moles/l of H$_2$O. Calculate the value of the equilibrium constant.
 
 ```{r equilibriumConstantExample, exercise = TRUE, exercise.eval = FALSE}
 
@@ -74,14 +74,14 @@ CO2 <- 0.0954
 H2 <- 0.0454
 CO <- 0.0046
 H2O <- 0.0046
-Ke <- CO2 * H2 / (CO / H2)
+Ke <- (CO * H2O) / (CO2 * H2)
 print(Ke)
 
 ```
 
 ```{r equilibriumConstantExample-check}
 grade_result(
-  pass_if(~identical(round(.result, 4), 0.0427))
+  pass_if(~identical(round(.result, 4), round(0.004885527, 4)))
 )
 ```
 
@@ -197,11 +197,11 @@ legend.text <- paste("T =", T, "K", sep = " ")
 legend("topright", legend = legend.text, pch = 16, col = my.col, bty = "n")
 
 ```
-For the figure above, will the majority of nitrogen gas molecules exceed an activation energy of $3 \times 10^{-20}$?
+
 
 ```{r activationEnergy, echo=FALSE}
 question_radio(
-  "According to the figure above, will the majority of nitrogen gas molecules exceed an activation energy of 3 x 10^(-20) J?",
+  "According to the figure above, will the majority of nitrogen gas molecules exceed an activation energy of 3 x 10<sup>-20</sup> J?",
   answer("Yes"),
   answer("No", correct = TRUE),
   allow_retry = TRUE
@@ -370,8 +370,8 @@ $$Cu^{2+} + 2e^- \rightarrow Cu; E^o = +0.340V$$
 $$Zn^{2+} + 2e^- \rightarrow Zn; E^o = -0.763V$$
 ```{r redoxPotentials, echo=FALSE}
 question_radio("Which of these two redox couples is a better electron donor?",
-answer("Cu2+"),
-answer("Zn2+", correct = TRUE),
+answer("Cu<sup>2+</sup>"),
+answer("Zn<sup>2+</sup>", correct = TRUE),
   allow_retry = TRUE
 )
 ```
@@ -452,7 +452,6 @@ legend("bottomright", legend = legend.text, pch = 16, col = my.col, bty = "n")
 question_radio("When is the reaction rate approximately first-order kintics?",
 answer("When [S] >> Km"),
 answer("When [S] << Km", correct = TRUE),
-answer("When [S] = Km"),
   allow_retry = TRUE
 )
 ```
@@ -461,7 +460,6 @@ answer("When [S] = Km"),
 question_radio("When is the reaction rate approximately zero-order kintics?",
 answer("When [S] >> Km", correct = TRUE),
 answer("When [S] << Km"),
-answer("When [S] = Km"),
   allow_retry = TRUE
 )
 ```
