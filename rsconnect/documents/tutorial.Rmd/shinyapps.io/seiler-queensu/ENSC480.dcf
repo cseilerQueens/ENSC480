@@ -1,0 +1,14 @@
+name: ENSC480
+title: ENSC480
+username:
+account: seiler-queensu
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9309877
+bundleId: 7694743
+url: https://seiler-queensu.shinyapps.io/ENSC480/
+when: 1694972650.89398
+lastSyncTime: 1694972650.894
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .Rbuildignore|.RData|DESCRIPTION|LAI.html|LICENSE|NAMESPACE|README.md|tutorial.html|tutorial_files/figure-html/Ncycle-1.pdf|tutorial_files/figure-html/zSchemeTikz-1.pdf
