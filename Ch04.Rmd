@@ -55,7 +55,7 @@ Consider the following redox pairs:
 
 * oxidant + $ne^- \rightarrow$ reductant ; standard reduction potential $E^{\circ}$ (V)
 * $NADP^+ + H^+ + 2e^- \rightarrow NADPH$ ; $E^{\circ} = -0.32V$
-* $O_2 + 4H^+ + 4e^- \rightarrow 2 H_2O$ ; $E^{\circ} = 0.82$
+* $O_2 + 4H^+ + 4e^- \rightarrow 2 H_2O$ ; $E^{\circ} = 0.82V$
 
 ```{r NADPHoxidation, echo=FALSE}
 question_radio(
@@ -66,7 +66,13 @@ question_radio(
   answer("From O2 (oxidant) to NADPH (reductant)"),
   allow_retry = TRUE
 )
+# See "Microbiology" by Prescott, Harley and Klein, p. 158
+# Redox couples with more negative reduction potentials will donate electrons to couples with more positive reduction potentials.
+# Electrons will move from reductants at the top of the redox tower to oxidants at the bottom of the redox tower 
+# The resulting reaction is: $ NADPH + H^+ + 1/2O_2 \rightarrow H_2O + NADP^+$
 ```
+
+
 
 ```{r NADPreduction, echo=FALSE}
 question_radio(
@@ -98,6 +104,7 @@ F <- 96494 # Faraday's constant (C/mol)
 dG = -n * F * dE # change in Gibbs free energy (J)
 return(dG)
 ```
+
 ```{r gibbsNADPH-check}
 grade_result(
   pass_if(~identical(round(.result), round(220006.3)))
@@ -188,8 +195,8 @@ plot(x = T, y = Srel, xlab = "Temperature (Celsius)", ylab =  "Relative Specific
 question("Why does the relative specificity of Rubisco activity for CO2 vs O2 decrease with increasing temperature? (select all that apply)",
 answer("The figure above suggests that an increase in temperature favors carboxylation"),
 answer("The figure above suggests that an increase in temperature favors oxygenation", correct = TRUE),
-answer("The relative sepcificity decreases with temperature because the Michaelis-Menten coefficient for carboxylation increases more strongly compared to the Michaelis-Menten coefficient for oxygenation", correct = TRUE),
-answer("The relative sepcificity decreases with temperature because the Michaelis-Menten coefficient for carboxylation increases less strongly compared to the Michaelis-Menten coefficient for oxygenation"),
+answer("The relative specificity decreases with temperature because the Michaelis-Menten coefficient for carboxylation increases more strongly compared to the Michaelis-Menten coefficient for oxygenation", correct = TRUE),
+answer("The relative specificity decreases with temperature because the Michaelis-Menten coefficient for carboxylation increases less strongly compared to the Michaelis-Menten coefficient for oxygenation"),
   allow_retry = TRUE
 )
 ```

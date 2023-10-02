@@ -668,6 +668,7 @@ shared directory to your local directory:</li>
 </ul>
 <pre class="bash"><code>cp -r /global/project/ENSC480_Shared/CourseFiles/template .</code></pre>
 <ul>
+<li></li>
 <li>Once you have this folder, the general workflow for running CLASSIC
 is as follows:</li>
 </ul>
@@ -688,7 +689,7 @@ below.</li>
 <h4>Edit user name and email address</h4>
 <ul>
 <li>Before copying the template folder to a new folder, let’s first make
-some changes that apply to all simulations., You only need to do this
+some changes that apply to all simulations. You only need to do this
 once.</li>
 <li>Go into the template folder</li>
 <li>Open <code>classic_submit_gridCell.sh</code></li>
@@ -808,12 +809,12 @@ the group to have one week for preparing their presentation.</p>
 <ul>
 <li><p>Go into the new spinup folder and edit the paths in
 <code>classic_submit_gridCell.sh</code>, replacing
-<code>/global/home/sa119014/template/job_options_spinup.txt 120/65</code>
+<code>/global/home/sa119xxx/template/job_options_spinup.txt 120/65</code>
 with
 <code>/global/home/sa119xxx/spinup/job_options_spinup.txt 120/65</code></p></li>
 <li><p>Go into the new spinup folder and edit the paths in
 <code>job_options.txt</code>, replacing
-<code>rs_file_to_overwrite =&#39;/global/home/sa119014/template/rsFile.nc</code>
+<code>rs_file_to_overwrite =&#39;/global/home/sa119xxx/template/rsFile.nc</code>
 with
 <code>rs_file_to_overwrite =&#39;/global/home/sa119xxx/spinup/rsFile.nc</code></p></li>
 <li><p>Run the model by submitting a job:</p></li>
@@ -846,24 +847,14 @@ outline the other modeling exercises.</p></li>
 going to do in this course</li>
 <li>Each transient run will start from the restart file created by the
 spinup</li>
-<li>This restart file is located in your spinup folder:</li>
-</ul>
-<pre class="bash"><code>/global/home/sa119xxx/spinup/rsFile.nc</code></pre>
-<ul>
-<li>We will add this path in your <code>job_options.txt</code> file as
-described below.</li>
+<li>To ensure that everyone has the correct spinup file, we will be
+using a file that is located in the shared folder</li>
 <li>First, go to your template folder and open
 <code>classic_submit_gridCell.sh</code></li>
 <li>Set the path to the <code>job_options.txt</code> file, rather than
 the <code>job_options_spinup.txt</code> file:</li>
 </ul>
-<pre class="bash"><code>/global/project/ENSC480_Shared/CourseFiles/classic/classic_code/CLASSIC/bin/CLASSIC_parallel_intel /global/home/sa119014/template/job_options.txt 120/65</code></pre>
-<ul>
-<li>Next, open the <code>job_options.txt</code> file and set the path of
-the initialization file to the location where the restart file is
-located:</li>
-</ul>
-<pre class="bash"><code>init_file =&#39;/global/home/sa119xxx/spinup/rsFile.nc&#39;</code></pre>
+<pre class="bash"><code>/global/project/ENSC480_Shared/CourseFiles/classic/classic_code/CLASSIC/bin/CLASSIC_parallel_intel /global/home/sa119xxx/template/job_options.txt 120/65</code></pre>
 <ul>
 <li>Copy the <code>template</code> folder to a new folder called
 <code>transient</code></li>
@@ -877,13 +868,13 @@ located:</li>
 <ul>
 <li>Run the model by submitting a job:</li>
 </ul>
-<pre class="bash"><code>cd template
+<pre class="bash"><code>cd transient
 sbatch classic_submit_gridCell.sh</code></pre>
 <ul>
 <li>OK, so now we have a spinup run and a transient run. The following
 simulations will all be transient runs where where we either alter a
 model forcing variable, such as CO2 concentration, or a parameter value.
-Comparing those results agains the transient run then shows what the
+Comparing those results against the transient run then shows what the
 impact of such alterations are.</li>
 </ul>
 </div>

@@ -143,9 +143,9 @@ plot(x = c_ic * 10^6, y = vc1 * 10^6, xlab = my.xlab, ylab = my.ylab, type = "l"
 ```{r photoCompPoint01, echo=FALSE}
 question_radio(
   "When does a plant reach its photocompensation point?",
-  answer("Intercellular CO~2~ concentration where $v_c - v_o = 0$", correct = TRUE),
-  answer("Intercellular CO~2~ concentration where $v_c - v_o - R_d = 0$"),
-  answer("Intercellular CO~2~ concentration where $v_c - v_o + R_d = 0$"),
+  answer("Intercellular CO~2~ concentration where $v_c - 0.5v_o = 0$", correct = TRUE),
+  answer("Intercellular CO~2~ concentration where $v_c - 0.5v_o - R_d = 0$"),
+  answer("Intercellular CO~2~ concentration where $v_c - 0.5v_o + R_d = 0$"),
   allow_retry = TRUE
 )
 ```
