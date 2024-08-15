@@ -190,7 +190,7 @@ answer("0.04", correct = TRUE),
 
 ```{r relativeHumidity02, echo=FALSE}
 question_numeric("What is the corresponding relative humidity expressed in percentage?",
-answer("50", correct = TRUE),
+answer("33", correct = TRUE),
   allow_retry = TRUE
 )
 ```
