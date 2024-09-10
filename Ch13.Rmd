@@ -1,4 +1,4 @@
-## Turbulent fluxes
+## Turbulent Fluxes
 ### Static stability
 
 ```{r lapseRate01, echo=FALSE}

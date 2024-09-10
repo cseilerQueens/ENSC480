@@ -1,4 +1,4 @@
-## Water transport
+## Water Transport
 ### Water transport through soils
 
 ```{r matricPotentialSign, echo=FALSE}

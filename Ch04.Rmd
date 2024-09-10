@@ -1,5 +1,5 @@
 
-## Control over metabolic fluxes
+## Control Over Metabolic Fluxes
 ### Photon-assimilation reaction
 
 ```{r crossSectionLeaf, echo = FALSE}

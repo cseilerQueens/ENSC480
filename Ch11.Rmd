@@ -1,5 +1,5 @@
-## Radiative transfer
-### Radiative transfer
+## Radiative Transfer
+### Photon transmission probability
 
 Consider a simple canopy architecture with randomly placed, horizontal, and non-overlapping leaves, a leaf area index of 2 m^2^ m^-2^ and a solar zenith angle equal to zero. What is the probability that a photon reaches the ground surface?
 

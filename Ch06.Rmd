@@ -1,4 +1,4 @@
-## Molecular diffusion
+## Molecular Diffusion
 ### Fick's first law of molecular diffusion
 
 Calculate the diffusivity of CO~2~ in mm^2^ s^-1^ in a sample of air with a temperature of 293 K and a pressure of 980 hPa, assuming a reference diffusivity of 16 mm^2^ s^-1^.

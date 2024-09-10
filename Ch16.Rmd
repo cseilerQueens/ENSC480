@@ -1,4 +1,4 @@
-## Soil fluxes
+## Soil Fluxes
 
 ### Decomposition of soil organic matter
 
@@ -168,7 +168,6 @@ Turn to your neighbor and discuss the implications of your Figure above for clim
 
 Turn to your neighbor and discuss why methanogenesis would not prevail under aerobic conditions.
 
-
 ```{tikz, Ncycle, fig.ext = 'png', cache=TRUE}
 \usetikzlibrary{arrows}
 \begin{tikzpicture}[node distance=1.0cm, scale = 1.0]
@@ -217,6 +216,7 @@ answer("Ammonification", correct = TRUE),
 answer("Denitrification", correct = TRUE),
   allow_retry = TRUE
 )
+```
 
 ```{r NcycleAerobic, echo=FALSE}
 question("Which of the following processes require aerobic conditions? (Select all that apply)",
@@ -228,6 +228,7 @@ answer("Ammonification", correct = TRUE),
 answer("Denitrification"),
   allow_retry = TRUE
 )
+```
 
 ```{r NcycleAnaerobic, echo=FALSE}
 question("Which of the following processes require anaerobic conditions? (Select all that apply)",
@@ -239,4 +240,4 @@ answer("Ammonification"),
 answer("Denitrification", correct = TRUE),
   allow_retry = TRUE
 )
-
+```

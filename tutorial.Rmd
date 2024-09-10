@@ -1,10 +1,22 @@
 ---
-title: "Land-Atmosphere Interactions"
+title: "ENSC 480"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
+
+# Set upload to TRUE before uploading shinyapp
+
+upload <- TRUE
+
+if (upload == FALSE)
+  
+  {
+  setwd("C:/Users/seile/Documents/queensu/teaching/classes/ENSC480/tutorials/ENSC480")
+  .libPaths("C:/Users/seile/Documents/queensu/teaching/classes/ENSC480/tutorials/ENSC480/renv")
+  }
+
 library(learnr)
 library(gradethis)
 library(shiny)
@@ -18,6 +30,9 @@ library(plantecophys)
 gradethis::gradethis_setup()
 knitr::opts_chunk$set(echo = FALSE)
 tutorial_options(exercise.timelimit = 60)
+```
+
+```{r child = 'LAI.Rmd'}
 ```
 
 ```{r child = 'programming.Rmd'}
@@ -51,7 +66,4 @@ tutorial_options(exercise.timelimit = 60)
 ```
 
 ```{r child = 'Ch13.Rmd'}
-```
-
-```{r child = 'Ch16.Rmd'}
 ```

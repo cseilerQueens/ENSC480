@@ -1,5 +1,5 @@
-##  Boundary layer and stomatal control
-### Leaf bounadry layer
+##  Boundary Layer and Stomatal Control
+### Leaf boundary layer
 
 Measuring horizontal wind speeds at two different heights, you find that the wind speed at 2.5 m equals 2.2 m s^-1^ and at 4.5 m equals 3.5 m s^-1^. Calculate the corresponding shear stress in millipascal assuming an air density of 1.29 kg m^-3^.
 

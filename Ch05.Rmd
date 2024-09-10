@@ -1,4 +1,4 @@
-## Modeling the metabolic CO~2~ flux
+## Modeling the Metabolic CO~2~ Flux
 Equations and constants used in some of the exercises below
 
 Table: Table 1
